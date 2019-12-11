@@ -16,10 +16,10 @@
 
 package org.springframework.security.access.intercept;
 
-import java.util.Collection;
-
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
+
+import java.util.Collection;
 
 /**
  * Implementation of a {@link RunAsManager} that does nothing.
@@ -33,15 +33,18 @@ final class NullRunAsManager implements RunAsManager {
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public Authentication buildRunAs(Authentication authentication, Object object,
 			Collection<ConfigAttribute> config) {
 		return null;
 	}
 
+	@Override
 	public boolean supports(ConfigAttribute attribute) {
 		return false;
 	}
 
+	@Override
 	public boolean supports(Class<?> clazz) {
 		return true;
 	}

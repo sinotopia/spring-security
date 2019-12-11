@@ -16,13 +16,6 @@
 
 package org.springframework.security.web.authentication.www;
 
-import java.io.IOException;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -35,6 +28,12 @@ import org.springframework.security.web.authentication.NullRememberMeServices;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.util.Assert;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Processes a HTTP request's BASIC authorization headers, putting the result into the
@@ -116,9 +115,9 @@ public class BasicAuthenticationFilter extends OncePerRequestFilter {
 	 * {@code AuthenticationManager} and use the supplied {@code AuthenticationEntryPoint}
 	 * to handle authentication failures.
 	 *
-	 * @param authenticationManager the bean to submit authentication requests to
+	 * @param authenticationManager    the bean to submit authentication requests to
 	 * @param authenticationEntryPoint will be invoked when authentication fails.
-	 * Typically an instance of {@link BasicAuthenticationEntryPoint}.
+	 *                                 Typically an instance of {@link BasicAuthenticationEntryPoint}.
 	 */
 	public BasicAuthenticationFilter(AuthenticationManager authenticationManager,
 			AuthenticationEntryPoint authenticationEntryPoint) {
@@ -146,7 +145,7 @@ public class BasicAuthenticationFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request,
 			HttpServletResponse response, FilterChain chain)
-					throws IOException, ServletException {
+			throws IOException, ServletException {
 		final boolean debug = this.logger.isDebugEnabled();
 		try {
 			UsernamePasswordAuthenticationToken authRequest = authenticationConverter.convert(request);
@@ -178,8 +177,7 @@ public class BasicAuthenticationFilter extends OncePerRequestFilter {
 				onSuccessfulAuthentication(request, response, authResult);
 			}
 
-		}
-		catch (AuthenticationException failed) {
+		} catch (AuthenticationException failed) {
 			SecurityContextHolder.clearContext();
 
 			if (debug) {
@@ -192,8 +190,7 @@ public class BasicAuthenticationFilter extends OncePerRequestFilter {
 
 			if (this.ignoreFailure) {
 				chain.doFilter(request, response);
-			}
-			else {
+			} else {
 				this.authenticationEntryPoint.commence(request, response, failed);
 			}
 

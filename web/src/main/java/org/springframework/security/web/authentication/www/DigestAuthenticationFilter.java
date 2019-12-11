@@ -16,20 +16,8 @@
 
 package org.springframework.security.web.authentication.www;
 
-import java.io.IOException;
-import java.util.Base64;
-import java.util.Map;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -51,6 +39,16 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Base64;
+import java.util.Map;
 
 /**
  * Processes a HTTP request's Digest authorization headers, putting the result into the
@@ -115,6 +113,7 @@ public class DigestAuthenticationFilter extends GenericFilterBean
 				"A DigestAuthenticationEntryPoint is required");
 	}
 
+	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
@@ -138,8 +137,7 @@ public class DigestAuthenticationFilter extends GenericFilterBean
 		try {
 			digestAuth.validateAndDecode(this.authenticationEntryPoint.getKey(),
 					this.authenticationEntryPoint.getRealmName());
-		}
-		catch (BadCredentialsException e) {
+		} catch (BadCredentialsException e) {
 			fail(request, response, e);
 
 			return;
@@ -183,12 +181,11 @@ public class DigestAuthenticationFilter extends GenericFilterBean
 						request.getMethod());
 			}
 
-		}
-		catch (UsernameNotFoundException notFound) {
+		} catch (UsernameNotFoundException notFound) {
 			fail(request, response,
 					new BadCredentialsException(this.messages.getMessage(
 							"DigestAuthenticationFilter.usernameNotFound",
-							new Object[] { digestAuth.getUsername() },
+							new Object[]{digestAuth.getUsername()},
 							"Username {0} not found")));
 
 			return;
@@ -241,8 +238,7 @@ public class DigestAuthenticationFilter extends GenericFilterBean
 		if (this.createAuthenticatedToken) {
 			authRequest = new UsernamePasswordAuthenticationToken(user,
 					user.getPassword(), user.getAuthorities());
-		}
-		else {
+		} else {
 			authRequest = new UsernamePasswordAuthenticationToken(user,
 					user.getPassword());
 		}
@@ -287,6 +283,7 @@ public class DigestAuthenticationFilter extends GenericFilterBean
 		this.authenticationEntryPoint = authenticationEntryPoint;
 	}
 
+	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		this.messages = new MessageSourceAccessor(messageSource);
 	}
@@ -362,7 +359,7 @@ public class DigestAuthenticationFilter extends GenericFilterBean
 					|| (this.uri == null) || (this.response == null)) {
 				throw new BadCredentialsException(DigestAuthenticationFilter.this.messages
 						.getMessage("DigestAuthenticationFilter.missingMandatory",
-								new Object[] { this.section212response },
+								new Object[]{this.section212response},
 								"Missing mandatory digest value; received header {0}"));
 			}
 			// Check all required parameters for an "auth" qop were supplied (ie RFC 2617)
@@ -376,7 +373,7 @@ public class DigestAuthenticationFilter extends GenericFilterBean
 					throw new BadCredentialsException(
 							DigestAuthenticationFilter.this.messages.getMessage(
 									"DigestAuthenticationFilter.missingAuth",
-									new Object[] { this.section212response },
+									new Object[]{this.section212response},
 									"Missing mandatory digest value; received header {0}"));
 				}
 			}
@@ -385,18 +382,17 @@ public class DigestAuthenticationFilter extends GenericFilterBean
 			if (!expectedRealm.equals(this.realm)) {
 				throw new BadCredentialsException(DigestAuthenticationFilter.this.messages
 						.getMessage("DigestAuthenticationFilter.incorrectRealm",
-								new Object[] { this.realm, expectedRealm },
+								new Object[]{this.realm, expectedRealm},
 								"Response realm name '{0}' does not match system realm name of '{1}'"));
 			}
 
 			// Check nonce was Base64 encoded (as sent by DigestAuthenticationEntryPoint)
 			try {
 				Base64.getDecoder().decode(this.nonce.getBytes());
-			}
-			catch (IllegalArgumentException e) {
+			} catch (IllegalArgumentException e) {
 				throw new BadCredentialsException(DigestAuthenticationFilter.this.messages
 						.getMessage("DigestAuthenticationFilter.nonceEncoding",
-								new Object[] { this.nonce },
+								new Object[]{this.nonce},
 								"Nonce is not encoded in Base64; received nonce {0}"));
 			}
 
@@ -410,7 +406,7 @@ public class DigestAuthenticationFilter extends GenericFilterBean
 			if (nonceTokens.length != 2) {
 				throw new BadCredentialsException(DigestAuthenticationFilter.this.messages
 						.getMessage("DigestAuthenticationFilter.nonceNotTwoTokens",
-								new Object[] { nonceAsPlainText },
+								new Object[]{nonceAsPlainText},
 								"Nonce should have yielded two tokens but was {0}"));
 			}
 
@@ -418,11 +414,10 @@ public class DigestAuthenticationFilter extends GenericFilterBean
 
 			try {
 				this.nonceExpiryTime = new Long(nonceTokens[0]);
-			}
-			catch (NumberFormatException nfe) {
+			} catch (NumberFormatException nfe) {
 				throw new BadCredentialsException(DigestAuthenticationFilter.this.messages
 						.getMessage("DigestAuthenticationFilter.nonceNotNumeric",
-								new Object[] { nonceAsPlainText },
+								new Object[]{nonceAsPlainText},
 								"Nonce token should have yielded a numeric first token, but was {0}"));
 			}
 
@@ -433,7 +428,7 @@ public class DigestAuthenticationFilter extends GenericFilterBean
 			if (!expectedNonceSignature.equals(nonceTokens[1])) {
 				throw new BadCredentialsException(DigestAuthenticationFilter.this.messages
 						.getMessage("DigestAuthenticationFilter.nonceCompromised",
-								new Object[] { nonceAsPlainText },
+								new Object[]{nonceAsPlainText},
 								"Nonce token compromised {0}"));
 			}
 		}

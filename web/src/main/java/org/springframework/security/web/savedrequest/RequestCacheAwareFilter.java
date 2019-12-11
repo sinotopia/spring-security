@@ -15,7 +15,8 @@
  */
 package org.springframework.security.web.savedrequest;
 
-import java.io.IOException;
+import org.springframework.util.Assert;
+import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -23,9 +24,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.util.Assert;
-import org.springframework.web.filter.GenericFilterBean;
+import java.io.IOException;
 
 /**
  * Responsible for reconstituting the saved request if one is cached and it matches the
@@ -54,6 +53,7 @@ public class RequestCacheAwareFilter extends GenericFilterBean {
 		this.requestCache = requestCache;
 	}
 
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 

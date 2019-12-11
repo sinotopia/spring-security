@@ -15,25 +15,23 @@
  */
 package org.springframework.security.web.csrf;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 import org.springframework.security.web.util.UrlUtils;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.Assert;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
 
 import static java.lang.Boolean.TRUE;
 
@@ -67,7 +65,7 @@ public final class CsrfFilter extends OncePerRequestFilter {
 
 	/**
 	 * The attribute name to use when marking a given request as one that should not be filtered.
-	 *
+	 * <p>
 	 * To use, set the attribute on your {@link HttpServletRequest}:
 	 * <pre>
 	 * 	CsrfFilter.skipRequest(request);
@@ -90,18 +88,17 @@ public final class CsrfFilter extends OncePerRequestFilter {
 		return TRUE.equals(request.getAttribute(SHOULD_NOT_FILTER));
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 *
-	 * @see
-	 * org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(javax.servlet
+	 * @see org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(javax.servlet
 	 * .http.HttpServletRequest, javax.servlet.http.HttpServletResponse,
 	 * javax.servlet.FilterChain)
 	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request,
 			HttpServletResponse response, FilterChain filterChain)
-					throws ServletException, IOException {
+			throws ServletException, IOException {
 		request.setAttribute(HttpServletResponse.class.getName(), response);
 
 		CsrfToken csrfToken = this.tokenRepository.loadToken(request);
@@ -130,8 +127,7 @@ public final class CsrfFilter extends OncePerRequestFilter {
 			if (missingToken) {
 				this.accessDeniedHandler.handle(request, response,
 						new MissingCsrfTokenException(actualToken));
-			}
-			else {
+			} else {
 				this.accessDeniedHandler.handle(request, response,
 						new InvalidCsrfTokenException(csrfToken, actualToken));
 			}
@@ -156,7 +152,7 @@ public final class CsrfFilter extends OncePerRequestFilter {
 	 * </p>
 	 *
 	 * @param requireCsrfProtectionMatcher the {@link RequestMatcher} used to determine if
-	 * CSRF protection should be applied.
+	 *                                     CSRF protection should be applied.
 	 */
 	public void setRequireCsrfProtectionMatcher(
 			RequestMatcher requireCsrfProtectionMatcher) {

@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class NullRequestCache implements RequestCache {
 
+	@Override
 	public SavedRequest getRequest(HttpServletRequest request,
 			HttpServletResponse response) {
 		return null;

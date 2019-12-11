@@ -15,14 +15,14 @@
  */
 package org.springframework.security.web.context.request.async;
 
-import java.util.concurrent.Callable;
-
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.Assert;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.async.CallableProcessingInterceptor;
 import org.springframework.web.context.request.async.CallableProcessingInterceptorAdapter;
+
+import java.util.concurrent.Callable;
 
 /**
  * <p>
@@ -54,9 +54,10 @@ public final class SecurityContextCallableProcessingInterceptor extends
 	/**
 	 * Creates a new {@link SecurityContextCallableProcessingInterceptor} with the
 	 * specified {@link SecurityContext}.
+	 *
 	 * @param securityContext the {@link SecurityContext} to set on the
-	 * {@link SecurityContextHolder} in {@link #preProcess(NativeWebRequest, Callable)}.
-	 * Cannot be null.
+	 *                        {@link SecurityContextHolder} in {@link #preProcess(NativeWebRequest, Callable)}.
+	 *                        Cannot be null.
 	 * @throws IllegalArgumentException if {@link SecurityContext} is null.
 	 */
 	public SecurityContextCallableProcessingInterceptor(SecurityContext securityContext) {

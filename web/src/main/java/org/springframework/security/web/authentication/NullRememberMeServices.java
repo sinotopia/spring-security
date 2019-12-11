@@ -33,14 +33,16 @@ public class NullRememberMeServices implements RememberMeServices {
 	// ~ Methods
 	// ========================================================================================================
 
-	public Authentication autoLogin(HttpServletRequest request,
-			HttpServletResponse response) {
+	@Override
+	public Authentication autoLogin(HttpServletRequest request, HttpServletResponse response) {
 		return null;
 	}
 
+	@Override
 	public void loginFail(HttpServletRequest request, HttpServletResponse response) {
 	}
 
+	@Override
 	public void loginSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication successfulAuthentication) {
 	}

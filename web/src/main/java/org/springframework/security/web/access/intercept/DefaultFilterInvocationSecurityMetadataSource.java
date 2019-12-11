@@ -16,19 +16,14 @@
 
 package org.springframework.security.web.access.intercept;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 /**
  * Default implementation of <tt>FilterInvocationDefinitionSource</tt>.
@@ -77,6 +72,7 @@ public class DefaultFilterInvocationSecurityMetadataSource implements
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public Collection<ConfigAttribute> getAllConfigAttributes() {
 		Set<ConfigAttribute> allAttributes = new HashSet<>();
 
@@ -88,6 +84,7 @@ public class DefaultFilterInvocationSecurityMetadataSource implements
 		return allAttributes;
 	}
 
+	@Override
 	public Collection<ConfigAttribute> getAttributes(Object object) {
 		final HttpServletRequest request = ((FilterInvocation) object).getRequest();
 		for (Map.Entry<RequestMatcher, Collection<ConfigAttribute>> entry : requestMap
@@ -99,6 +96,7 @@ public class DefaultFilterInvocationSecurityMetadataSource implements
 		return null;
 	}
 
+	@Override
 	public boolean supports(Class<?> clazz) {
 		return FilterInvocation.class.isAssignableFrom(clazz);
 	}

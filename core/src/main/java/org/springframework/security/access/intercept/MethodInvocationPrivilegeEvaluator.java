@@ -57,6 +57,7 @@ public class MethodInvocationPrivilegeEvaluator implements InitializingBean {
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public void afterPropertiesSet() {
 		Assert.notNull(securityInterceptor, "SecurityInterceptor required");
 	}
@@ -84,8 +85,7 @@ public class MethodInvocationPrivilegeEvaluator implements InitializingBean {
 		try {
 			securityInterceptor.getAccessDecisionManager().decide(authentication, mi,
 					attrs);
-		}
-		catch (AccessDeniedException unauthorized) {
+		} catch (AccessDeniedException unauthorized) {
 			if (logger.isDebugEnabled()) {
 				logger.debug(mi.toString() + " denied for " + authentication.toString(),
 						unauthorized);

@@ -16,9 +16,7 @@
 
 package org.springframework.security.web;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
-import java.lang.reflect.Proxy;
+import org.springframework.security.web.util.UrlUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;
@@ -26,12 +24,13 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.web.util.UrlUtils;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 /**
  * Holds objects associated with a HTTP filter.
- * <P>
+ * <p>
  * Guarantees the request and response are instances of <code>HttpServletRequest</code>
  * and <code>HttpServletResponse</code>, and that there are no <code>null</code> objects.
  * <p>
@@ -148,7 +147,7 @@ public class FilterInvocation {
 class DummyRequest extends HttpServletRequestWrapper {
 	private static final HttpServletRequest UNSUPPORTED_REQUEST = (HttpServletRequest) Proxy
 			.newProxyInstance(DummyRequest.class.getClassLoader(),
-					new Class[] { HttpServletRequest.class },
+					new Class[]{HttpServletRequest.class},
 					new UnsupportedOperationExceptionInvocationHandler());
 
 	private String requestURI;
@@ -162,10 +161,12 @@ class DummyRequest extends HttpServletRequestWrapper {
 		super(UNSUPPORTED_REQUEST);
 	}
 
+	@Override
 	public String getCharacterEncoding() {
 		return "UTF-8";
 	}
 
+	@Override
 	public Object getAttribute(String attributeName) {
 		return null;
 	}

@@ -45,7 +45,6 @@ import java.lang.reflect.Constructor;
  * {@link #MODE_GLOBAL} is definitely inappropriate for server use).
  *
  * @author Ben Alex
- *
  */
 public class SecurityContextHolder {
 	// ~ Static fields/initializers
@@ -101,21 +100,17 @@ public class SecurityContextHolder {
 
 		if (strategyName.equals(MODE_THREADLOCAL)) {
 			strategy = new ThreadLocalSecurityContextHolderStrategy();
-		}
-		else if (strategyName.equals(MODE_INHERITABLETHREADLOCAL)) {
+		} else if (strategyName.equals(MODE_INHERITABLETHREADLOCAL)) {
 			strategy = new InheritableThreadLocalSecurityContextHolderStrategy();
-		}
-		else if (strategyName.equals(MODE_GLOBAL)) {
+		} else if (strategyName.equals(MODE_GLOBAL)) {
 			strategy = new GlobalSecurityContextHolderStrategy();
-		}
-		else {
+		} else {
 			// Try to load a custom strategy
 			try {
 				Class<?> clazz = Class.forName(strategyName);
 				Constructor<?> customStrategy = clazz.getConstructor();
 				strategy = (SecurityContextHolderStrategy) customStrategy.newInstance();
-			}
-			catch (Exception ex) {
+			} catch (Exception ex) {
 				ReflectionUtils.handleReflectionException(ex);
 			}
 		}
@@ -138,7 +133,7 @@ public class SecurityContextHolder {
 	 * existing threads using the old strategy.
 	 *
 	 * @param strategyName the fully qualified class name of the strategy that should be
-	 * used.
+	 *                     used.
 	 */
 	public static void setStrategyName(String strategyName) {
 		SecurityContextHolder.strategyName = strategyName;

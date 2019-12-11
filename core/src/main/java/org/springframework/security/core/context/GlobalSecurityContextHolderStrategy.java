@@ -36,10 +36,12 @@ final class GlobalSecurityContextHolderStrategy implements SecurityContextHolder
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public void clearContext() {
 		contextHolder = null;
 	}
 
+	@Override
 	public SecurityContext getContext() {
 		if (contextHolder == null) {
 			contextHolder = new SecurityContextImpl();
@@ -48,11 +50,13 @@ final class GlobalSecurityContextHolderStrategy implements SecurityContextHolder
 		return contextHolder;
 	}
 
+	@Override
 	public void setContext(SecurityContext context) {
 		Assert.notNull(context, "Only non-null SecurityContext instances are permitted");
 		contextHolder = context;
 	}
 
+	@Override
 	public SecurityContext createEmptyContext() {
 		return new SecurityContextImpl();
 	}

@@ -16,23 +16,13 @@
 
 package org.springframework.security.web.savedrequest;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.TimeZone;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Provides request parameters, headers and cookies from either an original request or a
@@ -59,7 +49,9 @@ class SavedRequestAwareWrapper extends HttpServletRequestWrapper {
 	protected static final Log logger = LogFactory.getLog(SavedRequestAwareWrapper.class);
 	protected static final TimeZone GMT_ZONE = TimeZone.getTimeZone("GMT");
 
-	/** The default Locale if none are specified. */
+	/**
+	 * The default Locale if none are specified.
+	 */
 	protected static Locale defaultLocale = Locale.getDefault();
 
 	// ~ Instance fields
@@ -136,8 +128,7 @@ class SavedRequestAwareWrapper extends HttpServletRequestWrapper {
 
 		if (value == null) {
 			return -1;
-		}
-		else {
+		} else {
 			return Integer.parseInt(value);
 		}
 	}

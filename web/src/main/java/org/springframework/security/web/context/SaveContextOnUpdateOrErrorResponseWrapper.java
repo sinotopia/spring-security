@@ -15,11 +15,11 @@
  */
 package org.springframework.security.web.context;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.util.OnCommittedResponseWrapper;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Base class for response wrappers which encapsulate the logic for storing a security
@@ -47,10 +47,10 @@ public abstract class SaveContextOnUpdateOrErrorResponseWrapper
 	private final boolean disableUrlRewriting;
 
 	/**
-	 * @param response the response to be wrapped
+	 * @param response            the response to be wrapped
 	 * @param disableUrlRewriting turns the URL encoding methods into null operations,
-	 * preventing the use of URL rewriting to add the session identifier as a URL
-	 * parameter.
+	 *                            preventing the use of URL rewriting to add the session identifier as a URL
+	 *                            parameter.
 	 */
 	public SaveContextOnUpdateOrErrorResponseWrapper(HttpServletResponse response,
 			boolean disableUrlRewriting) {

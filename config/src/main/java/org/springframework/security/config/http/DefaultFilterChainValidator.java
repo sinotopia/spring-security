@@ -15,10 +15,6 @@
  */
 package org.springframework.security.config.http;
 
-import java.util.*;
-
-import javax.servlet.Filter;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.access.AccessDeniedException;
@@ -40,12 +36,20 @@ import org.springframework.security.web.context.SecurityContextPersistenceFilter
 import org.springframework.security.web.jaasapi.JaasApiIntegrationFilter;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import org.springframework.security.web.session.SessionManagementFilter;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.security.web.util.matcher.AnyRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+
+import javax.servlet.Filter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 public class DefaultFilterChainValidator implements FilterChainProxy.FilterChainValidator {
+
 	private final Log logger = LogFactory.getLog(getClass());
 
+	@Override
 	public void validate(FilterChainProxy fcp) {
 		for (SecurityFilterChain filterChain : fcp.getFilterChains()) {
 			checkLoginPageIsntProtected(fcp, filterChain.getFilters());
@@ -93,7 +97,7 @@ public class DefaultFilterChainValidator implements FilterChainProxy.FilterChain
 		}
 	}
 
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings({"unchecked"})
 	private <F extends Filter> F getFilter(Class<F> type, List<Filter> filters) {
 		for (Filter f : filters) {
 			if (type.isAssignableFrom(f.getClass())) {
@@ -158,8 +162,7 @@ public class DefaultFilterChainValidator implements FilterChainProxy.FilterChain
 
 		try {
 			filters = fcp.getFilters(loginPage);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			// May happen legitimately if a filter-chain request matcher requires more
 			// request data than that provided
 			// by the dummy request used when creating the filter invocation.
@@ -204,13 +207,11 @@ public class DefaultFilterChainValidator implements FilterChainProxy.FilterChain
 				anonPF.getPrincipal(), anonPF.getAuthorities());
 		try {
 			fsi.getAccessDecisionManager().decide(token, loginRequest, attributes);
-		}
-		catch (AccessDeniedException e) {
+		} catch (AccessDeniedException e) {
 			logger.warn("Anonymous access to the login page doesn't appear to be enabled. This is almost certainly "
 					+ "an error. Please check your configuration allows unauthenticated access to the configured "
 					+ "login page. (Simulated access was rejected: " + e + ")");
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			// May happen legitimately if a filter-chain request matcher requires more
 			// request data than that provided
 			// by the dummy request used when creating the filter invocation. See SEC-1878

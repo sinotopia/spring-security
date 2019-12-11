@@ -19,11 +19,10 @@ package org.springframework.security.web;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.access.ExceptionTranslationFilter;
 
-import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Used by {@link ExceptionTranslationFilter} to commence an authentication scheme.
@@ -31,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Ben Alex
  */
 public interface AuthenticationEntryPoint {
+
 	// ~ Methods
 	// ========================================================================================================
 
@@ -45,10 +45,9 @@ public interface AuthenticationEntryPoint {
 	 * Implementations should modify the headers on the <code>ServletResponse</code> as
 	 * necessary to commence the authentication process.
 	 *
-	 * @param request that resulted in an <code>AuthenticationException</code>
-	 * @param response so that the user agent can begin authentication
+	 * @param request       that resulted in an <code>AuthenticationException</code>
+	 * @param response      so that the user agent can begin authentication
 	 * @param authException that caused the invocation
-	 *
 	 */
 	void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException;

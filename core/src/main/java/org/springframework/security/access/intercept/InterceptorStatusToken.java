@@ -16,10 +16,10 @@
 
 package org.springframework.security.access.intercept;
 
-import java.util.Collection;
-
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.context.SecurityContext;
+
+import java.util.Collection;
 
 /**
  * A return object received by {@link AbstractSecurityInterceptor} subclasses.

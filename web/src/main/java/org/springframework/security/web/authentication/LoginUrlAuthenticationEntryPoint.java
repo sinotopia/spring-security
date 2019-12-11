@@ -67,8 +67,7 @@ public class LoginUrlAuthenticationEntryPoint implements AuthenticationEntryPoin
 	// ~ Static fields/initializers
 	// =====================================================================================
 
-	private static final Log logger = LogFactory
-			.getLog(LoginUrlAuthenticationEntryPoint.class);
+	private static final Log logger = LogFactory.getLog(LoginUrlAuthenticationEntryPoint.class);
 
 	// ~ Instance fields
 	// ================================================================================================
@@ -86,10 +85,9 @@ public class LoginUrlAuthenticationEntryPoint implements AuthenticationEntryPoin
 	private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
 	/**
-	 *
 	 * @param loginFormUrl URL where the login page can be found. Should either be
-	 * relative to the web-app context path (include a leading {@code /}) or an absolute
-	 * URL.
+	 *                     relative to the web-app context path (include a leading {@code /}) or an absolute
+	 *                     URL.
 	 */
 	public LoginUrlAuthenticationEntryPoint(String loginFormUrl) {
 		Assert.notNull(loginFormUrl, "loginFormUrl cannot be null");
@@ -116,8 +114,8 @@ public class LoginUrlAuthenticationEntryPoint implements AuthenticationEntryPoin
 	 * Allows subclasses to modify the login form URL that should be applicable for a
 	 * given request.
 	 *
-	 * @param request the request
-	 * @param response the response
+	 * @param request   the request
+	 * @param response  the response
 	 * @param exception the exception
 	 * @return the URL (cannot be null or empty; defaults to {@link #getLoginFormUrl()})
 	 */
@@ -158,8 +156,7 @@ public class LoginUrlAuthenticationEntryPoint implements AuthenticationEntryPoin
 
 				return;
 			}
-		}
-		else {
+		} else {
 			// redirect to login page. Use https if forceHttps true
 
 			redirectUrl = buildRedirectUrlToLoginPage(request, response, authException);
@@ -197,8 +194,7 @@ public class LoginUrlAuthenticationEntryPoint implements AuthenticationEntryPoin
 				// Overwrite scheme and port in the redirect URL
 				urlBuilder.setScheme("https");
 				urlBuilder.setPort(httpsPort);
-			}
-			else {
+			} else {
 				logger.warn("Unable to redirect to HTTPS as no port mapping found for HTTP port "
 						+ serverPort);
 			}
@@ -279,7 +275,7 @@ public class LoginUrlAuthenticationEntryPoint implements AuthenticationEntryPoin
 	 * {@code RequestDispatcher}, instead of a 302 redirect.
 	 *
 	 * @param useForward true if a forward to the login page should be used. Must be false
-	 * (the default) if {@code loginFormUrl} is set to an absolute value.
+	 *                   (the default) if {@code loginFormUrl} is set to an absolute value.
 	 */
 	public void setUseForward(boolean useForward) {
 		this.useForward = useForward;

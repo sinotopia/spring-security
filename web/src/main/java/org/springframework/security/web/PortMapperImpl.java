@@ -16,10 +16,10 @@
 
 package org.springframework.security.web;
 
+import org.springframework.util.Assert;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import org.springframework.util.Assert;
 
 /**
  * Concrete implementation of {@link PortMapper} that obtains HTTP:HTTPS pairs from the
@@ -57,6 +57,7 @@ public class PortMapperImpl implements PortMapper {
 		return this.httpsPortMappings;
 	}
 
+	@Override
 	public Integer lookupHttpPort(Integer httpsPort) {
 		for (Integer httpPort : this.httpsPortMappings.keySet()) {
 			if (this.httpsPortMappings.get(httpPort).equals(httpsPort)) {
@@ -67,6 +68,7 @@ public class PortMapperImpl implements PortMapper {
 		return null;
 	}
 
+	@Override
 	public Integer lookupHttpsPort(Integer httpPort) {
 		return this.httpsPortMappings.get(httpPort);
 	}
@@ -86,13 +88,12 @@ public class PortMapperImpl implements PortMapper {
 	 * </pre>
 	 *
 	 * @param newMappings A Map consisting of String keys and String values, where for
-	 * each entry the key is the string representation of an integer HTTP port number, and
-	 * the value is the string representation of the corresponding integer HTTPS port
-	 * number.
-	 *
+	 *                    each entry the key is the string representation of an integer HTTP port number, and
+	 *                    the value is the string representation of the corresponding integer HTTPS port
+	 *                    number.
 	 * @throws IllegalArgumentException if input map does not consist of String keys and
-	 * values, each representing an integer port number in the range 1-65535 for that
-	 * mapping.
+	 *                                  values, each representing an integer port number in the range 1-65535 for that
+	 *                                  mapping.
 	 */
 	public void setPortMappings(Map<String, String> newMappings) {
 		Assert.notNull(newMappings,

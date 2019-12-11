@@ -16,12 +16,6 @@
 
 package org.springframework.security.web.authentication.www;
 
-import java.io.IOException;
-import java.util.Base64;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -29,6 +23,11 @@ import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Base64;
 
 /**
  * Used by the <code>SecurityEnforcementFilter</code> to commence authentication via the
@@ -71,6 +70,7 @@ public class DigestAuthenticationEntryPoint implements AuthenticationEntryPoint,
 		this.order = order;
 	}
 
+	@Override
 	public void afterPropertiesSet() {
 		if ((realmName == null) || "".equals(realmName)) {
 			throw new IllegalArgumentException("realmName must be specified");
@@ -81,6 +81,7 @@ public class DigestAuthenticationEntryPoint implements AuthenticationEntryPoint,
 		}
 	}
 
+	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException {
 		HttpServletResponse httpResponse = response;
@@ -110,7 +111,7 @@ public class DigestAuthenticationEntryPoint implements AuthenticationEntryPoint,
 
 		httpResponse.addHeader("WWW-Authenticate", authenticateHeader);
 		httpResponse.sendError(HttpStatus.UNAUTHORIZED.value(),
-			HttpStatus.UNAUTHORIZED.getReasonPhrase());
+				HttpStatus.UNAUTHORIZED.getReasonPhrase());
 	}
 
 	public String getKey() {

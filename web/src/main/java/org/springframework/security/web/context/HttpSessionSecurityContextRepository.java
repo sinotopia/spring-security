@@ -15,17 +15,8 @@
  */
 package org.springframework.security.web.context;
 
-import javax.servlet.AsyncContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
@@ -36,6 +27,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.util.Assert;
 import org.springframework.web.util.WebUtils;
+
+import javax.servlet.AsyncContext;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * A {@code SecurityContextRepository} implementation which stores the security context in
@@ -105,6 +104,7 @@ public class HttpSessionSecurityContextRepository implements SecurityContextRepo
 	 * the session is not an instance of {@code SecurityContext}, a new context object
 	 * will be generated and returned.
 	 */
+	@Override
 	public SecurityContext loadContext(HttpRequestResponseHolder requestResponseHolder) {
 		HttpServletRequest request = requestResponseHolder.getRequest();
 		HttpServletResponse response = requestResponseHolder.getResponse();
@@ -131,6 +131,7 @@ public class HttpSessionSecurityContextRepository implements SecurityContextRepo
 		return context;
 	}
 
+	@Override
 	public void saveContext(SecurityContext context, HttpServletRequest request,
 			HttpServletResponse response) {
 		SaveContextOnUpdateOrErrorResponseWrapper responseWrapper = WebUtils
@@ -151,6 +152,7 @@ public class HttpSessionSecurityContextRepository implements SecurityContextRepo
 		}
 	}
 
+	@Override
 	public boolean containsContext(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 
@@ -162,7 +164,6 @@ public class HttpSessionSecurityContextRepository implements SecurityContextRepo
 	}
 
 	/**
-	 *
 	 * @param httpSession the session obtained from the request.
 	 */
 	private SecurityContext readSecurityContextFromSession(HttpSession httpSession) {
@@ -244,7 +245,7 @@ public class HttpSessionSecurityContextRepository implements SecurityContextRepo
 	 * Allows the use of session identifiers in URLs to be disabled. Off by default.
 	 *
 	 * @param disableUrlRewriting set to <tt>true</tt> to disable URL encoding methods in
-	 * the response wrapper and prevent the use of <tt>jsessionid</tt> parameters.
+	 *                            the response wrapper and prevent the use of <tt>jsessionid</tt> parameters.
 	 */
 	public void setDisableUrlRewriting(boolean disableUrlRewriting) {
 		this.disableUrlRewriting = disableUrlRewriting;
@@ -254,7 +255,7 @@ public class HttpSessionSecurityContextRepository implements SecurityContextRepo
 	 * Allows the session attribute name to be customized for this repository instance.
 	 *
 	 * @param springSecurityContextKey the key under which the security context will be
-	 * stored. Defaults to {@link #SPRING_SECURITY_CONTEXT_KEY}.
+	 *                                 stored. Defaults to {@link #SPRING_SECURITY_CONTEXT_KEY}.
 	 */
 	public void setSpringSecurityContextKey(String springSecurityContextKey) {
 		Assert.hasText(springSecurityContextKey,
@@ -310,13 +311,13 @@ public class HttpSessionSecurityContextRepository implements SecurityContextRepo
 		 * Takes the parameters required to call <code>saveContext()</code> successfully
 		 * in addition to the request and the response object we are wrapping.
 		 *
-		 * @param request the request object (used to obtain the session, if one exists).
+		 * @param request                            the request object (used to obtain the session, if one exists).
 		 * @param httpSessionExistedAtStartOfRequest indicates whether there was a session
-		 * in place before the filter chain executed. If this is true, and the session is
-		 * found to be null, this indicates that it was invalidated during the request and
-		 * a new session will now be created.
-		 * @param context the context before the filter chain executed. The context will
-		 * only be stored if it or its contents changed during the request.
+		 *                                           in place before the filter chain executed. If this is true, and the session is
+		 *                                           found to be null, this indicates that it was invalidated during the request and
+		 *                                           a new session will now be created.
+		 * @param context                            the context before the filter chain executed. The context will
+		 *                                           only be stored if it or its contents changed during the request.
 		 */
 		SaveToSessionResponseWrapper(HttpServletResponse response,
 				HttpServletRequest request, boolean httpSessionExistedAtStartOfRequest,
@@ -335,10 +336,9 @@ public class HttpSessionSecurityContextRepository implements SecurityContextRepo
 		 * context will not be stored.
 		 *
 		 * @param context the context object obtained from the SecurityContextHolder after
-		 * the request has been processed by the filter chain.
-		 * SecurityContextHolder.getContext() cannot be used to obtain the context as it
-		 * has already been cleared by the time this method is called.
-		 *
+		 *                the request has been processed by the filter chain.
+		 *                SecurityContextHolder.getContext() cannot be used to obtain the context as it
+		 *                has already been cleared by the time this method is called.
 		 */
 		@Override
 		protected void saveContext(SecurityContext context) {
@@ -428,8 +428,7 @@ public class HttpSessionSecurityContextRepository implements SecurityContextRepo
 
 			try {
 				return request.getSession(true);
-			}
-			catch (IllegalStateException e) {
+			} catch (IllegalStateException e) {
 				// Response must already be committed, therefore can't create a new
 				// session
 				logger.warn("Failed to create a session, as response has been committed. Unable to store"
@@ -449,7 +448,7 @@ public class HttpSessionSecurityContextRepository implements SecurityContextRepo
 	 * {@link AuthenticationTrustResolverImpl}.
 	 *
 	 * @param trustResolver the {@link AuthenticationTrustResolver} to use. Cannot be
-	 * null.
+	 *                      null.
 	 */
 	public void setTrustResolver(AuthenticationTrustResolver trustResolver) {
 		Assert.notNull(trustResolver, "trustResolver cannot be null");

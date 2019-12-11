@@ -32,7 +32,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.web.PortResolverImpl;
 
 /**
- *
  * @author Luke Taylor
  * @author Eddú Meléndez
  * @since 3.0

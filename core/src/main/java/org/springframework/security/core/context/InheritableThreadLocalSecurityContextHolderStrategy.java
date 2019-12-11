@@ -23,7 +23,6 @@ import org.springframework.util.Assert;
  * {@link org.springframework.security.core.context.SecurityContextHolderStrategy}.
  *
  * @author Ben Alex
- *
  * @see java.lang.ThreadLocal
  */
 final class InheritableThreadLocalSecurityContextHolderStrategy implements
@@ -36,10 +35,12 @@ final class InheritableThreadLocalSecurityContextHolderStrategy implements
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public void clearContext() {
 		contextHolder.remove();
 	}
 
+	@Override
 	public SecurityContext getContext() {
 		SecurityContext ctx = contextHolder.get();
 
@@ -51,11 +52,13 @@ final class InheritableThreadLocalSecurityContextHolderStrategy implements
 		return ctx;
 	}
 
+	@Override
 	public void setContext(SecurityContext context) {
 		Assert.notNull(context, "Only non-null SecurityContext instances are permitted");
 		contextHolder.set(context);
 	}
 
+	@Override
 	public SecurityContext createEmptyContext() {
 		return new SecurityContextImpl();
 	}

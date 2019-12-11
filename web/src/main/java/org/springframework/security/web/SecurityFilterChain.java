@@ -17,7 +17,7 @@ package org.springframework.security.web;
 
 import javax.servlet.Filter;
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.List;
 
 /**
  * Defines a filter chain which is capable of being matched against an
@@ -25,14 +25,19 @@ import java.util.*;
  * <p>
  * Used to configure a {@code FilterChainProxy}.
  *
- *
  * @author Luke Taylor
- *
  * @since 3.1
  */
 public interface SecurityFilterChain {
 
+	/**
+	 * @param request
+	 * @return
+	 */
 	boolean matches(HttpServletRequest request);
 
+	/**
+	 * @return
+	 */
 	List<Filter> getFilters();
 }

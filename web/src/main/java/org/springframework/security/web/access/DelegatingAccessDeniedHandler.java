@@ -15,16 +15,15 @@
  */
 package org.springframework.security.web.access;
 
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.util.Assert;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.util.Assert;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 /**
  * An {@link AccessDeniedHandler} that delegates to other {@link AccessDeniedHandler}
@@ -33,7 +32,6 @@ import org.springframework.util.Assert;
  *
  * @author Rob Winch
  * @since 3.2
- *
  */
 public final class DelegatingAccessDeniedHandler implements AccessDeniedHandler {
 	private final LinkedHashMap<Class<? extends AccessDeniedException>, AccessDeniedHandler> handlers;
@@ -43,11 +41,11 @@ public final class DelegatingAccessDeniedHandler implements AccessDeniedHandler 
 	/**
 	 * Creates a new instance
 	 *
-	 * @param handlers a map of the {@link AccessDeniedException} class to the
-	 * {@link AccessDeniedHandler} that should be used. Each is considered in the order
-	 * they are specified and only the first {@link AccessDeniedHandler} is ued.
+	 * @param handlers       a map of the {@link AccessDeniedException} class to the
+	 *                       {@link AccessDeniedHandler} that should be used. Each is considered in the order
+	 *                       they are specified and only the first {@link AccessDeniedHandler} is ued.
 	 * @param defaultHandler the default {@link AccessDeniedHandler} that should be used
-	 * if none of the handlers matches.
+	 *                       if none of the handlers matches.
 	 */
 	public DelegatingAccessDeniedHandler(
 			LinkedHashMap<Class<? extends AccessDeniedException>, AccessDeniedHandler> handlers,
@@ -58,6 +56,7 @@ public final class DelegatingAccessDeniedHandler implements AccessDeniedHandler 
 		this.defaultHandler = defaultHandler;
 	}
 
+	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException,
 			ServletException {

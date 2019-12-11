@@ -51,7 +51,7 @@ import org.springframework.util.Assert;
  *     &lt;property name=&quot;defaultEntryPoint&quot; ref=&quot;defaultAEP&quot;/&gt;
  * &lt;/bean&gt;
  * </pre>
- *
+ * <p>
  * This example uses the {@link RequestMatcherEditor} which creates a
  * {@link ELRequestMatcher} instances for the map keys.
  *

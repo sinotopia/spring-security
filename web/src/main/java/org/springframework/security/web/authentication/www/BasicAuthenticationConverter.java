@@ -15,14 +15,6 @@
  */
 package org.springframework.security.web.authentication.www;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +22,13 @@ import org.springframework.security.web.authentication.AuthenticationConverter;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 /**
  * Converts from a HttpServletRequest to
@@ -91,8 +90,7 @@ public class BasicAuthenticationConverter implements AuthenticationConverter {
 		byte[] decoded;
 		try {
 			decoded = Base64.getDecoder().decode(base64Token);
-		}
-		catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			throw new BadCredentialsException(
 					"Failed to decode basic authentication token");
 		}
@@ -104,7 +102,7 @@ public class BasicAuthenticationConverter implements AuthenticationConverter {
 		if (delim == -1) {
 			throw new BadCredentialsException("Invalid basic authentication token");
 		}
-		UsernamePasswordAuthenticationToken result  = new UsernamePasswordAuthenticationToken(token.substring(0, delim), token.substring(delim + 1));
+		UsernamePasswordAuthenticationToken result = new UsernamePasswordAuthenticationToken(token.substring(0, delim), token.substring(delim + 1));
 		result.setDetails(this.authenticationDetailsSource.buildDetails(request));
 		return result;
 	}

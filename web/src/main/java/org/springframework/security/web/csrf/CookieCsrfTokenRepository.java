@@ -69,14 +69,13 @@ public final class CookieCsrfTokenRepository implements CsrfTokenRepository {
 		Cookie cookie = new Cookie(this.cookieName, tokenValue);
 		cookie.setSecure(request.isSecure());
 		if (this.cookiePath != null && !this.cookiePath.isEmpty()) {
-				cookie.setPath(this.cookiePath);
+			cookie.setPath(this.cookiePath);
 		} else {
-				cookie.setPath(this.getRequestContext(request));
+			cookie.setPath(this.getRequestContext(request));
 		}
 		if (token == null) {
 			cookie.setMaxAge(0);
-		}
-		else {
+		} else {
 			cookie.setMaxAge(-1);
 		}
 		cookie.setHttpOnly(cookieHttpOnly);
@@ -104,7 +103,7 @@ public final class CookieCsrfTokenRepository implements CsrfTokenRepository {
 	 * Sets the name of the HTTP request parameter that should be used to provide a token.
 	 *
 	 * @param parameterName the name of the HTTP request parameter that should be used to
-	 * provide a token
+	 *                      provide a token
 	 */
 	public void setParameterName(String parameterName) {
 		Assert.notNull(parameterName, "parameterName is not null");
@@ -115,7 +114,7 @@ public final class CookieCsrfTokenRepository implements CsrfTokenRepository {
 	 * Sets the name of the HTTP header that should be used to provide the token.
 	 *
 	 * @param headerName the name of the HTTP header that should be used to provide the
-	 * token
+	 *                   token
 	 */
 	public void setHeaderName(String headerName) {
 		Assert.notNull(headerName, "headerName is not null");
@@ -126,7 +125,7 @@ public final class CookieCsrfTokenRepository implements CsrfTokenRepository {
 	 * Sets the name of the cookie that the expected CSRF token is saved to and read from.
 	 *
 	 * @param cookieName the name of the cookie that the expected CSRF token is saved to
-	 * and read from
+	 *                   and read from
 	 */
 	public void setCookieName(String cookieName) {
 		Assert.notNull(cookieName, "cookieName is not null");
@@ -187,9 +186,9 @@ public final class CookieCsrfTokenRepository implements CsrfTokenRepository {
 	/**
 	 * Sets the domain of the cookie that the expected CSRF token is saved to and read from.
 	 *
-	 * @since 5.2
 	 * @param cookieDomain the domain of the cookie that the expected CSRF token is saved to
-	 * and read from
+	 *                     and read from
+	 * @since 5.2
 	 */
 	public void setCookieDomain(String cookieDomain) {
 		this.cookieDomain = cookieDomain;

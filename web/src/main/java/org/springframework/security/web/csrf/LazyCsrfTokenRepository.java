@@ -16,10 +16,10 @@
 
 package org.springframework.security.web.csrf;
 
+import org.springframework.util.Assert;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.util.Assert;
 
 /**
  * A {@link CsrfTokenRepository} that delays saving new {@link CsrfToken} until the
@@ -39,6 +39,7 @@ public final class LazyCsrfTokenRepository implements CsrfTokenRepository {
 
 	/**
 	 * Creates a new instance
+	 *
 	 * @param delegate the {@link CsrfTokenRepository} to use. Cannot be null
 	 * @throws IllegalArgumentException if delegate is null.
 	 */
@@ -49,9 +50,10 @@ public final class LazyCsrfTokenRepository implements CsrfTokenRepository {
 
 	/**
 	 * Generates a new token
+	 *
 	 * @param request the {@link HttpServletRequest} to use. The
-	 * {@link HttpServletRequest} must have the {@link HttpServletResponse} as an
-	 * attribute with the name of <code>HttpServletResponse.class.getName()</code>
+	 *                {@link HttpServletRequest} must have the {@link HttpServletResponse} as an
+	 *                attribute with the name of <code>HttpServletResponse.class.getName()</code>
 	 */
 	@Override
 	public CsrfToken generateToken(HttpServletRequest request) {
@@ -158,8 +160,7 @@ public final class LazyCsrfTokenRepository implements CsrfTokenRepository {
 				if (other.delegate != null) {
 					return false;
 				}
-			}
-			else if (!this.delegate.equals(other.delegate)) {
+			} else if (!this.delegate.equals(other.delegate)) {
 				return false;
 			}
 			return true;

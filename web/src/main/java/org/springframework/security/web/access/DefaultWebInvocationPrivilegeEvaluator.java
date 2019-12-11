@@ -16,8 +16,6 @@
 
 package org.springframework.security.web.access;
 
-import java.util.Collection;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.access.AccessDeniedException;
@@ -26,6 +24,8 @@ import org.springframework.security.access.intercept.AbstractSecurityInterceptor
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.util.Assert;
+
+import java.util.Collection;
 
 /**
  * Allows users to determine whether they have privileges for a given web URI.
@@ -70,7 +70,7 @@ public class DefaultWebInvocationPrivilegeEvaluator implements
 	 * object is allowed to invoke the supplied URI.
 	 *
 	 * @param uri the URI excluding the context path (a default context path setting will
-	 * be used)
+	 *            be used)
 	 */
 	public boolean isAllowed(String uri, Authentication authentication) {
 		return isAllowed(null, uri, null, authentication);
@@ -86,14 +86,15 @@ public class DefaultWebInvocationPrivilegeEvaluator implements
 	 * is unimportant unless you are using a custom
 	 * <code>FilterInvocationSecurityMetadataSource</code>.
 	 *
-	 * @param uri the URI excluding the context path
-	 * @param contextPath the context path (may be null, in which case a default value
-	 * will be used).
-	 * @param method the HTTP method (or null, for any method)
+	 * @param uri            the URI excluding the context path
+	 * @param contextPath    the context path (may be null, in which case a default value
+	 *                       will be used).
+	 * @param method         the HTTP method (or null, for any method)
 	 * @param authentication the <tt>Authentication</tt> instance whose authorities should
-	 * be used in evaluation whether access should be granted.
+	 *                       be used in evaluation whether access should be granted.
 	 * @return true if access is allowed, false if denied
 	 */
+	@Override
 	public boolean isAllowed(String contextPath, String uri, String method,
 			Authentication authentication) {
 		Assert.notNull(uri, "uri parameter is required");
@@ -117,8 +118,7 @@ public class DefaultWebInvocationPrivilegeEvaluator implements
 		try {
 			securityInterceptor.getAccessDecisionManager().decide(authentication, fi,
 					attrs);
-		}
-		catch (AccessDeniedException unauthorized) {
+		} catch (AccessDeniedException unauthorized) {
 			if (logger.isDebugEnabled()) {
 				logger.debug(fi.toString() + " denied for " + authentication.toString(),
 						unauthorized);

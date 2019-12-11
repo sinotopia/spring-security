@@ -15,7 +15,9 @@
  */
 package org.springframework.security.web.context;
 
-import java.io.IOException;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -24,10 +26,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.filter.GenericFilterBean;
+import java.io.IOException;
 
 /**
  * Populates the {@link SecurityContextHolder} with information obtained from the
@@ -72,6 +71,7 @@ public class SecurityContextPersistenceFilter extends GenericFilterBean {
 		this.repo = repo;
 	}
 
+	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
@@ -104,8 +104,7 @@ public class SecurityContextPersistenceFilter extends GenericFilterBean {
 
 			chain.doFilter(holder.getRequest(), holder.getResponse());
 
-		}
-		finally {
+		} finally {
 			SecurityContext contextAfterChainExecution = SecurityContextHolder
 					.getContext();
 			// Crucial removal of SecurityContextHolder contents - do this before anything

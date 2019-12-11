@@ -15,18 +15,17 @@
  */
 package org.springframework.security.web.context.request.async;
 
-import java.io.IOException;
-import java.util.concurrent.Callable;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.web.context.request.async.WebAsyncManager;
+import org.springframework.web.context.request.async.WebAsyncUtils;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.web.context.request.async.WebAsyncManager;
-import org.springframework.web.context.request.async.WebAsyncUtils;
-import org.springframework.web.filter.OncePerRequestFilter;
+import java.io.IOException;
+import java.util.concurrent.Callable;
 
 /**
  * Provides integration between the {@link SecurityContext} and Spring Web's

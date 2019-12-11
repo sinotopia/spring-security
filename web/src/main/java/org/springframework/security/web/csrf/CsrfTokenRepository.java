@@ -24,11 +24,9 @@ import javax.servlet.http.HttpSession;
  * associated to the {@link HttpServletRequest}. For example, it may be stored in
  * {@link HttpSession}.
  *
- * @see HttpSessionCsrfTokenRepository
- *
  * @author Rob Winch
+ * @see HttpSessionCsrfTokenRepository
  * @since 3.2
- *
  */
 public interface CsrfTokenRepository {
 
@@ -45,8 +43,8 @@ public interface CsrfTokenRepository {
 	 * {@link HttpServletResponse}. If the {@link CsrfToken} is null, it is the same as
 	 * deleting it.
 	 *
-	 * @param token the {@link CsrfToken} to save or null to delete
-	 * @param request the {@link HttpServletRequest} to use
+	 * @param token    the {@link CsrfToken} to save or null to delete
+	 * @param request  the {@link HttpServletRequest} to use
 	 * @param response the {@link HttpServletResponse} to use
 	 */
 	void saveToken(CsrfToken token, HttpServletRequest request,

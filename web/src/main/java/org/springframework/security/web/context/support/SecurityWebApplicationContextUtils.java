@@ -15,11 +15,11 @@
  */
 package org.springframework.security.web.context.support;
 
-import java.util.Enumeration;
-import javax.servlet.ServletContext;
-
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import javax.servlet.ServletContext;
+import java.util.Enumeration;
 
 /**
  * Spring Security extension to Spring's {@link WebApplicationContextUtils}.
@@ -37,11 +37,12 @@ public abstract class SecurityWebApplicationContextUtils extends WebApplicationC
 	 * controlled through its {@code publishContext} property, which is {@code true}
 	 * by default but can be selectively switched to only publish a single context
 	 * despite multiple {@code DispatcherServlet} registrations in the web app.
+	 *
 	 * @param servletContext ServletContext to find the web application context for
 	 * @return the desired WebApplicationContext for this web app
+	 * @throws IllegalStateException if no WebApplicationContext can be found
 	 * @see #getWebApplicationContext(ServletContext)
 	 * @see ServletContext#getAttributeNames()
-	 * @throws IllegalStateException if no WebApplicationContext can be found
 	 */
 	public static WebApplicationContext findRequiredWebApplicationContext(ServletContext servletContext) {
 		WebApplicationContext wac = _findWebApplicationContext(servletContext);
@@ -53,6 +54,7 @@ public abstract class SecurityWebApplicationContextUtils extends WebApplicationC
 
 	/**
 	 * Copy of {@link #findWebApplicationContext(ServletContext)} for compatibility with spring framework 4.1.x.
+	 *
 	 * @see #findWebApplicationContext(ServletContext)
 	 */
 	private static WebApplicationContext _findWebApplicationContext(ServletContext sc) {

@@ -15,20 +15,19 @@
  */
 package org.springframework.security.web.authentication;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.util.UrlUtils;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Base class containing the logic used by strategies which handle redirection to a URL
@@ -180,7 +179,7 @@ public abstract class AbstractAuthenticationTargetUrlRequestHandler {
 	 * with this name and the value used as the target URL if present.
 	 *
 	 * @param targetUrlParameter the name of the parameter containing the encoded target
-	 * URL. Defaults to null.
+	 *                           URL. Defaults to null.
 	 */
 	public void setTargetUrlParameter(String targetUrlParameter) {
 		if (targetUrlParameter != null) {

@@ -53,8 +53,7 @@ public final class BearerTokenAccessDeniedHandler implements AccessDeniedHandler
 	 * @param accessDeniedException that caused the invocation
 	 */
 	@Override
-	public void handle(
-			HttpServletRequest request, HttpServletResponse response,
+	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) {
 
 		Map<String, String> parameters = new LinkedHashMap<>();

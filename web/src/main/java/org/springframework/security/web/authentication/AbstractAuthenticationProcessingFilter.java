@@ -16,15 +16,6 @@
 
 package org.springframework.security.web.authentication;
 
-import java.io.IOException;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.context.MessageSource;
@@ -45,11 +36,19 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.Assert;
 import org.springframework.web.filter.GenericFilterBean;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 /**
  * Abstract processor of browser-based HTTP-based authentication requests.
  *
  * <h3>Authentication Process</h3>
- *
+ * <p>
  * The filter requires that you set the <tt>authenticationManager</tt> property. An
  * <tt>AuthenticationManager</tt> is required to process the authentication request tokens
  * created by implementing classes.
@@ -63,7 +62,7 @@ import org.springframework.web.filter.GenericFilterBean;
  * attemptAuthentication} method, which must be implemented by subclasses.
  *
  * <h4>Authentication Success</h4>
- *
+ * <p>
  * If authentication is successful, the resulting {@link Authentication} object will be
  * placed into the <code>SecurityContext</code> for the current thread, which is
  * guaranteed to have already been created by an earlier filter.
@@ -82,7 +81,7 @@ import org.springframework.web.filter.GenericFilterBean;
  * method for more information.
  *
  * <h4>Authentication Failure</h4>
- *
+ * <p>
  * If authentication fails, it will delegate to the configured
  * {@link AuthenticationFailureHandler} to allow the failure information to be conveyed to
  * the client. The default implementation is {@link SimpleUrlAuthenticationFailureHandler}
@@ -90,14 +89,14 @@ import org.springframework.web.filter.GenericFilterBean;
  * URL as an alternative. Again you can inject whatever behaviour you require here.
  *
  * <h4>Event Publication</h4>
- *
+ * <p>
  * If authentication is successful, an {@link InteractiveAuthenticationSuccessEvent} will
  * be published via the application context. No events will be published if authentication
  * was unsuccessful, because this would generally be recorded via an
  * {@code AuthenticationManager}-specific application event.
  *
  * <h4>Session Authentication</h4>
- *
+ * <p>
  * The class has an optional {@link SessionAuthenticationStrategy} which will be invoked
  * immediately after a successful call to {@code attemptAuthentication()}. Different
  * implementations
@@ -147,7 +146,7 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 	 * Creates a new instance
 	 *
 	 * @param requiresAuthenticationRequestMatcher the {@link RequestMatcher} used to
-	 * determine if authentication is required. Cannot be null.
+	 *                                             determine if authentication is required. Cannot be null.
 	 */
 	protected AbstractAuthenticationProcessingFilter(
 			RequestMatcher requiresAuthenticationRequestMatcher) {
@@ -190,6 +189,7 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 	 * returned <tt>Authentication</tt> object is not null.
 	 * </ol>
 	 */
+	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 
@@ -216,16 +216,14 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 				return;
 			}
 			sessionStrategy.onAuthentication(authResult, request, response);
-		}
-		catch (InternalAuthenticationServiceException failed) {
+		} catch (InternalAuthenticationServiceException failed) {
 			logger.error(
 					"An internal error occurred while trying to authenticate the user.",
 					failed);
 			unsuccessfulAuthentication(request, response, failed);
 
 			return;
-		}
-		catch (AuthenticationException failed) {
+		} catch (AuthenticationException failed) {
 			// Authentication failed
 			unsuccessfulAuthentication(request, response, failed);
 
@@ -271,12 +269,10 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 	 * <li>Throw an <tt>AuthenticationException</tt> if the authentication process fails</li>
 	 * </ol>
 	 *
-	 * @param request from which to extract parameters and perform the authentication
+	 * @param request  from which to extract parameters and perform the authentication
 	 * @param response the response, which may be needed if the implementation has to do a
-	 * redirect as part of a multi-stage authentication process (such as OpenID).
-	 *
+	 *                 redirect as part of a multi-stage authentication process (such as OpenID).
 	 * @return the authenticated user token, or null if authentication is incomplete.
-	 *
 	 * @throws AuthenticationException if authentication fails.
 	 */
 	public abstract Authentication attemptAuthentication(HttpServletRequest request,
@@ -293,14 +289,15 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 	 * <tt>ApplicationEventPublisher</tt></li>
 	 * <li>Delegates additional behaviour to the {@link AuthenticationSuccessHandler}.</li>
 	 * </ol>
-	 *
+	 * <p>
 	 * Subclasses can override this method to continue the {@link FilterChain} after
 	 * successful authentication.
+	 *
 	 * @param request
 	 * @param response
 	 * @param chain
 	 * @param authResult the object returned from the <tt>attemptAuthentication</tt>
-	 * method.
+	 *                   method.
 	 * @throws IOException
 	 * @throws ServletException
 	 */
@@ -426,7 +423,7 @@ public abstract class AbstractAuthenticationProcessingFilter extends GenericFilt
 	 * session identifier to prevent session fixation attacks.
 	 *
 	 * @param sessionStrategy the implementation to use. If not set a null implementation
-	 * is used.
+	 *                        is used.
 	 */
 	public void setSessionAuthenticationStrategy(
 			SessionAuthenticationStrategy sessionStrategy) {

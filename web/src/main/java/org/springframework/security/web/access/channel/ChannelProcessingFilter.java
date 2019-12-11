@@ -16,10 +16,11 @@
 
 package org.springframework.security.web.access.channel;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.web.FilterInvocation;
+import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.util.Assert;
+import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -27,12 +28,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.web.FilterInvocation;
-import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
-import org.springframework.util.Assert;
-import org.springframework.web.filter.GenericFilterBean;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Ensures a web request is delivered over the required channel.
@@ -77,7 +76,7 @@ import org.springframework.web.filter.GenericFilterBean;
  *   class="org.springframework.security.web.access.channel.InsecureChannelProcessor"/&gt;
  *
  * </pre>
- *
+ * <p>
  * which would force the login form and any access to the {@code /secure} path to be made
  * over HTTPS.
  *
@@ -126,8 +125,7 @@ public class ChannelProcessingFilter extends GenericFilterBean {
 			if (this.logger.isInfoEnabled()) {
 				this.logger.info("Validated configuration attributes");
 			}
-		}
-		else {
+		} else {
 			throw new IllegalArgumentException(
 					"Unsupported configuration attributes: " + unsupportedAttributes);
 		}

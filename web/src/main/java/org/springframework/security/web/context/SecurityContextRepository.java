@@ -15,10 +15,10 @@
  */
 package org.springframework.security.web.context;
 
+import org.springframework.security.core.context.SecurityContext;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.core.context.SecurityContext;
 
 /**
  * Strategy used for persisting a {@link SecurityContext} between requests.
@@ -31,11 +31,10 @@ import org.springframework.security.core.context.SecurityContext;
  * <tt>HttpSession</tt> will be used to store the context.
  *
  * @author Luke Taylor
- * @since 3.0
- *
  * @see SecurityContextPersistenceFilter
  * @see HttpSessionSecurityContextRepository
  * @see SaveContextOnUpdateOrErrorResponseWrapper
+ * @since 3.0
  */
 public interface SecurityContextRepository {
 
@@ -53,8 +52,7 @@ public interface SecurityContextRepository {
 	 * guarantees that the context is persisted when an error or redirect occurs.
 	 *
 	 * @param requestResponseHolder holder for the current request and response for which
-	 * the context should be loaded.
-	 *
+	 *                              the context should be loaded.
 	 * @return The security context which should be used for the current request, never
 	 * null.
 	 */
@@ -63,7 +61,7 @@ public interface SecurityContextRepository {
 	/**
 	 * Stores the security context on completion of a request.
 	 *
-	 * @param context the non-null context which was obtained from the holder.
+	 * @param context  the non-null context which was obtained from the holder.
 	 * @param request
 	 * @param response
 	 */

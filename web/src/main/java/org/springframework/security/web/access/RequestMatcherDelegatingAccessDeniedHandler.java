@@ -15,16 +15,16 @@
  */
 package org.springframework.security.web.access;
 
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.Assert;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 /**
  * An {@link AccessDeniedHandler} that delegates to other {@link AccessDeniedHandler}
@@ -33,7 +33,6 @@ import org.springframework.util.Assert;
  *
  * @author Josh Cummings
  * @since 5.1
- *
  */
 public final class RequestMatcherDelegatingAccessDeniedHandler implements AccessDeniedHandler {
 	private final LinkedHashMap<RequestMatcher, AccessDeniedHandler> handlers;
@@ -43,11 +42,11 @@ public final class RequestMatcherDelegatingAccessDeniedHandler implements Access
 	/**
 	 * Creates a new instance
 	 *
-	 * @param handlers a map of {@link RequestMatcher}s to
-	 * {@link AccessDeniedHandler}s that should be used. Each is considered in the order
-	 * they are specified and only the first {@link AccessDeniedHandler} is used.
+	 * @param handlers       a map of {@link RequestMatcher}s to
+	 *                       {@link AccessDeniedHandler}s that should be used. Each is considered in the order
+	 *                       they are specified and only the first {@link AccessDeniedHandler} is used.
 	 * @param defaultHandler the default {@link AccessDeniedHandler} that should be used
-	 * if none of the matchers match.
+	 *                       if none of the matchers match.
 	 */
 	public RequestMatcherDelegatingAccessDeniedHandler(
 			LinkedHashMap<RequestMatcher, AccessDeniedHandler> handlers,
@@ -58,6 +57,7 @@ public final class RequestMatcherDelegatingAccessDeniedHandler implements Access
 		this.defaultHandler = defaultHandler;
 	}
 
+	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException,
 			ServletException {

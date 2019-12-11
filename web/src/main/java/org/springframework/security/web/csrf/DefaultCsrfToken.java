@@ -34,10 +34,11 @@ public final class DefaultCsrfToken implements CsrfToken {
 
 	/**
 	 * Creates a new instance
-	 * @param headerName the HTTP header name to use
+	 *
+	 * @param headerName    the HTTP header name to use
 	 * @param parameterName the HTTP parameter name to use
-	 * @param token the value of the token (i.e. expected value of the HTTP parameter of
-	 * parametername).
+	 * @param token         the value of the token (i.e. expected value of the HTTP parameter of
+	 *                      parametername).
 	 */
 	public DefaultCsrfToken(String headerName, String parameterName, String token) {
 		Assert.hasLength(headerName, "headerName cannot be null or empty");
@@ -48,29 +49,32 @@ public final class DefaultCsrfToken implements CsrfToken {
 		this.token = token;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 *
 	 * @see org.springframework.security.web.csrf.CsrfToken#getHeaderName()
 	 */
+	@Override
 	public String getHeaderName() {
 		return this.headerName;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 *
 	 * @see org.springframework.security.web.csrf.CsrfToken#getParameterName()
 	 */
+	@Override
 	public String getParameterName() {
 		return this.parameterName;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 *
 	 * @see org.springframework.security.web.csrf.CsrfToken#getToken()
 	 */
+	@Override
 	public String getToken() {
 		return this.token;
 	}

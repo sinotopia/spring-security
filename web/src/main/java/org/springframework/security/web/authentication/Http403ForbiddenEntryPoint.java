@@ -38,18 +38,19 @@ import org.springframework.security.web.AuthenticationEntryPoint;
  * The <code>commence</code> method will always return an
  * <code>HttpServletResponse.SC_FORBIDDEN</code> (403 error).
  *
- * @see org.springframework.security.web.access.ExceptionTranslationFilter
- *
  * @author Luke Taylor
  * @author Ruud Senden
+ * @see org.springframework.security.web.access.ExceptionTranslationFilter
  * @since 2.0
  */
 public class Http403ForbiddenEntryPoint implements AuthenticationEntryPoint {
+
 	private static final Log logger = LogFactory.getLog(Http403ForbiddenEntryPoint.class);
 
 	/**
 	 * Always returns a 403 error code to the client.
 	 */
+	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException arg2) throws IOException {
 		if (logger.isDebugEnabled()) {

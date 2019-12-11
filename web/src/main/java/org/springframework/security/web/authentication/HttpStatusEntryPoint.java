@@ -32,6 +32,7 @@ import org.springframework.util.Assert;
  * @since 4.0
  */
 public final class HttpStatusEntryPoint implements AuthenticationEntryPoint {
+	
 	private final HttpStatus httpStatus;
 
 	/**
@@ -44,6 +45,7 @@ public final class HttpStatusEntryPoint implements AuthenticationEntryPoint {
 		this.httpStatus = httpStatus;
 	}
 
+	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) {
 		response.setStatus(httpStatus.value());

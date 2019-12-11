@@ -33,7 +33,6 @@ public interface PortMapper {
 	 * </p>
 	 *
 	 * @param httpsPort
-	 *
 	 * @return the HTTP port or <code>null</code> if unknown
 	 */
 	Integer lookupHttpPort(Integer httpsPort);
@@ -45,7 +44,6 @@ public interface PortMapper {
 	 * </p>
 	 *
 	 * @param httpPort
-	 *
 	 * @return the HTTPS port or <code>null</code> if unknown
 	 */
 	Integer lookupHttpsPort(Integer httpPort);

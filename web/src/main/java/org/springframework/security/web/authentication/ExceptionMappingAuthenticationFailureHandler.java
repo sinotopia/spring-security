@@ -42,6 +42,7 @@ import org.springframework.util.Assert;
  */
 public class ExceptionMappingAuthenticationFailureHandler extends
 		SimpleUrlAuthenticationFailureHandler {
+
 	private final Map<String, String> failureUrlMap = new HashMap<>();
 
 	@Override
@@ -52,8 +53,7 @@ public class ExceptionMappingAuthenticationFailureHandler extends
 
 		if (url != null) {
 			getRedirectStrategy().sendRedirect(request, response, url);
-		}
-		else {
+		} else {
 			super.onAuthenticationFailure(request, response, exception);
 		}
 	}
@@ -62,10 +62,9 @@ public class ExceptionMappingAuthenticationFailureHandler extends
 	 * Sets the map of exception types (by name) to URLs.
 	 *
 	 * @param failureUrlMap the map keyed by the fully-qualified name of the exception
-	 * class, with the corresponding failure URL as the value.
-	 *
+	 *                      class, with the corresponding failure URL as the value.
 	 * @throws IllegalArgumentException if the entries are not Strings or the URL is not
-	 * valid.
+	 *                                  valid.
 	 */
 	public void setExceptionMappings(Map<?, ?> failureUrlMap) {
 		this.failureUrlMap.clear();

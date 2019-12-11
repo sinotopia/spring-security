@@ -16,16 +16,16 @@
 
 package org.springframework.security.access.intercept;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.util.Assert;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Basic concrete implementation of a {@link RunAsManager}.
@@ -63,12 +63,14 @@ public class RunAsManagerImpl implements RunAsManager, InitializingBean {
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public void afterPropertiesSet() {
 		Assert.notNull(
 				key,
 				"A Key is required and should match that configured for the RunAsImplAuthenticationProvider");
 	}
 
+	@Override
 	public Authentication buildRunAs(Authentication authentication, Object object,
 			Collection<ConfigAttribute> attributes) {
 		List<GrantedAuthority> newAuthorities = new ArrayList<>();
@@ -115,6 +117,7 @@ public class RunAsManagerImpl implements RunAsManager, InitializingBean {
 		this.rolePrefix = rolePrefix;
 	}
 
+	@Override
 	public boolean supports(ConfigAttribute attribute) {
 		return attribute.getAttribute() != null
 				&& attribute.getAttribute().startsWith("RUN_AS_");
@@ -125,9 +128,9 @@ public class RunAsManagerImpl implements RunAsManager, InitializingBean {
 	 * presented secure object.
 	 *
 	 * @param clazz the secure object
-	 *
 	 * @return always <code>true</code>
 	 */
+	@Override
 	public boolean supports(Class<?> clazz) {
 		return true;
 	}

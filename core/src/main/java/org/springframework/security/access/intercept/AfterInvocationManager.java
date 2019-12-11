@@ -16,11 +16,11 @@
 
 package org.springframework.security.access.intercept;
 
-import java.util.Collection;
-
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
+
+import java.util.Collection;
 
 /**
  * Reviews the <code>Object</code> returned from a secure object invocation, being able to
@@ -52,17 +52,15 @@ public interface AfterInvocationManager {
 	 * returned <code>Object</code>.
 	 *
 	 * @param authentication the caller that invoked the method
-	 * @param object the secured object that was called
-	 * @param attributes the configuration attributes associated with the secured object
-	 * that was invoked
+	 * @param object         the secured object that was called
+	 * @param attributes     the configuration attributes associated with the secured object
+	 *                       that was invoked
 	 * @param returnedObject the <code>Object</code> that was returned from the secure
-	 * object invocation
-	 *
+	 *                       object invocation
 	 * @return the <code>Object</code> that will ultimately be returned to the caller (if
 	 * an implementation does not wish to modify the object to be returned to the caller,
 	 * the implementation should simply return the same object it was passed by the
 	 * <code>returnedObject</code> method argument)
-	 *
 	 * @throws AccessDeniedException if access is denied
 	 */
 	Object decide(Authentication authentication, Object object,
@@ -80,8 +78,7 @@ public interface AfterInvocationManager {
 	 * </p>
 	 *
 	 * @param attribute a configuration attribute that has been configured against the
-	 * <code>AbstractSecurityInterceptor</code>
-	 *
+	 *                  <code>AbstractSecurityInterceptor</code>
 	 * @return true if this <code>AfterInvocationManager</code> can support the passed
 	 * configuration attribute
 	 */
@@ -92,7 +89,6 @@ public interface AfterInvocationManager {
 	 * provide access control decisions for the indicated secured object type.
 	 *
 	 * @param clazz the class that is being queried
-	 *
 	 * @return <code>true</code> if the implementation can process the indicated class
 	 */
 	boolean supports(Class<?> clazz);

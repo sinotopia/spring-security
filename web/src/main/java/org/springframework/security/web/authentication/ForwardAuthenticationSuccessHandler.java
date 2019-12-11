@@ -31,7 +31,6 @@ import java.io.IOException;
  *
  * @author Shazin Sadakath
  * @since 4.1
- *
  */
 public class ForwardAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
@@ -46,6 +45,7 @@ public class ForwardAuthenticationSuccessHandler implements AuthenticationSucces
 		this.forwardUrl = forwardUrl;
 	}
 
+	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 		request.getRequestDispatcher(forwardUrl).forward(request, response);
 	}

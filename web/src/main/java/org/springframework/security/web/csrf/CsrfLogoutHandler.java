@@ -15,12 +15,12 @@
  */
 package org.springframework.security.web.csrf;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.util.Assert;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * {@link CsrfLogoutHandler} is in charge of removing the {@link CsrfToken} upon logout. A
@@ -30,10 +30,12 @@ import org.springframework.util.Assert;
  * @since 3.2
  */
 public final class CsrfLogoutHandler implements LogoutHandler {
+
 	private final CsrfTokenRepository csrfTokenRepository;
 
 	/**
 	 * Creates a new instance
+	 *
 	 * @param csrfTokenRepository the {@link CsrfTokenRepository} to use
 	 */
 	public CsrfLogoutHandler(CsrfTokenRepository csrfTokenRepository) {
@@ -48,6 +50,7 @@ public final class CsrfLogoutHandler implements LogoutHandler {
 	 * javax.servlet.http.HttpServletResponse,
 	 * org.springframework.security.core.Authentication)
 	 */
+	@Override
 	public void logout(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) {
 		this.csrfTokenRepository.saveToken(null, request, response);

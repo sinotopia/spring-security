@@ -16,10 +16,6 @@
 
 package org.springframework.security.access.intercept;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -28,6 +24,10 @@ import org.springframework.security.access.AfterInvocationProvider;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
 import org.springframework.util.Assert;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Provider-based implementation of {@link AfterInvocationManager}.
@@ -50,8 +50,7 @@ public class AfterInvocationProviderManager implements AfterInvocationManager,
 	// ~ Static fields/initializers
 	// =====================================================================================
 
-	protected static final Log logger = LogFactory
-			.getLog(AfterInvocationProviderManager.class);
+	protected static final Log logger = LogFactory.getLog(AfterInvocationProviderManager.class);
 
 	// ~ Instance fields
 	// ================================================================================================
@@ -61,6 +60,7 @@ public class AfterInvocationProviderManager implements AfterInvocationManager,
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public void afterPropertiesSet() {
 		checkIfValidList(this.providers);
 	}
@@ -72,6 +72,7 @@ public class AfterInvocationProviderManager implements AfterInvocationManager,
 		}
 	}
 
+	@Override
 	public Object decide(Authentication authentication, Object object,
 			Collection<ConfigAttribute> config, Object returnedObject)
 			throws AccessDeniedException {
@@ -101,6 +102,7 @@ public class AfterInvocationProviderManager implements AfterInvocationManager,
 		}
 	}
 
+	@Override
 	public boolean supports(ConfigAttribute attribute) {
 		for (AfterInvocationProvider provider : providers) {
 			if (logger.isDebugEnabled()) {
@@ -123,11 +125,11 @@ public class AfterInvocationProviderManager implements AfterInvocationManager,
 	 * returned.
 	 *
 	 * @param clazz the secure object class being queries
-	 *
 	 * @return if the <code>AfterInvocationProviderManager</code> can support the secure
 	 * object class, which requires every one of its <code>AfterInvocationProvider</code>s
 	 * to support the secure object class
 	 */
+	@Override
 	public boolean supports(Class<?> clazz) {
 		for (AfterInvocationProvider provider : providers) {
 			if (!provider.supports(clazz)) {

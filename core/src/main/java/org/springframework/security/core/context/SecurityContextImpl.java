@@ -35,7 +35,8 @@ public class SecurityContextImpl implements SecurityContext {
 
 	private Authentication authentication;
 
-	public SecurityContextImpl() {}
+	public SecurityContextImpl() {
+	}
 
 	public SecurityContextImpl(Authentication authentication) {
 		this.authentication = authentication;
@@ -43,6 +44,25 @@ public class SecurityContextImpl implements SecurityContext {
 
 	// ~ Methods
 	// ========================================================================================================
+
+	@Override
+	public Authentication getAuthentication() {
+		return authentication;
+	}
+
+	@Override
+	public int hashCode() {
+		if (this.authentication == null) {
+			return -1;
+		} else {
+			return this.authentication.hashCode();
+		}
+	}
+
+	@Override
+	public void setAuthentication(Authentication authentication) {
+		this.authentication = authentication;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -63,34 +83,13 @@ public class SecurityContextImpl implements SecurityContext {
 	}
 
 	@Override
-	public Authentication getAuthentication() {
-		return authentication;
-	}
-
-	@Override
-	public int hashCode() {
-		if (this.authentication == null) {
-			return -1;
-		}
-		else {
-			return this.authentication.hashCode();
-		}
-	}
-
-	@Override
-	public void setAuthentication(Authentication authentication) {
-		this.authentication = authentication;
-	}
-
-	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(super.toString());
 
 		if (this.authentication == null) {
 			sb.append(": Null authentication");
-		}
-		else {
+		} else {
 			sb.append(": Authentication: ").append(this.authentication);
 		}
 

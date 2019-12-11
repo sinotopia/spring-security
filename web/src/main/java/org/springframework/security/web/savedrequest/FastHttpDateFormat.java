@@ -19,7 +19,6 @@ package org.springframework.security.web.savedrequest;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -37,17 +36,23 @@ public class FastHttpDateFormat {
 	// ~ Static fields/initializers
 	// =====================================================================================
 
-	/** HTTP date format. */
+	/**
+	 * HTTP date format.
+	 */
 	protected static final SimpleDateFormat format = new SimpleDateFormat(
 			"EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US);
 
-	/** The set of SimpleDateFormat formats to use in <code>getDateHeader()</code>. */
+	/**
+	 * The set of SimpleDateFormat formats to use in <code>getDateHeader()</code>.
+	 */
 	protected static final SimpleDateFormat[] formats = {
 			new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", Locale.US),
 			new SimpleDateFormat("EEEEEE, dd-MMM-yy HH:mm:ss zzz", Locale.US),
-			new SimpleDateFormat("EEE MMMM d HH:mm:ss yyyy", Locale.US) };
+			new SimpleDateFormat("EEE MMMM d HH:mm:ss yyyy", Locale.US)};
 
-	/** GMT time zone - all HTTP dates are on GMT */
+	/**
+	 * GMT time zone - all HTTP dates are on GMT
+	 */
 	protected static final TimeZone gmtZone = TimeZone.getTimeZone("GMT");
 
 	static {
@@ -58,16 +63,24 @@ public class FastHttpDateFormat {
 		formats[2].setTimeZone(gmtZone);
 	}
 
-	/** Instant on which the currentDate object was generated. */
+	/**
+	 * Instant on which the currentDate object was generated.
+	 */
 	protected static long currentDateGenerated = 0L;
 
-	/** Current formatted date. */
+	/**
+	 * Current formatted date.
+	 */
 	protected static String currentDate = null;
 
-	/** Formatter cache. */
+	/**
+	 * Formatter cache.
+	 */
 	protected static final HashMap<Long, String> formatCache = new HashMap<>();
 
-	/** Parser cache. */
+	/**
+	 * Parser cache.
+	 */
 	protected static final HashMap<String, Long> parseCache = new HashMap<>();
 
 	// ~ Methods
@@ -77,10 +90,9 @@ public class FastHttpDateFormat {
 	 * Formats a specified date to HTTP format. If local format is not <code>null</code>,
 	 * it's used instead.
 	 *
-	 * @param value Date value to format
+	 * @param value             Date value to format
 	 * @param threadLocalformat The format to use (or <code>null</code> -- then HTTP
-	 * format will be used)
-	 *
+	 *                          format will be used)
 	 * @return Formatted date
 	 */
 	public static String formatDate(long value, DateFormat threadLocalformat) {
@@ -89,8 +101,7 @@ public class FastHttpDateFormat {
 
 		try {
 			cachedDate = formatCache.get(longValue);
-		}
-		catch (Exception ignored) {
+		} catch (Exception ignored) {
 		}
 
 		if (cachedDate != null) {
@@ -106,8 +117,7 @@ public class FastHttpDateFormat {
 			synchronized (formatCache) {
 				updateCache(formatCache, longValue, newDate);
 			}
-		}
-		else {
+		} else {
 			synchronized (formatCache) {
 				newDate = format.format(dateValue);
 				updateCache(formatCache, longValue, newDate);
@@ -140,9 +150,8 @@ public class FastHttpDateFormat {
 	/**
 	 * Parses date with given formatters.
 	 *
-	 * @param value The string to parse
+	 * @param value   The string to parse
 	 * @param formats Array of formats to use
-	 *
 	 * @return Parsed date (or <code>null</code> if no formatter mached)
 	 */
 	private static Long internalParseDate(String value, DateFormat[] formats) {
@@ -151,8 +160,7 @@ public class FastHttpDateFormat {
 		for (int i = 0; (date == null) && (i < formats.length); i++) {
 			try {
 				date = formats[i].parse(value);
-			}
-			catch (ParseException ignored) {
+			} catch (ParseException ignored) {
 			}
 		}
 
@@ -167,10 +175,9 @@ public class FastHttpDateFormat {
 	 * Tries to parse the given date as an HTTP date. If local format list is not
 	 * <code>null</code>, it's used instead.
 	 *
-	 * @param value The string to parse
+	 * @param value              The string to parse
 	 * @param threadLocalformats Array of formats to use for parsing. If <code>null</code>
-	 * , HTTP formats are used.
-	 *
+	 *                           , HTTP formats are used.
 	 * @return Parsed date (or -1 if error occurred)
 	 */
 	public static long parseDate(String value, DateFormat[] threadLocalformats) {
@@ -178,8 +185,7 @@ public class FastHttpDateFormat {
 
 		try {
 			cachedDate = parseCache.get(value);
-		}
-		catch (Exception ignored) {
+		} catch (Exception ignored) {
 		}
 
 		if (cachedDate != null) {
@@ -194,8 +200,7 @@ public class FastHttpDateFormat {
 			synchronized (parseCache) {
 				updateCache(parseCache, value, date);
 			}
-		}
-		else {
+		} else {
 			synchronized (parseCache) {
 				date = internalParseDate(value, formats);
 				updateCache(parseCache, value, date);
@@ -204,8 +209,7 @@ public class FastHttpDateFormat {
 
 		if (date == null) {
 			return (-1L);
-		}
-		else {
+		} else {
 			return date;
 		}
 	}
@@ -214,7 +218,7 @@ public class FastHttpDateFormat {
 	 * Updates cache.
 	 *
 	 * @param cache Cache to be updated
-	 * @param key Key to be updated
+	 * @param key   Key to be updated
 	 * @param value New value
 	 */
 	@SuppressWarnings("unchecked")

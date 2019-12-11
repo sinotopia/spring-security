@@ -22,20 +22,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.firewall.FirewalledRequest;
 import org.springframework.security.web.firewall.HttpFirewall;
 import org.springframework.security.web.firewall.StrictHttpFirewall;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.security.web.util.UrlUtils;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.filter.GenericFilterBean;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Delegates {@code Filter} requests to a list of Spring-managed filter beans. As of
@@ -69,7 +67,7 @@ import java.util.*;
  *      &lt;/constructor-arg&gt;
  *  &lt;/bean&gt;
  * </pre>
- *
+ * <p>
  * The names "filter1", "filter2", "filter3" should be the bean names of {@code Filter}
  * instances defined in the application context. The order of the names defines the order
  * in which the filters will be applied. As shown above, use of the value "none" for the
@@ -93,7 +91,7 @@ import java.util.*;
  * chain will not be called.
  *
  * <h3>Request Firewalling</h3>
- *
+ * <p>
  * An {@link HttpFirewall} instance is used to validate incoming requests and create a
  * wrapped request which provides consistent path values for matching against. See
  * {@link StrictHttpFirewall}, for more information on the type of attacks which the
@@ -176,13 +174,11 @@ public class FilterChainProxy extends GenericFilterBean {
 			try {
 				request.setAttribute(FILTER_APPLIED, Boolean.TRUE);
 				doFilterInternal(request, response, chain);
-			}
-			finally {
+			} finally {
 				SecurityContextHolder.clearContext();
 				request.removeAttribute(FILTER_APPLIED);
 			}
-		}
-		else {
+		} else {
 			doFilterInternal(request, response, chain);
 		}
 	}
@@ -201,7 +197,7 @@ public class FilterChainProxy extends GenericFilterBean {
 			if (logger.isDebugEnabled()) {
 				logger.debug(UrlUtils.buildRequestUrl(fwRequest)
 						+ (filters == null ? " has no matching filters"
-								: " has an empty filter list"));
+						: " has an empty filter list"));
 			}
 
 			fwRequest.reset();
@@ -255,7 +251,7 @@ public class FilterChainProxy extends GenericFilterBean {
 	 * configured chain.
 	 *
 	 * @param filterChainValidator the validator instance which will be invoked on during
-	 * initialization to check the {@code FilterChainProxy} instance.
+	 *                             initialization to check the {@code FilterChainProxy} instance.
 	 */
 	public void setFilterChainValidator(FilterChainValidator filterChainValidator) {
 		this.filterChainValidator = filterChainValidator;
@@ -279,7 +275,6 @@ public class FilterChainProxy extends GenericFilterBean {
 		sb.append("Filter Chains: ");
 		sb.append(filterChains);
 		sb.append("]");
-
 		return sb.toString();
 	}
 
@@ -318,8 +313,7 @@ public class FilterChainProxy extends GenericFilterBean {
 				this.firewalledRequest.reset();
 
 				originalChain.doFilter(request, response);
-			}
-			else {
+			} else {
 				currentPosition++;
 
 				Filter nextFilter = additionalFilters.get(currentPosition - 1);

@@ -58,8 +58,7 @@ public final class HttpSessionCsrfTokenRepository implements CsrfTokenRepository
 			if (session != null) {
 				session.removeAttribute(this.sessionAttributeName);
 			}
-		}
-		else {
+		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute(this.sessionAttributeName, token);
 		}
@@ -94,6 +93,7 @@ public final class HttpSessionCsrfTokenRepository implements CsrfTokenRepository
 	/**
 	 * Sets the {@link HttpServletRequest} parameter name that the {@link CsrfToken} is
 	 * expected to appear on
+	 *
 	 * @param parameterName the new parameter name to use
 	 */
 	public void setParameterName(String parameterName) {
@@ -114,6 +114,7 @@ public final class HttpSessionCsrfTokenRepository implements CsrfTokenRepository
 
 	/**
 	 * Sets the {@link HttpSession} attribute name that the {@link CsrfToken} is stored in
+	 *
 	 * @param sessionAttributeName the new attribute name to use
 	 */
 	public void setSessionAttributeName(String sessionAttributeName) {

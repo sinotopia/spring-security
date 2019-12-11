@@ -34,16 +34,18 @@ public class ReactiveSecurityContextHolder {
 
 	/**
 	 * Gets the {@code Mono<SecurityContext>} from Reactor {@link Context}
+	 *
 	 * @return the {@code Mono<SecurityContext>}
 	 */
 	public static Mono<SecurityContext> getContext() {
 		return Mono.subscriberContext()
-			.filter( c -> c.hasKey(SECURITY_CONTEXT_KEY))
-			.flatMap( c-> c.<Mono<SecurityContext>>get(SECURITY_CONTEXT_KEY));
+				.filter(c -> c.hasKey(SECURITY_CONTEXT_KEY))
+				.flatMap(c -> c.<Mono<SecurityContext>>get(SECURITY_CONTEXT_KEY));
 	}
 
 	/**
 	 * Clears the {@code Mono<SecurityContext>} from Reactor {@link Context}
+	 *
 	 * @return Return a {@code Mono<Void>} which only replays complete and error signals
 	 * from clearing the context.
 	 */
@@ -54,8 +56,9 @@ public class ReactiveSecurityContextHolder {
 	/**
 	 * Creates a Reactor {@link Context} that contains the {@code Mono<SecurityContext>}
 	 * that can be merged into another {@link Context}
+	 *
 	 * @param securityContext the {@code Mono<SecurityContext>} to set in the returned
-	 * Reactor {@link Context}
+	 *                        Reactor {@link Context}
 	 * @return a Reactor {@link Context} that contains the {@code Mono<SecurityContext>}
 	 */
 	public static Context withSecurityContext(Mono<? extends SecurityContext> securityContext) {
@@ -64,6 +67,7 @@ public class ReactiveSecurityContextHolder {
 
 	/**
 	 * A shortcut for {@link #withSecurityContext(Mono)}
+	 *
 	 * @param authentication the {@link Authentication} to be used
 	 * @return a Reactor {@link Context} that contains the {@code Mono<SecurityContext>}
 	 */

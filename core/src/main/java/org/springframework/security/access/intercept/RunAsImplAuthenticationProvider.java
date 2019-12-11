@@ -16,18 +16,15 @@
 
 package org.springframework.security.access.intercept;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.MessageSource;
+import org.springframework.context.MessageSourceAware;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.SpringSecurityMessageSource;
-
-import org.springframework.beans.factory.InitializingBean;
-
-import org.springframework.context.MessageSource;
-import org.springframework.context.MessageSourceAware;
-import org.springframework.context.support.MessageSourceAccessor;
-
 import org.springframework.util.Assert;
 
 /**
@@ -54,19 +51,20 @@ public class RunAsImplAuthenticationProvider implements InitializingBean,
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public void afterPropertiesSet() {
 		Assert.notNull(key,
 				"A Key is required and should match that configured for the RunAsManagerImpl");
 	}
 
+	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
 		RunAsUserToken token = (RunAsUserToken) authentication;
 
 		if (token.getKeyHash() == key.hashCode()) {
 			return authentication;
-		}
-		else {
+		} else {
 			throw new BadCredentialsException(messages.getMessage(
 					"RunAsImplAuthenticationProvider.incorrectKey",
 					"The presented RunAsUserToken does not contain the expected key"));
@@ -81,10 +79,12 @@ public class RunAsImplAuthenticationProvider implements InitializingBean,
 		this.key = key;
 	}
 
+	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		this.messages = new MessageSourceAccessor(messageSource);
 	}
 
+	@Override
 	public boolean supports(Class<?> authentication) {
 		return RunAsUserToken.class.isAssignableFrom(authentication);
 	}

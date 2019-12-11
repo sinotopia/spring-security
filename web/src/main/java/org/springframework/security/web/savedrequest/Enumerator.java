@@ -16,13 +16,7 @@
 
 package org.springframework.security.web.savedrequest;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 /**
  * <p>
@@ -65,7 +59,7 @@ public class Enumerator<T> implements Enumeration<T> {
 	 * Return an Enumeration over the values of the specified Collection.
 	 *
 	 * @param collection Collection whose values should be enumerated
-	 * @param clone true to clone iterator
+	 * @param clone      true to clone iterator
 	 */
 	public Enumerator(Collection<T> collection, boolean clone) {
 		this(collection.iterator(), clone);
@@ -84,14 +78,13 @@ public class Enumerator<T> implements Enumeration<T> {
 	 * Return an Enumeration over the values returned by the specified Iterator.
 	 *
 	 * @param iterator Iterator to be wrapped
-	 * @param clone true to clone iterator
+	 * @param clone    true to clone iterator
 	 */
 	public Enumerator(Iterator<T> iterator, boolean clone) {
 
 		if (!clone) {
 			this.iterator = iterator;
-		}
-		else {
+		} else {
 			List<T> list = new ArrayList<>();
 
 			while (iterator.hasNext()) {
@@ -114,7 +107,7 @@ public class Enumerator<T> implements Enumeration<T> {
 	/**
 	 * Return an Enumeration over the values of the specified Map.
 	 *
-	 * @param map Map whose values should be enumerated
+	 * @param map   Map whose values should be enumerated
 	 * @param clone true to clone iterator
 	 */
 	public Enumerator(Map<?, T> map, boolean clone) {
@@ -139,8 +132,7 @@ public class Enumerator<T> implements Enumeration<T> {
 	 * more element to provide.
 	 *
 	 * @return the next element of this enumeration
-	 *
-	 * @exception NoSuchElementException if no more elements exist
+	 * @throws NoSuchElementException if no more elements exist
 	 */
 	public T nextElement() throws NoSuchElementException {
 		return (iterator.next());

@@ -15,14 +15,13 @@
  */
 package org.springframework.security.web;
 
-import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.web.util.UrlUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Simple implementation of <tt>RedirectStrategy</tt> which is the default used throughout
@@ -45,6 +44,7 @@ public class DefaultRedirectStrategy implements RedirectStrategy {
 	 * information (HTTP or HTTPS), so will cause problems if a redirect is being
 	 * performed to change to HTTPS, for example.
 	 */
+	@Override
 	public void sendRedirect(HttpServletRequest request, HttpServletResponse response,
 			String url) throws IOException {
 		String redirectUrl = calculateRedirectUrl(request.getContextPath(), url);
@@ -61,8 +61,7 @@ public class DefaultRedirectStrategy implements RedirectStrategy {
 		if (!UrlUtils.isAbsoluteUrl(url)) {
 			if (isContextRelative()) {
 				return url;
-			}
-			else {
+			} else {
 				return contextPath + url;
 			}
 		}

@@ -42,16 +42,16 @@ public interface AuthenticationSuccessHandler {
 	/**
 	 * Called when a user has been successfully authenticated.
 	 *
-	 * @param request the request which caused the successful authentication
-	 * @param response the response
-	 * @param chain the {@link FilterChain} which can be used to proceed other filters in the chain
+	 * @param request        the request which caused the successful authentication
+	 * @param response       the response
+	 * @param chain          the {@link FilterChain} which can be used to proceed other filters in the chain
 	 * @param authentication the <tt>Authentication</tt> object which was created during
-	 * the authentication process.
+	 *                       the authentication process.
 	 * @since 5.2.0
 	 */
 	default void onAuthenticationSuccess(HttpServletRequest request,
 			HttpServletResponse response, FilterChain chain, Authentication authentication)
-			throws IOException, ServletException{
+			throws IOException, ServletException {
 		onAuthenticationSuccess(request, response, authentication);
 		chain.doFilter(request, response);
 	}
@@ -59,10 +59,10 @@ public interface AuthenticationSuccessHandler {
 	/**
 	 * Called when a user has been successfully authenticated.
 	 *
-	 * @param request the request which caused the successful authentication
-	 * @param response the response
+	 * @param request        the request which caused the successful authentication
+	 * @param response       the response
 	 * @param authentication the <tt>Authentication</tt> object which was created during
-	 * the authentication process.
+	 *                       the authentication process.
 	 */
 	void onAuthenticationSuccess(HttpServletRequest request,
 			HttpServletResponse response, Authentication authentication)

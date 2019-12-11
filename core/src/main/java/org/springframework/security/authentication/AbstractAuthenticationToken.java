@@ -75,10 +75,12 @@ public abstract class AbstractAuthenticationToken implements Authentication,
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public Collection<GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
 
+	@Override
 	public String getName() {
 		if (this.getPrincipal() instanceof UserDetails) {
 			return ((UserDetails) this.getPrincipal()).getUsername();
@@ -93,14 +95,17 @@ public abstract class AbstractAuthenticationToken implements Authentication,
 		return (this.getPrincipal() == null) ? "" : this.getPrincipal().toString();
 	}
 
+	@Override
 	public boolean isAuthenticated() {
 		return authenticated;
 	}
 
+	@Override
 	public void setAuthenticated(boolean authenticated) {
 		this.authenticated = authenticated;
 	}
 
+	@Override
 	public Object getDetails() {
 		return details;
 	}
@@ -114,6 +119,7 @@ public abstract class AbstractAuthenticationToken implements Authentication,
 	 * invoking the {@code eraseCredentials} method on any which implement
 	 * {@link CredentialsContainer}.
 	 */
+	@Override
 	public void eraseCredentials() {
 		eraseSecret(getCredentials());
 		eraseSecret(getPrincipal());

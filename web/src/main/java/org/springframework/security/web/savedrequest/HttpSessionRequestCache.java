@@ -15,10 +15,6 @@
  */
 package org.springframework.security.web.savedrequest;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.web.PortResolver;
@@ -27,9 +23,13 @@ import org.springframework.security.web.util.UrlUtils;
 import org.springframework.security.web.util.matcher.AnyRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 /**
  * {@code RequestCache} which stores the {@code SavedRequest} in the HttpSession.
- *
+ * <p>
  * The {@link DefaultSavedRequest} class is used as the implementation.
  *
  * @author Luke Taylor
@@ -60,8 +60,7 @@ public class HttpSessionRequestCache implements RequestCache {
 				request.getSession().setAttribute(this.sessionAttrName, savedRequest);
 				logger.debug("DefaultSavedRequest added to Session: " + savedRequest);
 			}
-		}
-		else {
+		} else {
 			logger.debug("Request not saved as configured RequestMatcher did not match");
 		}
 	}
@@ -122,7 +121,7 @@ public class HttpSessionRequestCache implements RequestCache {
 	 * If set, only matching requests will be cached.
 	 *
 	 * @param requestMatcher a request matching strategy which defines which requests
-	 * should be cached.
+	 *                       should be cached.
 	 */
 	public void setRequestMatcher(RequestMatcher requestMatcher) {
 		this.requestMatcher = requestMatcher;

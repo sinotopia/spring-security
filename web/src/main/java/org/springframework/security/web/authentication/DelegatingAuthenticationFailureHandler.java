@@ -45,12 +45,12 @@ public class DelegatingAuthenticationFailureHandler implements
 	/**
 	 * Creates a new instance
 	 *
-	 * @param handlers a map of the {@link AuthenticationException} class to the
-	 * {@link AuthenticationFailureHandler} that should be used. Each is considered in the
-	 * order they are specified and only the first {@link AuthenticationFailureHandler} is
-	 * ued. This parameter cannot specify null or empty.
+	 * @param handlers       a map of the {@link AuthenticationException} class to the
+	 *                       {@link AuthenticationFailureHandler} that should be used. Each is considered in the
+	 *                       order they are specified and only the first {@link AuthenticationFailureHandler} is
+	 *                       ued. This parameter cannot specify null or empty.
 	 * @param defaultHandler the default {@link AuthenticationFailureHandler} that should
-	 * be used if none of the handlers matches. This parameter cannot specify null.
+	 *                       be used if none of the handlers matches. This parameter cannot specify null.
 	 * @throws IllegalArgumentException if invalid argument is specified
 	 */
 	public DelegatingAuthenticationFailureHandler(

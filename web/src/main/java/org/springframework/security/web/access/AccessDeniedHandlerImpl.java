@@ -16,18 +16,17 @@
 
 package org.springframework.security.web.access;
 
-import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.WebAttributes;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * Base implementation of {@link AccessDeniedHandler}.
@@ -56,6 +55,7 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException,
 			ServletException {
@@ -71,10 +71,9 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 				// forward to error page.
 				RequestDispatcher dispatcher = request.getRequestDispatcher(errorPage);
 				dispatcher.forward(request, response);
-			}
-			else {
+			} else {
 				response.sendError(HttpStatus.FORBIDDEN.value(),
-					HttpStatus.FORBIDDEN.getReasonPhrase());
+						HttpStatus.FORBIDDEN.getReasonPhrase());
 			}
 		}
 	}
@@ -84,9 +83,8 @@ public class AccessDeniedHandlerImpl implements AccessDeniedHandler {
 	 * current context root.
 	 *
 	 * @param errorPage the dispatcher path to display
-	 *
 	 * @throws IllegalArgumentException if the argument doesn't comply with the above
-	 * limitations
+	 *                                  limitations
 	 */
 	public void setErrorPage(String errorPage) {
 		if ((errorPage != null) && !errorPage.startsWith("/")) {

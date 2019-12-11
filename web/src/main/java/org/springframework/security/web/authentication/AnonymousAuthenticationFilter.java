@@ -64,9 +64,8 @@ public class AnonymousAuthenticationFilter extends GenericFilterBean implements
 	}
 
 	/**
-	 *
-	 * @param key key the key to identify tokens created by this filter
-	 * @param principal the principal which will be used to represent anonymous users
+	 * @param key         key the key to identify tokens created by this filter
+	 * @param principal   the principal which will be used to represent anonymous users
 	 * @param authorities the authority list for anonymous users
 	 */
 	public AnonymousAuthenticationFilter(String key, Object principal,
@@ -89,6 +88,7 @@ public class AnonymousAuthenticationFilter extends GenericFilterBean implements
 		Assert.notNull(authorities, "Anonymous authorities must be set");
 	}
 
+	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
 
@@ -100,8 +100,7 @@ public class AnonymousAuthenticationFilter extends GenericFilterBean implements
 				logger.debug("Populated SecurityContextHolder with anonymous token: '"
 						+ SecurityContextHolder.getContext().getAuthentication() + "'");
 			}
-		}
-		else {
+		} else {
 			if (logger.isDebugEnabled()) {
 				logger.debug("SecurityContextHolder not populated with anonymous token, as it already contained: '"
 						+ SecurityContextHolder.getContext().getAuthentication() + "'");
