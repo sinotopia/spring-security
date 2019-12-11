@@ -28,6 +28,7 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 public class GoogleAccountsAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
+	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException {
 		UserService userService = UserServiceFactory.getUserService();

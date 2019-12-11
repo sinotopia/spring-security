@@ -15,13 +15,6 @@
  */
 package org.springframework.security.web.authentication;
 
-import java.io.IOException;
-import java.util.LinkedHashMap;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -31,6 +24,12 @@ import org.springframework.security.web.util.matcher.ELRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcherEditor;
 import org.springframework.util.Assert;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.LinkedHashMap;
 
 /**
  * An {@code AuthenticationEntryPoint} which selects a concrete
@@ -70,6 +69,7 @@ public class DelegatingAuthenticationEntryPoint implements AuthenticationEntryPo
 		this.entryPoints = entryPoints;
 	}
 
+	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
 
@@ -102,6 +102,7 @@ public class DelegatingAuthenticationEntryPoint implements AuthenticationEntryPo
 		this.defaultEntryPoint = defaultEntryPoint;
 	}
 
+	@Override
 	public void afterPropertiesSet() {
 		Assert.notEmpty(entryPoints, "entryPoints must be specified");
 		Assert.notNull(defaultEntryPoint, "defaultEntryPoint must be specified");
