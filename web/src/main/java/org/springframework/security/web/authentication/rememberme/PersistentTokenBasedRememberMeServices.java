@@ -15,25 +15,24 @@
  */
 package org.springframework.security.web.authentication.rememberme;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.util.Assert;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.RememberMeServices;
-import org.springframework.util.Assert;
-
 /**
  * {@link RememberMeServices} implementation based on Barry Jaspan's <a
  * href="http://jaspan.com/improved_persistent_login_cookie_best_practice">Improved
  * Persistent Login Cookie Best Practice</a>.
- *
+ * <p>
  * There is a slight modification to the described approach, in that the username is not
  * stored as part of the cookie but obtained from the persistent store via an
  * implementation of {@link PersistentTokenRepository}. The latter should place a unique
@@ -82,13 +81,13 @@ public class PersistentTokenBasedRememberMeServices extends AbstractRememberMeSe
 	 * the response.
 	 *
 	 * @param cookieTokens the series and token values
-	 *
 	 * @throws RememberMeAuthenticationException if there is no stored token corresponding
-	 * to the submitted cookie, or if the token in the persistent store has expired.
-	 * @throws InvalidCookieException if the cookie doesn't have two tokens as expected.
-	 * @throws CookieTheftException if a presented series value is found, but the stored
-	 * token is different from the one presented.
+	 *                                           to the submitted cookie, or if the token in the persistent store has expired.
+	 * @throws InvalidCookieException            if the cookie doesn't have two tokens as expected.
+	 * @throws CookieTheftException              if a presented series value is found, but the stored
+	 *                                           token is different from the one presented.
 	 */
+	@Override
 	protected UserDetails processAutoLoginCookie(String[] cookieTokens,
 			HttpServletRequest request, HttpServletResponse response) {
 
@@ -140,8 +139,7 @@ public class PersistentTokenBasedRememberMeServices extends AbstractRememberMeSe
 			tokenRepository.updateToken(newToken.getSeries(), newToken.getTokenValue(),
 					newToken.getDate());
 			addCookie(newToken, request, response);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			logger.error("Failed to update token: ", e);
 			throw new RememberMeAuthenticationException(
 					"Autologin failed due to data access problem");
@@ -153,8 +151,8 @@ public class PersistentTokenBasedRememberMeServices extends AbstractRememberMeSe
 	/**
 	 * Creates a new persistent login token with a new series number, stores the data in
 	 * the persistent token repository and adds the corresponding cookie to the response.
-	 *
 	 */
+	@Override
 	protected void onLoginSuccess(HttpServletRequest request,
 			HttpServletResponse response, Authentication successfulAuthentication) {
 		String username = successfulAuthentication.getName();
@@ -166,8 +164,7 @@ public class PersistentTokenBasedRememberMeServices extends AbstractRememberMeSe
 		try {
 			tokenRepository.createNewToken(persistentToken);
 			addCookie(persistentToken, request, response);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			logger.error("Failed to save persistent token ", e);
 		}
 	}
@@ -196,7 +193,7 @@ public class PersistentTokenBasedRememberMeServices extends AbstractRememberMeSe
 
 	private void addCookie(PersistentRememberMeToken token, HttpServletRequest request,
 			HttpServletResponse response) {
-		setCookie(new String[] { token.getSeries(), token.getTokenValue() },
+		setCookie(new String[]{token.getSeries(), token.getTokenValue()},
 				getTokenValiditySeconds(), request, response);
 	}
 

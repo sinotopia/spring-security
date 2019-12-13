@@ -16,7 +16,14 @@
 
 package org.springframework.security.web.authentication.logout;
 
-import java.io.IOException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.util.UrlUtils;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
+import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -24,15 +31,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
-import org.springframework.security.web.util.UrlUtils;
-import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
-import org.springframework.web.filter.GenericFilterBean;
+import java.io.IOException;
 
 /**
  * Logs a principal out.
@@ -119,9 +118,8 @@ public class LogoutFilter extends GenericFilterBean {
 	/**
 	 * Allow subclasses to modify when a logout should take place.
 	 *
-	 * @param request the request
+	 * @param request  the request
 	 * @param response the response
-	 *
 	 * @return <code>true</code> if logout should occur, <code>false</code> otherwise
 	 */
 	protected boolean requiresLogout(HttpServletRequest request,

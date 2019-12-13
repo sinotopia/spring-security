@@ -15,29 +15,20 @@
  */
 package org.springframework.security.authentication;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.*;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
-import org.springframework.security.authentication.event.AbstractAuthenticationEvent;
-import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
-import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
-import org.springframework.security.authentication.event.AuthenticationFailureCredentialsExpiredEvent;
-import org.springframework.security.authentication.event.AuthenticationFailureDisabledEvent;
-import org.springframework.security.authentication.event.AuthenticationFailureExpiredEvent;
-import org.springframework.security.authentication.event.AuthenticationFailureLockedEvent;
-import org.springframework.security.authentication.event.AuthenticationFailureProviderNotFoundEvent;
-import org.springframework.security.authentication.event.AuthenticationFailureProxyUntrustedEvent;
-import org.springframework.security.authentication.event.AuthenticationFailureServiceExceptionEvent;
-import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
+import org.springframework.security.authentication.event.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.Assert;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Properties;
 
 /**
  * The default strategy for publishing authentication events.
@@ -60,9 +51,11 @@ import org.springframework.util.Assert;
  */
 public class DefaultAuthenticationEventPublisher implements AuthenticationEventPublisher,
 		ApplicationEventPublisherAware {
+
 	private final Log logger = LogFactory.getLog(getClass());
 
 	private ApplicationEventPublisher applicationEventPublisher;
+
 	private final HashMap<String, Constructor<? extends AbstractAuthenticationEvent>> exceptionMappings = new HashMap<>();
 
 	public DefaultAuthenticationEventPublisher() {
@@ -94,6 +87,7 @@ public class DefaultAuthenticationEventPublisher implements AuthenticationEventP
 				AuthenticationFailureProxyUntrustedEvent.class);
 	}
 
+	@Override
 	public void publishAuthenticationSuccess(Authentication authentication) {
 		if (applicationEventPublisher != null) {
 			applicationEventPublisher.publishEvent(new AuthenticationSuccessEvent(
@@ -101,6 +95,7 @@ public class DefaultAuthenticationEventPublisher implements AuthenticationEventP
 		}
 	}
 
+	@Override
 	public void publishAuthenticationFailure(AuthenticationException exception,
 			Authentication authentication) {
 		Constructor<? extends AbstractAuthenticationEvent> constructor = exceptionMappings
@@ -110,8 +105,7 @@ public class DefaultAuthenticationEventPublisher implements AuthenticationEventP
 		if (constructor != null) {
 			try {
 				event = constructor.newInstance(authentication, exception);
-			}
-			catch (IllegalAccessException | InvocationTargetException | InstantiationException ignored) {
+			} catch (IllegalAccessException | InvocationTargetException | InstantiationException ignored) {
 			}
 		}
 
@@ -119,8 +113,7 @@ public class DefaultAuthenticationEventPublisher implements AuthenticationEventP
 			if (applicationEventPublisher != null) {
 				applicationEventPublisher.publishEvent(event);
 			}
-		}
-		else {
+		} else {
 			if (logger.isDebugEnabled()) {
 				logger.debug("No event was found for the exception "
 						+ exception.getClass().getName());
@@ -128,6 +121,7 @@ public class DefaultAuthenticationEventPublisher implements AuthenticationEventP
 		}
 	}
 
+	@Override
 	public void setApplicationEventPublisher(
 			ApplicationEventPublisher applicationEventPublisher) {
 		this.applicationEventPublisher = applicationEventPublisher;
@@ -138,10 +132,10 @@ public class DefaultAuthenticationEventPublisher implements AuthenticationEventP
 	 * the default exception to event mappings that <code>ProviderManager</code> defines.
 	 *
 	 * @param additionalExceptionMappings where keys are the fully-qualified string name
-	 * of the exception class and the values are the fully-qualified string name of the
-	 * event class to fire.
+	 *                                    of the exception class and the values are the fully-qualified string name of the
+	 *                                    event class to fire.
 	 */
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings({"unchecked"})
 	public void setAdditionalExceptionMappings(Properties additionalExceptionMappings) {
 		Assert.notNull(additionalExceptionMappings,
 				"The exceptionMappings object must not be null");
@@ -152,8 +146,7 @@ public class DefaultAuthenticationEventPublisher implements AuthenticationEventP
 				Assert.isAssignable(AbstractAuthenticationFailureEvent.class, clazz);
 				addMapping((String) exceptionClass,
 						(Class<? extends AbstractAuthenticationFailureEvent>) clazz);
-			}
-			catch (ClassNotFoundException e) {
+			} catch (ClassNotFoundException e) {
 				throw new RuntimeException("Failed to load authentication event class "
 						+ eventClass);
 			}
@@ -166,8 +159,7 @@ public class DefaultAuthenticationEventPublisher implements AuthenticationEventP
 			Constructor<? extends AbstractAuthenticationEvent> constructor = eventClass
 					.getConstructor(Authentication.class, AuthenticationException.class);
 			exceptionMappings.put(exceptionClass, constructor);
-		}
-		catch (NoSuchMethodException e) {
+		} catch (NoSuchMethodException e) {
 			throw new RuntimeException("Authentication event class "
 					+ eventClass.getName() + " has no suitable constructor");
 		}

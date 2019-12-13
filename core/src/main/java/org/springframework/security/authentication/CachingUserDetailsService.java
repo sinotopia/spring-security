@@ -22,7 +22,6 @@ import org.springframework.security.core.userdetails.cache.NullUserCache;
 import org.springframework.util.Assert;
 
 /**
- *
  * @author Luke Taylor
  * @since 2.0
  */
@@ -42,6 +41,7 @@ public class CachingUserDetailsService implements UserDetailsService {
 		this.userCache = userCache;
 	}
 
+	@Override
 	public UserDetails loadUserByUsername(String username) {
 		UserDetails user = userCache.getUserFromCache(username);
 

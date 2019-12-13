@@ -15,13 +15,13 @@
  */
 package org.springframework.security.web.authentication.session;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.util.Assert;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Strategy used to register a user with the {@link SessionRegistry} after successful
@@ -38,10 +38,9 @@ import org.springframework.util.Assert;
  * timed out sessions) are removed. This is typically done by adding
  * {@link HttpSessionEventPublisher}.
  *
- * @see CompositeSessionAuthenticationStrategy
- *
  * @author Luke Taylor
  * @author Rob Winch
+ * @see CompositeSessionAuthenticationStrategy
  * @since 3.2
  */
 public class RegisterSessionAuthenticationStrategy implements
@@ -50,7 +49,7 @@ public class RegisterSessionAuthenticationStrategy implements
 
 	/**
 	 * @param sessionRegistry the session registry which should be updated when the
-	 * authenticated session is changed.
+	 *                        authenticated session is changed.
 	 */
 	public RegisterSessionAuthenticationStrategy(SessionRegistry sessionRegistry) {
 		Assert.notNull(sessionRegistry, "The sessionRegistry cannot be null");
@@ -61,6 +60,7 @@ public class RegisterSessionAuthenticationStrategy implements
 	 * In addition to the steps from the superclass, the sessionRegistry will be updated
 	 * with the new session information.
 	 */
+	@Override
 	public void onAuthentication(Authentication authentication,
 			HttpServletRequest request, HttpServletResponse response) {
 		sessionRegistry.registerNewSession(request.getSession().getId(),

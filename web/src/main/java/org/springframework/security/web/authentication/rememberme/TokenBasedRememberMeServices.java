@@ -17,16 +17,15 @@
 package org.springframework.security.web.authentication.rememberme;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.codec.Hex;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -79,7 +78,6 @@ import java.util.Date;
  * value will be used for the <tt>maxAge</tt> property of the cookie, meaning that it will
  * not be stored when the browser is closed.
  *
- *
  * @author Ben Alex
  */
 public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
@@ -104,8 +102,7 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
 
 		try {
 			tokenExpiryTime = new Long(cookieTokens[1]);
-		}
-		catch (NumberFormatException nfe) {
+		} catch (NumberFormatException nfe) {
 			throw new InvalidCookieException(
 					"Cookie token[1] did not contain a valid number (contained '"
 							+ cookieTokens[1] + "')");
@@ -156,8 +153,7 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
 		MessageDigest digest;
 		try {
 			digest = MessageDigest.getInstance("MD5");
-		}
-		catch (NoSuchAlgorithmException e) {
+		} catch (NoSuchAlgorithmException e) {
 			throw new IllegalStateException("No MD5 algorithm available!");
 		}
 
@@ -200,7 +196,7 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
 
 		String signatureValue = makeTokenSignature(expiryTime, username, password);
 
-		setCookie(new String[] { username, Long.toString(expiryTime), signatureValue },
+		setCookie(new String[]{username, Long.toString(expiryTime), signatureValue},
 				tokenLifetime, request, response);
 
 		if (logger.isDebugEnabled()) {
@@ -218,10 +214,10 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
 	 * <p>
 	 * The returned value will be used to work out the expiry time of the token and will
 	 * also be used to set the <tt>maxAge</tt> property of the cookie.
-	 *
+	 * <p>
 	 * See SEC-485.
 	 *
-	 * @param request the request passed to onLoginSuccess
+	 * @param request        the request passed to onLoginSuccess
 	 * @param authentication the successful authentication object.
 	 * @return the lifetime in seconds.
 	 */
@@ -233,8 +229,7 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
 	protected String retrieveUserName(Authentication authentication) {
 		if (isInstanceOfUserDetails(authentication)) {
 			return ((UserDetails) authentication.getPrincipal()).getUsername();
-		}
-		else {
+		} else {
 			return authentication.getPrincipal().toString();
 		}
 	}
@@ -242,8 +237,7 @@ public class TokenBasedRememberMeServices extends AbstractRememberMeServices {
 	protected String retrievePassword(Authentication authentication) {
 		if (isInstanceOfUserDetails(authentication)) {
 			return ((UserDetails) authentication.getPrincipal()).getPassword();
-		}
-		else {
+		} else {
 			if (authentication.getCredentials() == null) {
 				return null;
 			}

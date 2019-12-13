@@ -15,17 +15,15 @@
  */
 package org.springframework.security.web.authentication.session;
 
-import java.util.List;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.springframework.security.core.Authentication;
-import org.springframework.util.Assert;
+import java.util.List;
 
 /**
  * A {@link SessionAuthenticationStrategy} that accepts multiple
@@ -79,9 +77,10 @@ public class CompositeSessionAuthenticationStrategy
 	 * #onAuthentication(org.springframework.security.core.Authentication,
 	 * javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
+	@Override
 	public void onAuthentication(Authentication authentication,
 			HttpServletRequest request, HttpServletResponse response)
-					throws SessionAuthenticationException {
+			throws SessionAuthenticationException {
 		for (SessionAuthenticationStrategy delegate : this.delegateStrategies) {
 			if (this.logger.isDebugEnabled()) {
 				this.logger.debug("Delegating to " + delegate);

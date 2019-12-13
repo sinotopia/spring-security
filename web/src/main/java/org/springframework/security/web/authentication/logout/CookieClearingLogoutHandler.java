@@ -15,15 +15,15 @@
  */
 package org.springframework.security.web.authentication.logout;
 
-import java.util.*;
-import java.util.function.Function;
+import org.springframework.security.core.Authentication;
+import org.springframework.util.Assert;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.core.Authentication;
-import org.springframework.util.Assert;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Function;
 
 /**
  * A logout handler which clears either
@@ -35,6 +35,7 @@ import org.springframework.util.Assert;
  * @since 3.1
  */
 public final class CookieClearingLogoutHandler implements LogoutHandler {
+	
 	private final List<Function<HttpServletRequest, Cookie>> cookiesToClear;
 
 	public CookieClearingLogoutHandler(String... cookiesToClear) {
@@ -50,12 +51,12 @@ public final class CookieClearingLogoutHandler implements LogoutHandler {
 			};
 			cookieList.add(f);
 		}
-		this.cookiesToClear =  cookieList;
+		this.cookiesToClear = cookieList;
 	}
 
 	/**
-	 * @since 5.2
 	 * @param cookiesToClear - One or more Cookie objects that must have maxAge of 0
+	 * @since 5.2
 	 */
 	public CookieClearingLogoutHandler(Cookie... cookiesToClear) {
 		Assert.notNull(cookiesToClear, "List of cookies cannot be null");
@@ -68,10 +69,11 @@ public final class CookieClearingLogoutHandler implements LogoutHandler {
 		this.cookiesToClear = cookieList;
 	}
 
+	@Override
 	public void logout(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) {
 		cookiesToClear.forEach(
-			f -> response.addCookie(f.apply(request))
+				f -> response.addCookie(f.apply(request))
 		);
 	}
 }

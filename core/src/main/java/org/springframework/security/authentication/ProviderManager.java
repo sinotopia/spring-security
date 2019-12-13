@@ -15,9 +15,6 @@
  */
 package org.springframework.security.authentication;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -29,6 +26,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.util.Assert;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Iterates an {@link Authentication} request through a list of
@@ -52,7 +52,7 @@ import org.springframework.util.Assert;
  * The exception to this process is when a provider throws an
  * {@link AccountStatusException}, in which case no further providers in the list will be
  * queried.
- *
+ * <p>
  * Post-authentication, the credentials will be cleared from the returned
  * {@code Authentication} object, if it implements the {@link CredentialsContainer}
  * interface. This behaviour can be controlled by modifying the
@@ -78,10 +78,8 @@ import org.springframework.util.Assert;
  * {@code AuthenticationManager} if one has been set. So in this situation, the parent
  * should not generally be configured to publish events or there will be duplicates.
  *
- *
  * @author Ben Alex
  * @author Luke Taylor
- *
  * @see DefaultAuthenticationEventPublisher
  */
 public class ProviderManager implements AuthenticationManager, MessageSourceAware,
@@ -115,6 +113,7 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public void afterPropertiesSet() {
 		checkState();
 	}
@@ -147,11 +146,10 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 	 * <code>AuthenticationException</code> will be rethrown.
 	 *
 	 * @param authentication the authentication request object.
-	 *
 	 * @return a fully authenticated object including credentials.
-	 *
 	 * @throws AuthenticationException if authentication fails.
 	 */
+	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
 		Class<? extends Authentication> toTest = authentication.getClass();
@@ -178,8 +176,7 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 					copyDetails(authentication, result);
 					break;
 				}
-			}
-			catch (AccountStatusException | InternalAuthenticationServiceException e) {
+			} catch (AccountStatusException | InternalAuthenticationServiceException e) {
 				prepareException(e, authentication);
 				// SEC-546: Avoid polling additional providers if auth failure is due to
 				// invalid account status
@@ -193,14 +190,12 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 			// Allow the parent to try.
 			try {
 				result = parentResult = parent.authenticate(authentication);
-			}
-			catch (ProviderNotFoundException e) {
+			} catch (ProviderNotFoundException e) {
 				// ignore as we will throw below if no other exception occurred prior to
 				// calling parent and the parent
 				// may throw ProviderNotFound even though a provider in the child already
 				// handled the request
-			}
-			catch (AuthenticationException e) {
+			} catch (AuthenticationException e) {
 				lastException = parentException = e;
 			}
 		}
@@ -226,7 +221,7 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 		if (lastException == null) {
 			lastException = new ProviderNotFoundException(messages.getMessage(
 					"ProviderManager.providerNotFound",
-					new Object[] { toTest.getName() },
+					new Object[]{toTest.getName()},
 					"No AuthenticationProvider found for {0}"));
 		}
 
@@ -249,7 +244,7 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 	 * destination one, provided the latter does not already have one set.
 	 *
 	 * @param source source authentication
-	 * @param dest the destination authentication object
+	 * @param dest   the destination authentication object
 	 */
 	private void copyDetails(Authentication source, Authentication dest) {
 		if ((dest instanceof AbstractAuthenticationToken) && (dest.getDetails() == null)) {
@@ -263,6 +258,7 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 		return providers;
 	}
 
+	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		this.messages = new MessageSourceAccessor(messageSource);
 	}
@@ -280,7 +276,7 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 	 * before it is returned from the {@code authenticate()} method.
 	 *
 	 * @param eraseSecretData set to {@literal false} to retain the credentials data in
-	 * memory. Defaults to {@literal true}.
+	 *                        memory. Defaults to {@literal true}.
 	 */
 	public void setEraseCredentialsAfterAuthentication(boolean eraseSecretData) {
 		this.eraseCredentialsAfterAuthentication = eraseSecretData;
@@ -291,10 +287,13 @@ public class ProviderManager implements AuthenticationManager, MessageSourceAwar
 	}
 
 	private static final class NullEventPublisher implements AuthenticationEventPublisher {
+
+		@Override
 		public void publishAuthenticationFailure(AuthenticationException exception,
 				Authentication authentication) {
 		}
 
+		@Override
 		public void publishAuthenticationSuccess(Authentication authentication) {
 		}
 	}

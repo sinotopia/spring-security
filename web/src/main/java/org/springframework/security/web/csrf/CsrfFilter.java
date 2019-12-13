@@ -180,11 +180,10 @@ public final class CsrfFilter extends OncePerRequestFilter {
 		private final HashSet<String> allowedMethods = new HashSet<>(
 				Arrays.asList("GET", "HEAD", "TRACE", "OPTIONS"));
 
-		/*
+		/**
 		 * (non-Javadoc)
 		 *
-		 * @see
-		 * org.springframework.security.web.util.matcher.RequestMatcher#matches(javax.
+		 * @see org.springframework.security.web.util.matcher.RequestMatcher#matches(javax .
 		 * servlet.http.HttpServletRequest)
 		 */
 		@Override

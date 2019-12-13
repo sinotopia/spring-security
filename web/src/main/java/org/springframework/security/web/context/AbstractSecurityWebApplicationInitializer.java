@@ -15,16 +15,6 @@
  */
 package org.springframework.security.web.context;
 
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.Set;
-
-import javax.servlet.DispatcherType;
-import javax.servlet.Filter;
-import javax.servlet.FilterRegistration.Dynamic;
-import javax.servlet.ServletContext;
-import javax.servlet.SessionTrackingMode;
-
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.Conventions;
 import org.springframework.core.Ordered;
@@ -37,6 +27,15 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.DelegatingFilterProxy;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.Filter;
+import javax.servlet.FilterRegistration.Dynamic;
+import javax.servlet.ServletContext;
+import javax.servlet.SessionTrackingMode;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.Set;
 
 /**
  * Registers the {@link DelegatingFilterProxy} to use the springSecurityFilterChain before
@@ -102,12 +101,13 @@ public abstract class AbstractSecurityWebApplicationInitializer
 		this.configurationClasses = configurationClasses;
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 *
-	 * @see org.springframework.web.WebApplicationInitializer#onStartup(javax.servlet.
+	 * @see org.springframework.web.WebApplicationInitializer#onStartup(javax.servlet .
 	 * ServletContext)
 	 */
+	@Override
 	public final void onStartup(ServletContext servletContext) {
 		beforeSpringSecurityFilterChain(servletContext);
 		if (this.configurationClasses != null) {
@@ -137,6 +137,7 @@ public abstract class AbstractSecurityWebApplicationInitializer
 
 	/**
 	 * Registers the springSecurityFilterChain
+	 *
 	 * @param servletContext the {@link ServletContext}
 	 */
 	private void insertSpringSecurityFilterChain(ServletContext servletContext) {
@@ -156,7 +157,7 @@ public abstract class AbstractSecurityWebApplicationInitializer
 	 * {@link #isAsyncSecuritySupported()}.
 	 *
 	 * @param servletContext the {@link ServletContext} to use
-	 * @param filters the {@link Filter}s to register
+	 * @param filters        the {@link Filter}s to register
 	 */
 	protected final void insertFilters(ServletContext servletContext, Filter... filters) {
 		registerFilters(servletContext, true, filters);
@@ -168,7 +169,7 @@ public abstract class AbstractSecurityWebApplicationInitializer
 	 * {@link #isAsyncSecuritySupported()}.
 	 *
 	 * @param servletContext the {@link ServletContext} to use
-	 * @param filters the {@link Filter}s to register
+	 * @param filters        the {@link Filter}s to register
 	 */
 	protected final void appendFilters(ServletContext servletContext, Filter... filters) {
 		registerFilters(servletContext, false, filters);
@@ -178,11 +179,11 @@ public abstract class AbstractSecurityWebApplicationInitializer
 	 * Registers the provided {@link Filter}s using default generated names,
 	 * {@link #getSecurityDispatcherTypes()}, and {@link #isAsyncSecuritySupported()}.
 	 *
-	 * @param servletContext the {@link ServletContext} to use
+	 * @param servletContext           the {@link ServletContext} to use
 	 * @param insertBeforeOtherFilters if true, will insert the provided {@link Filter}s
-	 * before other {@link Filter}s. Otherwise, will insert the {@link Filter}s after
-	 * other {@link Filter}s.
-	 * @param filters the {@link Filter}s to register
+	 *                                 before other {@link Filter}s. Otherwise, will insert the {@link Filter}s after
+	 *                                 other {@link Filter}s.
+	 * @param filters                  the {@link Filter}s to register
 	 */
 	private void registerFilters(ServletContext servletContext,
 			boolean insertBeforeOtherFilters, Filter... filters) {
@@ -205,12 +206,12 @@ public abstract class AbstractSecurityWebApplicationInitializer
 	 *
 	 * @param servletContext
 	 * @param insertBeforeOtherFilters should this Filter be inserted before or after
-	 * other {@link Filter}
+	 *                                 other {@link Filter}
 	 * @param filterName
 	 * @param filter
 	 */
 	private void registerFilter(ServletContext servletContext,
-								boolean insertBeforeOtherFilters, String filterName, Filter filter) {
+			boolean insertBeforeOtherFilters, String filterName, Filter filter) {
 		Dynamic registration = servletContext.addFilter(filterName, filter);
 		if (registration == null) {
 			throw new IllegalStateException(
@@ -288,6 +289,7 @@ public abstract class AbstractSecurityWebApplicationInitializer
 
 	/**
 	 * Invoked before the springSecurityFilterChain is added.
+	 *
 	 * @param servletContext the {@link ServletContext}
 	 */
 	protected void beforeSpringSecurityFilterChain(ServletContext servletContext) {
@@ -296,6 +298,7 @@ public abstract class AbstractSecurityWebApplicationInitializer
 
 	/**
 	 * Invoked after the springSecurityFilterChain is added.
+	 *
 	 * @param servletContext the {@link ServletContext}
 	 */
 	protected void afterSpringSecurityFilterChain(ServletContext servletContext) {
@@ -304,6 +307,7 @@ public abstract class AbstractSecurityWebApplicationInitializer
 
 	/**
 	 * Get the {@link DispatcherType} for the springSecurityFilterChain.
+	 *
 	 * @return
 	 */
 	protected EnumSet<DispatcherType> getSecurityDispatcherTypes() {

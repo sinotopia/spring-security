@@ -15,13 +15,12 @@
  */
 package org.springframework.security.web.authentication.logout;
 
-import java.io.IOException;
+import org.springframework.security.core.Authentication;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.core.Authentication;
+import java.io.IOException;
 
 /**
  * Strategy that is called after a successful logout by the {@link LogoutFilter}, to

@@ -50,9 +50,7 @@ public interface AuthenticationManager {
 	 * prevents credentials being tested against disabled or locked accounts.
 	 *
 	 * @param authentication the authentication request object
-	 *
 	 * @return a fully authenticated object including credentials
-	 *
 	 * @throws AuthenticationException if authentication fails
 	 */
 	Authentication authenticate(Authentication authentication)

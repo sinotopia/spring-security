@@ -16,9 +16,9 @@
 
 package org.springframework.security.core;
 
-import java.io.Serializable;
-
 import org.springframework.security.access.AccessDecisionManager;
+
+import java.io.Serializable;
 
 /**
  * Represents an authority granted to an {@link Authentication} object.

@@ -16,14 +16,13 @@
 
 package org.springframework.security.web.authentication.logout;
 
-import java.util.Arrays;
-import java.util.List;
+import org.springframework.security.core.Authentication;
+import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.security.core.Authentication;
-import org.springframework.util.Assert;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Performs a logout through all the {@link LogoutHandler} implementations.

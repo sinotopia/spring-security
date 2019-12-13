@@ -15,10 +15,6 @@
  */
 package org.springframework.security.web.authentication.session;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.ApplicationEvent;
@@ -27,6 +23,10 @@ import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.util.Assert;
 import org.springframework.web.util.WebUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * A base class for performing session fixation protection.
@@ -38,11 +38,13 @@ abstract class AbstractSessionFixationProtectionStrategy implements
 		SessionAuthenticationStrategy, ApplicationEventPublisherAware {
 
 	protected final Log logger = LogFactory.getLog(this.getClass());
+
 	/**
 	 * Used for publishing events related to session fixation protection, such as
 	 * {@link SessionFixationProtectionEvent}.
 	 */
 	private ApplicationEventPublisher applicationEventPublisher = new NullEventPublisher();
+
 	/**
 	 * If set to {@code true}, a session will always be created, even if one didn't exist
 	 * at the start of the request. Defaults to {@code false}.
@@ -62,6 +64,7 @@ abstract class AbstractSessionFixationProtectionStrategy implements
 	 * property is set, in which case a session will be created if one doesn't already
 	 * exist.
 	 */
+	@Override
 	public void onAuthentication(Authentication authentication,
 			HttpServletRequest request, HttpServletResponse response) {
 		boolean hadSessionAlready = request.getSession(false) != null;
@@ -101,7 +104,7 @@ abstract class AbstractSessionFixationProtectionStrategy implements
 	 * Applies session fixation
 	 *
 	 * @param request the {@link HttpServletRequest} to apply session fixation protection
-	 * for
+	 *                for
 	 * @return the new {@link HttpSession} to use. Cannot be null.
 	 */
 	abstract HttpSession applySessionFixation(HttpServletRequest request);
@@ -118,8 +121,8 @@ abstract class AbstractSessionFixationProtectionStrategy implements
 	 * method.
 	 *
 	 * @param originalSessionId the original session identifier
-	 * @param newSession the newly created session
-	 * @param auth the token for the newly authenticated principal
+	 * @param newSession        the newly created session
+	 * @param auth              the token for the newly authenticated principal
 	 */
 	protected void onSessionChange(String originalSessionId, HttpSession newSession,
 			Authentication auth) {
@@ -133,7 +136,7 @@ abstract class AbstractSessionFixationProtectionStrategy implements
 	 * {@link SessionFixationProtectionEvent}.
 	 *
 	 * @param applicationEventPublisher the {@link ApplicationEventPublisher}. Cannot be
-	 * null.
+	 *                                  null.
 	 */
 	public void setApplicationEventPublisher(
 			ApplicationEventPublisher applicationEventPublisher) {
