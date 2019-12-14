@@ -15,15 +15,15 @@
  */
 package org.springframework.security.core.token;
 
-import java.security.SecureRandom;
-import java.util.Base64;
-import java.util.Date;
-
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.crypto.codec.Hex;
 import org.springframework.security.crypto.codec.Utf8;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import java.security.SecureRandom;
+import java.util.Base64;
+import java.util.Date;
 
 /**
  * Basic implementation of {@link TokenService} that is compatible with clusters and
@@ -69,7 +69,6 @@ import org.springframework.util.StringUtils;
  * </p>
  *
  * @author Ben Alex
- *
  */
 public class KeyBasedPersistenceTokenService implements TokenService, InitializingBean {
 	private int pseudoRandomNumberBytes = 32;
@@ -77,6 +76,7 @@ public class KeyBasedPersistenceTokenService implements TokenService, Initializi
 	private Integer serverInteger;
 	private SecureRandom secureRandom;
 
+	@Override
 	public Token allocateToken(String extendedInformation) {
 		Assert.notNull(extendedInformation,
 				"Must provided non-null extendedInformation (but it can be empty)");
@@ -94,6 +94,7 @@ public class KeyBasedPersistenceTokenService implements TokenService, Initializi
 		return new DefaultToken(key, creationTime, extendedInformation);
 	}
 
+	@Override
 	public Token verifyToken(String key) {
 		if (key == null || "".equals(key)) {
 			return null;
@@ -106,8 +107,7 @@ public class KeyBasedPersistenceTokenService implements TokenService, Initializi
 		long creationTime;
 		try {
 			creationTime = Long.decode(tokens[0]);
-		}
-		catch (NumberFormatException nfe) {
+		} catch (NumberFormatException nfe) {
 			throw new IllegalArgumentException("Expected number but found " + tokens[0]);
 		}
 
@@ -149,7 +149,7 @@ public class KeyBasedPersistenceTokenService implements TokenService, Initializi
 
 	/**
 	 * @param serverSecret the new secret, which can contain a ":" if desired (never being
-	 * sent to the client)
+	 *                     sent to the client)
 	 */
 	public void setServerSecret(String serverSecret) {
 		this.serverSecret = serverSecret;
@@ -161,7 +161,7 @@ public class KeyBasedPersistenceTokenService implements TokenService, Initializi
 
 	/**
 	 * @param pseudoRandomNumberBytes changes the number of bytes issued (must be &gt;= 0;
-	 * defaults to 256)
+	 *                                defaults to 256)
 	 */
 	public void setPseudoRandomNumberBytes(int pseudoRandomNumberBytes) {
 		Assert.isTrue(pseudoRandomNumberBytes >= 0,
@@ -173,6 +173,7 @@ public class KeyBasedPersistenceTokenService implements TokenService, Initializi
 		this.serverInteger = serverInteger;
 	}
 
+	@Override
 	public void afterPropertiesSet() {
 		Assert.hasText(serverSecret, "Server secret required");
 		Assert.notNull(serverInteger, "Server integer required");

@@ -35,10 +35,10 @@ import java.util.Collection;
  * so that it can access it's protected resources at the UserInfo Endpoint.
  *
  * @author Joe Grandja
- * @since 5.0
  * @see AbstractAuthenticationToken
  * @see OAuth2User
  * @see OAuth2AuthorizedClient
+ * @since 5.0
  */
 public class OAuth2AuthenticationToken extends AbstractAuthenticationToken {
 	private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
@@ -48,13 +48,13 @@ public class OAuth2AuthenticationToken extends AbstractAuthenticationToken {
 	/**
 	 * Constructs an {@code OAuth2AuthenticationToken} using the provided parameters.
 	 *
-	 * @param principal the user {@code Principal} registered with the OAuth 2.0 Provider
-	 * @param authorities the authorities granted to the user
+	 * @param principal                      the user {@code Principal} registered with the OAuth 2.0 Provider
+	 * @param authorities                    the authorities granted to the user
 	 * @param authorizedClientRegistrationId the registration identifier of the {@link OAuth2AuthorizedClient Authorized Client}
 	 */
 	public OAuth2AuthenticationToken(OAuth2User principal,
-									Collection<? extends GrantedAuthority> authorities,
-									String authorizedClientRegistrationId) {
+			Collection<? extends GrantedAuthority> authorities,
+			String authorizedClientRegistrationId) {
 		super(authorities);
 		Assert.notNull(principal, "principal cannot be null");
 		Assert.hasText(authorizedClientRegistrationId, "authorizedClientRegistrationId cannot be empty");

@@ -32,14 +32,15 @@ import org.springframework.util.Assert;
  * and if valid, exchanging it for an Access Token credential.
  *
  * @author Joe Grandja
- * @since 5.1
  * @see OAuth2AuthorizationCodeAuthenticationToken
  * @see OAuth2AccessTokenResponseClient
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc6749#section-4.1">Section 4.1 Authorization Code Grant Flow</a>
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc6749#section-4.1.3">Section 4.1.3 Access Token Request</a>
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc6749#section-4.1.4">Section 4.1.4 Access Token Response</a>
+ * @since 5.1
  */
 public class OAuth2AuthorizationCodeAuthenticationProvider implements AuthenticationProvider {
+	
 	private final OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient;
 
 	/**
@@ -48,7 +49,7 @@ public class OAuth2AuthorizationCodeAuthenticationProvider implements Authentica
 	 * @param accessTokenResponseClient the client used for requesting the access token credential from the Token Endpoint
 	 */
 	public OAuth2AuthorizationCodeAuthenticationProvider(
-		OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient) {
+			OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient) {
 
 		Assert.notNull(accessTokenResponseClient, "accessTokenResponseClient cannot be null");
 		this.accessTokenResponseClient = accessTokenResponseClient;
@@ -57,23 +58,23 @@ public class OAuth2AuthorizationCodeAuthenticationProvider implements Authentica
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		OAuth2AuthorizationCodeAuthenticationToken authorizationCodeAuthentication =
-			(OAuth2AuthorizationCodeAuthenticationToken) authentication;
+				(OAuth2AuthorizationCodeAuthenticationToken) authentication;
 
 		OAuth2AuthorizationExchangeValidator.validate(
-			authorizationCodeAuthentication.getAuthorizationExchange());
+				authorizationCodeAuthentication.getAuthorizationExchange());
 
 		OAuth2AccessTokenResponse accessTokenResponse =
-			this.accessTokenResponseClient.getTokenResponse(
-				new OAuth2AuthorizationCodeGrantRequest(
-					authorizationCodeAuthentication.getClientRegistration(),
-					authorizationCodeAuthentication.getAuthorizationExchange()));
+				this.accessTokenResponseClient.getTokenResponse(
+						new OAuth2AuthorizationCodeGrantRequest(
+								authorizationCodeAuthentication.getClientRegistration(),
+								authorizationCodeAuthentication.getAuthorizationExchange()));
 
 		OAuth2AuthorizationCodeAuthenticationToken authenticationResult =
-			new OAuth2AuthorizationCodeAuthenticationToken(
-				authorizationCodeAuthentication.getClientRegistration(),
-				authorizationCodeAuthentication.getAuthorizationExchange(),
-				accessTokenResponse.getAccessToken(),
-				accessTokenResponse.getRefreshToken());
+				new OAuth2AuthorizationCodeAuthenticationToken(
+						authorizationCodeAuthentication.getClientRegistration(),
+						authorizationCodeAuthentication.getAuthorizationExchange(),
+						accessTokenResponse.getAccessToken(),
+						accessTokenResponse.getRefreshToken());
 		authenticationResult.setDetails(authorizationCodeAuthentication.getDetails());
 
 		return authenticationResult;

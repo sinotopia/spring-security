@@ -50,7 +50,7 @@ public class InsufficientAuthenticationException extends AuthenticationException
 	 * message and root cause.
 	 *
 	 * @param msg the detail message
-	 * @param t root cause
+	 * @param t   root cause
 	 */
 	public InsufficientAuthenticationException(String msg, Throwable t) {
 		super(msg, t);

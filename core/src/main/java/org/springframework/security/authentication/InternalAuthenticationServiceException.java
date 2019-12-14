@@ -32,7 +32,6 @@ package org.springframework.security.authentication;
  * </p>
  *
  * @author Rob Winch
- *
  */
 public class InternalAuthenticationServiceException extends
 		AuthenticationServiceException {

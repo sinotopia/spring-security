@@ -15,11 +15,8 @@
  */
 package org.springframework.security.ldap.authentication;
 
-import java.util.Collection;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -38,6 +35,8 @@ import org.springframework.security.ldap.userdetails.LdapUserDetailsMapper;
 import org.springframework.security.ldap.userdetails.UserDetailsContextMapper;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import java.util.Collection;
 
 /**
  * Base class for the standard {@code LdapAuthenticationProvider} and the
@@ -103,8 +102,8 @@ public abstract class AbstractLdapAuthenticationProvider
 	 * {@code authenticate} method.
 	 *
 	 * @param authentication the original authentication request token
-	 * @param user the <tt>UserDetails</tt> instance returned by the configured
-	 * <tt>UserDetailsContextMapper</tt>.
+	 * @param user           the <tt>UserDetails</tt> instance returned by the configured
+	 *                       <tt>UserDetailsContextMapper</tt>.
 	 * @return the Authentication object for the fully authenticated user.
 	 */
 	protected Authentication createSuccessfulAuthentication(
@@ -153,7 +152,7 @@ public abstract class AbstractLdapAuthenticationProvider
 	 * method.
 	 *
 	 * @param userDetailsContextMapper the strategy instance. If not set, defaults to a
-	 * simple <tt>LdapUserDetailsMapper</tt>.
+	 *                                 simple <tt>LdapUserDetailsMapper</tt>.
 	 */
 	public void setUserDetailsContextMapper(
 			UserDetailsContextMapper userDetailsContextMapper) {

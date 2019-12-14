@@ -15,12 +15,12 @@
  */
 package samples.gae.security;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import samples.gae.users.GaeUser;
+
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * Authentication object representing a fully-authenticated user.
@@ -38,30 +38,37 @@ public class GaeUserAuthentication implements Authentication {
 		authenticated = true;
 	}
 
+	@Override
 	public Collection<GrantedAuthority> getAuthorities() {
 		return new HashSet<>(principal.getAuthorities());
 	}
 
+	@Override
 	public Object getCredentials() {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Object getDetails() {
 		return null;
 	}
 
+	@Override
 	public Object getPrincipal() {
 		return principal;
 	}
 
+	@Override
 	public boolean isAuthenticated() {
 		return authenticated;
 	}
 
+	@Override
 	public void setAuthenticated(boolean isAuthenticated) {
 		authenticated = isAuthenticated;
 	}
 
+	@Override
 	public String getName() {
 		return principal.getUserId();
 	}

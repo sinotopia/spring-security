@@ -47,9 +47,13 @@ public class SessionRegistryImpl implements SessionRegistry,
 
 	protected final Log logger = LogFactory.getLog(SessionRegistryImpl.class);
 
-	/** <principal:Object,SessionIdSet> */
+	/**
+	 * <principal:Object,SessionIdSet>
+	 */
 	private final ConcurrentMap<Object, Set<String>> principals;
-	/** <sessionId:Object,SessionInformation> */
+	/**
+	 * <sessionId:Object,SessionInformation>
+	 */
 	private final Map<String, SessionInformation> sessionIds;
 
 	// ~ Methods
@@ -61,14 +65,16 @@ public class SessionRegistryImpl implements SessionRegistry,
 	}
 
 	public SessionRegistryImpl(ConcurrentMap<Object, Set<String>> principals, Map<String, SessionInformation> sessionIds) {
-		this.principals=principals;
-		this.sessionIds=sessionIds;
+		this.principals = principals;
+		this.sessionIds = sessionIds;
 	}
 
+	@Override
 	public List<Object> getAllPrincipals() {
 		return new ArrayList<>(principals.keySet());
 	}
 
+	@Override
 	public List<SessionInformation> getAllSessions(Object principal,
 			boolean includeExpiredSessions) {
 		final Set<String> sessionsUsedByPrincipal = principals.get(principal);
@@ -95,17 +101,20 @@ public class SessionRegistryImpl implements SessionRegistry,
 		return list;
 	}
 
+	@Override
 	public SessionInformation getSessionInformation(String sessionId) {
 		Assert.hasText(sessionId, "SessionId required as per interface contract");
 
 		return sessionIds.get(sessionId);
 	}
 
+	@Override
 	public void onApplicationEvent(SessionDestroyedEvent event) {
 		String sessionId = event.getId();
 		removeSessionInformation(sessionId);
 	}
 
+	@Override
 	public void refreshLastRequest(String sessionId) {
 		Assert.hasText(sessionId, "SessionId required as per interface contract");
 
@@ -116,6 +125,7 @@ public class SessionRegistryImpl implements SessionRegistry,
 		}
 	}
 
+	@Override
 	public void registerNewSession(String sessionId, Object principal) {
 		Assert.hasText(sessionId, "SessionId required as per interface contract");
 		Assert.notNull(principal, "Principal required as per interface contract");
@@ -146,6 +156,7 @@ public class SessionRegistryImpl implements SessionRegistry,
 		});
 	}
 
+	@Override
 	public void removeSessionInformation(String sessionId) {
 		Assert.hasText(sessionId, "SessionId required as per interface contract");
 

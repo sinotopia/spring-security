@@ -17,10 +17,10 @@ package org.springframework.security.authentication;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsChecker;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.util.Assert;
 
 /**
@@ -31,6 +31,7 @@ public class AccountStatusUserDetailsChecker implements UserDetailsChecker, Mess
 	protected MessageSourceAccessor messages = SpringSecurityMessageSource
 			.getAccessor();
 
+	@Override
 	public void check(UserDetails user) {
 		if (!user.isAccountNonLocked()) {
 			throw new LockedException(messages.getMessage(

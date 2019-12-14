@@ -36,8 +36,7 @@ public interface AuthenticationTrustResolver {
 	 * would be the case if the <code>Authentication</code> was merely anonymous).
 	 *
 	 * @param authentication to test (may be <code>null</code> in which case the method
-	 * will always return <code>false</code>)
-	 *
+	 *                       will always return <code>false</code>)
 	 * @return <code>true</code> the passed authentication token represented an anonymous
 	 * principal, <code>false</code> otherwise
 	 */
@@ -52,8 +51,7 @@ public interface AuthenticationTrustResolver {
 	 * either and can develop your own "trust level" hierarchy instead.
 	 *
 	 * @param authentication to test (may be <code>null</code> in which case the method
-	 * will always return <code>false</code>)
-	 *
+	 *                       will always return <code>false</code>)
 	 * @return <code>true</code> the passed authentication token represented a principal
 	 * authenticated using a remember-me token, <code>false</code> otherwise
 	 */

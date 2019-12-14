@@ -15,13 +15,6 @@
  */
 package org.springframework.security.config.method;
 
-import static org.springframework.security.config.Elements.*;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.aop.config.AopNamespaceUtils;
@@ -38,11 +31,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.RuntimeBeanReference;
 import org.springframework.beans.factory.parsing.BeanComponentDefinition;
 import org.springframework.beans.factory.parsing.CompositeComponentDefinition;
-import org.springframework.beans.factory.support.BeanDefinitionBuilder;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.BeanDefinitionRegistryPostProcessor;
-import org.springframework.beans.factory.support.ManagedList;
-import org.springframework.beans.factory.support.RootBeanDefinition;
+import org.springframework.beans.factory.support.*;
 import org.springframework.beans.factory.xml.BeanDefinitionParser;
 import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.context.ApplicationContext;
@@ -52,11 +41,7 @@ import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.access.annotation.Jsr250MethodSecurityMetadataSource;
 import org.springframework.security.access.annotation.Jsr250Voter;
 import org.springframework.security.access.annotation.SecuredAnnotationSecurityMetadataSource;
-import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
-import org.springframework.security.access.expression.method.ExpressionBasedAnnotationAttributeFactory;
-import org.springframework.security.access.expression.method.ExpressionBasedPostInvocationAdvice;
-import org.springframework.security.access.expression.method.ExpressionBasedPreInvocationAdvice;
-import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
+import org.springframework.security.access.expression.method.*;
 import org.springframework.security.access.intercept.AfterInvocationProviderManager;
 import org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor;
 import org.springframework.security.access.intercept.aopalliance.MethodSecurityMetadataSourceAdvisor;
@@ -80,6 +65,13 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Element;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.springframework.security.config.Elements.*;
 
 /**
  * Processes the top-level "global-method-security" element.
@@ -166,8 +158,7 @@ public class GlobalMethodSecurityBeanDefinitionParser implements BeanDefinitionP
 				mds.addConstructorArgReference(attributeFactoryRef);
 				preInvocationVoterBldr.addConstructorArgReference(preAdviceRef);
 				afterInvocationBldr.addConstructorArgReference(postAdviceRef);
-			}
-			else {
+			} else {
 				// The default expression-based system
 				String expressionHandlerRef = expressionHandlerElt == null ? null
 						: expressionHandlerElt.getAttribute("ref");
@@ -199,8 +190,7 @@ public class GlobalMethodSecurityBeanDefinitionParser implements BeanDefinitionP
 					pc.registerBeanComponent(new BeanComponentDefinition(
 							expressionHandlerProxyBldr.getBeanDefinition(),
 							expressionHandlerRef));
-				}
-				else {
+				} else {
 					RootBeanDefinition expressionHandler = registerWithDefaultRolePrefix(pc, DefaultMethodSecurityExpressionHandlerBeanFactory.class);
 
 					expressionHandlerRef = pc.getReaderContext().generateBeanName(
@@ -305,8 +295,7 @@ public class GlobalMethodSecurityBeanDefinitionParser implements BeanDefinitionP
 					aspect.getBeanDefinition());
 			pc.registerBeanComponent(new BeanComponentDefinition(aspect
 					.getBeanDefinition(), id));
-		}
-		else {
+		} else {
 			registerAdvisor(pc, interceptor, metadataSource, source,
 					element.getAttribute(ATT_ADVICE_ORDER));
 			AopNamespaceUtils.registerAutoProxyCreatorIfNecessary(pc, element);
@@ -320,9 +309,10 @@ public class GlobalMethodSecurityBeanDefinitionParser implements BeanDefinitionP
 	/**
 	 * Register the default AccessDecisionManager. Adds the special JSR 250 voter jsr-250
 	 * is enabled and an expression voter if expression-based access control is enabled.
+	 *
 	 * @return
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	private String registerAccessManager(ParserContext pc, boolean jsr250Enabled,
 			BeanDefinition expressionVoter) {
 
@@ -516,8 +506,7 @@ public class GlobalMethodSecurityBeanDefinitionParser implements BeanDefinitionP
 					try {
 						delegate = beanFactory.getBean(authMgrBean,
 								AuthenticationManager.class);
-					}
-					catch (NoSuchBeanDefinitionException e) {
+					} catch (NoSuchBeanDefinitionException e) {
 						if (BeanIds.AUTHENTICATION_MANAGER.equals(e.getBeanName())) {
 							throw new NoSuchBeanDefinitionException(
 									BeanIds.AUTHENTICATION_MANAGER,

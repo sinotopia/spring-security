@@ -88,23 +88,18 @@ public class OpenIDAuthenticationProvider
 
 				return createSuccessfulAuthentication(userDetails, response);
 
-			}
-			else if (status == OpenIDAuthenticationStatus.CANCELLED) {
+			} else if (status == OpenIDAuthenticationStatus.CANCELLED) {
 				throw new AuthenticationCancelledException("Log in cancelled");
-			}
-			else if (status == OpenIDAuthenticationStatus.ERROR) {
+			} else if (status == OpenIDAuthenticationStatus.ERROR) {
 				throw new AuthenticationServiceException(
 						"Error message from server: " + response.getMessage());
-			}
-			else if (status == OpenIDAuthenticationStatus.FAILURE) {
+			} else if (status == OpenIDAuthenticationStatus.FAILURE) {
 				throw new BadCredentialsException(
 						"Log in failed - identity could not be verified");
-			}
-			else if (status == OpenIDAuthenticationStatus.SETUP_NEEDED) {
+			} else if (status == OpenIDAuthenticationStatus.SETUP_NEEDED) {
 				throw new AuthenticationServiceException(
 						"The server responded setup was needed, which shouldn't happen");
-			}
-			else {
+			} else {
 				throw new AuthenticationServiceException(
 						"Unrecognized return value " + status.toString());
 			}
@@ -122,7 +117,7 @@ public class OpenIDAuthenticationProvider
 	 * loaded by the UserDetailsService.
 	 *
 	 * @param userDetails the loaded UserDetails object
-	 * @param auth the token passed to the authenticate method, containing
+	 * @param auth        the token passed to the authenticate method, containing
 	 * @return the token which will represent the authenticated user.
 	 */
 	protected Authentication createSuccessfulAuthentication(UserDetails userDetails,

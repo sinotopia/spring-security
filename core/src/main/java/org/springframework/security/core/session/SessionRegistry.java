@@ -40,10 +40,9 @@ public interface SessionRegistry {
 	 * destroyed are not returned. Sessions that have expired may be returned, depending
 	 * on the passed argument.
 	 *
-	 * @param principal to locate sessions for (should never be <code>null</code>)
+	 * @param principal              to locate sessions for (should never be <code>null</code>)
 	 * @param includeExpiredSessions if <code>true</code>, the returned sessions will also
-	 * include those that have expired for the principal
-	 *
+	 *                               include those that have expired for the principal
 	 * @return the matching sessions for this principal (should not return null).
 	 */
 	List<SessionInformation> getAllSessions(Object principal,
@@ -54,7 +53,6 @@ public interface SessionRegistry {
 	 * expired sessions are returned (although destroyed sessions are never returned).
 	 *
 	 * @param sessionId to lookup (should never be <code>null</code>)
-	 *
 	 * @return the session information, or <code>null</code> if not found
 	 */
 	SessionInformation getSessionInformation(String sessionId);
@@ -65,7 +63,7 @@ public interface SessionRegistry {
 	 * be found or the session is marked to expire.
 	 *
 	 * @param sessionId for which to update the date and time of the last request (should
-	 * never be <code>null</code>)
+	 *                  never be <code>null</code>)
 	 */
 	void refreshLastRequest(String sessionId);
 
@@ -74,7 +72,7 @@ public interface SessionRegistry {
 	 * will not be marked for expiration.
 	 *
 	 * @param sessionId to associate with the principal (should never be <code>null</code>
-	 * )
+	 *                  )
 	 * @param principal to associate with the session (should never be <code>null</code>)
 	 */
 	void registerNewSession(String sessionId, Object principal);

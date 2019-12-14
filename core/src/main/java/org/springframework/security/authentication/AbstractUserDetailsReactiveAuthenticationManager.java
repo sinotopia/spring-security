@@ -18,10 +18,6 @@ package org.springframework.security.authentication;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Scheduler;
-import reactor.core.scheduler.Schedulers;
-
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.SpringSecurityMessageSource;
@@ -31,6 +27,9 @@ import org.springframework.security.core.userdetails.UserDetailsChecker;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.Assert;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Scheduler;
+import reactor.core.scheduler.Schedulers;
 
 /**
  * A base {@link ReactiveAuthenticationManager} that allows subclasses to override and work with
@@ -112,12 +111,13 @@ public abstract class AbstractUserDetailsReactiveAuthenticationManager implement
 					return Mono.just(u);
 				})
 				.doOnNext(this.postAuthenticationChecks::check)
-				.map(u -> new UsernamePasswordAuthenticationToken(u, u.getPassword(), u.getAuthorities()) );
+				.map(u -> new UsernamePasswordAuthenticationToken(u, u.getPassword(), u.getAuthorities()));
 	}
 
 	/**
 	 * The {@link PasswordEncoder} that is used for validating the password. The default is
 	 * {@link PasswordEncoderFactories#createDelegatingPasswordEncoder()}
+	 *
 	 * @param passwordEncoder the {@link PasswordEncoder} to use. Cannot be null
 	 */
 	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
@@ -143,6 +143,7 @@ public abstract class AbstractUserDetailsReactiveAuthenticationManager implement
 
 	/**
 	 * Sets the service to use for upgrading passwords on successful authentication.
+	 *
 	 * @param userDetailsPasswordService the service to use
 	 */
 	public void setUserDetailsPasswordService(

@@ -15,25 +15,26 @@
  */
 package org.springframework.security.oauth2.server.resource.authentication;
 
-import java.util.Collection;
-import java.util.Map;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.core.Transient;
 import org.springframework.security.oauth2.jwt.Jwt;
+
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * An implementation of an {@link AbstractOAuth2TokenAuthenticationToken}
  * representing a {@link Jwt} {@code Authentication}.
  *
  * @author Joe Grandja
- * @since 5.1
  * @see AbstractOAuth2TokenAuthenticationToken
  * @see Jwt
+ * @since 5.1
  */
 @Transient
 public class JwtAuthenticationToken extends AbstractOAuth2TokenAuthenticationToken<Jwt> {
+	
 	private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
 	private final String name;
@@ -51,7 +52,7 @@ public class JwtAuthenticationToken extends AbstractOAuth2TokenAuthenticationTok
 	/**
 	 * Constructs a {@code JwtAuthenticationToken} using the provided parameters.
 	 *
-	 * @param jwt the JWT
+	 * @param jwt         the JWT
 	 * @param authorities the authorities assigned to the JWT
 	 */
 	public JwtAuthenticationToken(Jwt jwt, Collection<? extends GrantedAuthority> authorities) {
@@ -63,9 +64,9 @@ public class JwtAuthenticationToken extends AbstractOAuth2TokenAuthenticationTok
 	/**
 	 * Constructs a {@code JwtAuthenticationToken} using the provided parameters.
 	 *
-	 * @param jwt the JWT
+	 * @param jwt         the JWT
 	 * @param authorities the authorities assigned to the JWT
-	 * @param name the principal name
+	 * @param name        the principal name
 	 */
 	public JwtAuthenticationToken(Jwt jwt, Collection<? extends GrantedAuthority> authorities, String name) {
 		super(jwt, authorities);

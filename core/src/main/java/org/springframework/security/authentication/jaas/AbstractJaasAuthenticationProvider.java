@@ -15,22 +15,8 @@
  */
 package org.springframework.security.authentication.jaas;
 
-import java.io.IOException;
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.security.auth.callback.Callback;
-import javax.security.auth.callback.CallbackHandler;
-import javax.security.auth.callback.UnsupportedCallbackException;
-import javax.security.auth.login.LoginContext;
-import javax.security.auth.login.LoginException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
@@ -46,6 +32,18 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.session.SessionDestroyedEvent;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
+
+import javax.security.auth.callback.Callback;
+import javax.security.auth.callback.CallbackHandler;
+import javax.security.auth.callback.UnsupportedCallbackException;
+import javax.security.auth.login.LoginContext;
+import javax.security.auth.login.LoginException;
+import java.io.IOException;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * An {@link AuthenticationProvider} implementation that retrieves user details from a
@@ -141,8 +139,8 @@ public abstract class AbstractJaasAuthenticationProvider
 		Assert.notEmpty(this.authorityGranters,
 				"authorityGranters cannot be null or empty");
 		if (ObjectUtils.isEmpty(this.callbackHandlers)) {
-			setCallbackHandlers(new JaasAuthenticationCallbackHandler[] {
-					new JaasNameCallbackHandler(), new JaasPasswordCallbackHandler() });
+			setCallbackHandlers(new JaasAuthenticationCallbackHandler[]{
+					new JaasNameCallbackHandler(), new JaasPasswordCallbackHandler()});
 		}
 		Assert.notNull(this.loginExceptionResolver,
 				"loginExceptionResolver cannot be null");
@@ -153,14 +151,13 @@ public abstract class AbstractJaasAuthenticationProvider
 	 * credential
 	 *
 	 * @param auth The Authentication object to be authenticated.
-	 *
 	 * @return The authenticated Authentication object, with it's grantedAuthorities set.
-	 *
 	 * @throws AuthenticationException This implementation does not handle 'locked' or
-	 * 'disabled' accounts. This method only throws a AuthenticationServiceException, with
-	 * the message of the LoginException that will be thrown, should the
-	 * loginContext.login() method fail.
+	 *                                 'disabled' accounts. This method only throws a AuthenticationServiceException, with
+	 *                                 the message of the LoginException that will be thrown, should the
+	 *                                 loginContext.login() method fail.
 	 */
+	@Override
 	public Authentication authenticate(Authentication auth)
 			throws AuthenticationException {
 		if (!(auth instanceof UsernamePasswordAuthenticationToken)) {
@@ -211,8 +208,7 @@ public abstract class AbstractJaasAuthenticationProvider
 			// we're done, return the token.
 			return result;
 
-		}
-		catch (LoginException loginException) {
+		} catch (LoginException loginException) {
 			AuthenticationException ase = this.loginExceptionResolver
 					.resolveException(loginException);
 
@@ -225,7 +221,7 @@ public abstract class AbstractJaasAuthenticationProvider
 	 * Creates the LoginContext to be used for authentication.
 	 *
 	 * @param handler The CallbackHandler that should be used for the LoginContext (never
-	 * <code>null</code>).
+	 *                <code>null</code>).
 	 * @return the LoginContext to use for authentication.
 	 * @throws LoginException
 	 */
@@ -236,7 +232,6 @@ public abstract class AbstractJaasAuthenticationProvider
 	 * Handles the logout by getting the security contexts for the destroyed session and
 	 * invoking {@code LoginContext.logout()} for any which contain a
 	 * {@code JaasAuthenticationToken}.
-	 *
 	 *
 	 * @param event the session event which contains the current session
 	 */
@@ -264,14 +259,12 @@ public abstract class AbstractJaasAuthenticationProvider
 									+ "] out of LoginContext");
 						}
 						loginContext.logout();
-					}
-					else if (debug) {
+					} else if (debug) {
 						this.log.debug("Cannot logout principal: [" + token.getPrincipal()
 								+ "] from LoginContext. "
 								+ "The LoginContext is unavailable");
 					}
-				}
-				catch (LoginException e) {
+				} catch (LoginException e) {
 					this.log.warn("Error error logging out of LoginContext", e);
 				}
 			}
@@ -287,7 +280,7 @@ public abstract class AbstractJaasAuthenticationProvider
 	 * subclasses for different functionality
 	 *
 	 * @param token The authentication token being processed
-	 * @param ase The excetion that caused the authentication failure
+	 * @param ase   The excetion that caused the authentication failure
 	 */
 	protected void publishFailureEvent(UsernamePasswordAuthenticationToken token,
 			AuthenticationException ase) {
@@ -316,7 +309,6 @@ public abstract class AbstractJaasAuthenticationProvider
 	 * ever set.
 	 *
 	 * @return The AuthorityGranter array, or null
-	 *
 	 * @see #setAuthorityGranters(AuthorityGranter[])
 	 */
 	AuthorityGranter[] getAuthorityGranters() {
@@ -328,7 +320,6 @@ public abstract class AbstractJaasAuthenticationProvider
 	 * the Authentication.
 	 *
 	 * @param authorityGranters AuthorityGranter array
-	 *
 	 * @see JaasAuthenticationProvider
 	 */
 	public void setAuthorityGranters(AuthorityGranter[] authorityGranters) {
@@ -340,7 +331,6 @@ public abstract class AbstractJaasAuthenticationProvider
 	 * set.
 	 *
 	 * @return the JAASAuthenticationCallbackHandlers.
-	 *
 	 * @see #setCallbackHandlers(JaasAuthenticationCallbackHandler[])
 	 */
 	JaasAuthenticationCallbackHandler[] getCallbackHandlers() {

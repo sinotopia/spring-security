@@ -32,8 +32,9 @@ import java.util.Collection;
  * data with a Spring Security authentication object
  * The complete assertion is contained in the object in String format,
  * {@link Saml2Authentication#getSaml2Response()}
- * @since 5.2
+ *
  * @see AbstractAuthenticationToken
+ * @since 5.2
  */
 public class Saml2Authentication extends AbstractAuthenticationToken {
 
@@ -58,6 +59,7 @@ public class Saml2Authentication extends AbstractAuthenticationToken {
 
 	/**
 	 * Returns the SAML response object, as decoded XML. May contain encrypted elements
+	 *
 	 * @return string representation of the SAML Response XML object
 	 */
 	public String getSaml2Response() {

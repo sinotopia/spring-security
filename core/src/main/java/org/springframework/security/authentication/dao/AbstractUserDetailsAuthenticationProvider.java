@@ -18,31 +18,18 @@ package org.springframework.security.authentication.dao;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.security.authentication.AccountExpiredException;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.CredentialsExpiredException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.MessageSource;
+import org.springframework.context.MessageSourceAware;
+import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.core.authority.mapping.NullAuthoritiesMapper;
-import org.springframework.security.core.userdetails.UserCache;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsChecker;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.userdetails.*;
 import org.springframework.security.core.userdetails.cache.NullUserCache;
-
-import org.springframework.beans.factory.InitializingBean;
-
-import org.springframework.context.MessageSource;
-import org.springframework.context.MessageSourceAware;
-import org.springframework.context.support.MessageSourceAccessor;
-
 import org.springframework.util.Assert;
 
 /**
@@ -104,25 +91,26 @@ public abstract class AbstractUserDetailsAuthenticationProvider implements
 	 * <code>UsernamePasswordAuthenticationToken</code>, these should also appear in this
 	 * method.
 	 *
-	 * @param userDetails as retrieved from the
-	 * {@link #retrieveUser(String, UsernamePasswordAuthenticationToken)} or
-	 * <code>UserCache</code>
+	 * @param userDetails    as retrieved from the
+	 *                       {@link #retrieveUser(String, UsernamePasswordAuthenticationToken)} or
+	 *                       <code>UserCache</code>
 	 * @param authentication the current request that needs to be authenticated
-	 *
 	 * @throws AuthenticationException AuthenticationException if the credentials could
-	 * not be validated (generally a <code>BadCredentialsException</code>, an
-	 * <code>AuthenticationServiceException</code>)
+	 *                                 not be validated (generally a <code>BadCredentialsException</code>, an
+	 *                                 <code>AuthenticationServiceException</code>)
 	 */
 	protected abstract void additionalAuthenticationChecks(UserDetails userDetails,
 			UsernamePasswordAuthenticationToken authentication)
 			throws AuthenticationException;
 
+	@Override
 	public final void afterPropertiesSet() throws Exception {
 		Assert.notNull(this.userCache, "A user cache must be set");
 		Assert.notNull(this.messages, "A message source must be set");
 		doAfterPropertiesSet();
 	}
 
+	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
 		Assert.isInstanceOf(UsernamePasswordAuthenticationToken.class, authentication,
@@ -141,18 +129,15 @@ public abstract class AbstractUserDetailsAuthenticationProvider implements
 			cacheWasUsed = false;
 
 			try {
-				user = retrieveUser(username,
-						(UsernamePasswordAuthenticationToken) authentication);
-			}
-			catch (UsernameNotFoundException notFound) {
+				user = retrieveUser(username, (UsernamePasswordAuthenticationToken) authentication);
+			} catch (UsernameNotFoundException notFound) {
 				logger.debug("User '" + username + "' not found");
 
 				if (hideUserNotFoundExceptions) {
 					throw new BadCredentialsException(messages.getMessage(
 							"AbstractUserDetailsAuthenticationProvider.badCredentials",
 							"Bad credentials"));
-				}
-				else {
+				} else {
 					throw notFound;
 				}
 			}
@@ -165,8 +150,7 @@ public abstract class AbstractUserDetailsAuthenticationProvider implements
 			preAuthenticationChecks.check(user);
 			additionalAuthenticationChecks(user,
 					(UsernamePasswordAuthenticationToken) authentication);
-		}
-		catch (AuthenticationException exception) {
+		} catch (AuthenticationException exception) {
 			if (cacheWasUsed) {
 				// There was a problem, so try again after checking
 				// we're using latest data (i.e. not from the cache)
@@ -176,8 +160,7 @@ public abstract class AbstractUserDetailsAuthenticationProvider implements
 				preAuthenticationChecks.check(user);
 				additionalAuthenticationChecks(user,
 						(UsernamePasswordAuthenticationToken) authentication);
-			}
-			else {
+			} else {
 				throw exception;
 			}
 		}
@@ -207,11 +190,10 @@ public abstract class AbstractUserDetailsAuthenticationProvider implements
 	 * salted or encoded passwords) in the returned <code>Authentication</code> object.
 	 * </p>
 	 *
-	 * @param principal that should be the principal in the returned object (defined by
-	 * the {@link #isForcePrincipalAsString()} method)
+	 * @param principal      that should be the principal in the returned object (defined by
+	 *                       the {@link #isForcePrincipalAsString()} method)
 	 * @param authentication that was presented to the provider for validation
-	 * @param user that was loaded by the implementation
-	 *
+	 * @param user           that was loaded by the implementation
 	 * @return the successful authentication token
 	 */
 	protected Authentication createSuccessAuthentication(Object principal,
@@ -272,17 +254,15 @@ public abstract class AbstractUserDetailsAuthenticationProvider implements
 	 * methods.
 	 * </p>
 	 *
-	 * @param username The username to retrieve
+	 * @param username       The username to retrieve
 	 * @param authentication The authentication request, which subclasses <em>may</em>
-	 * need to perform a binding-based retrieval of the <code>UserDetails</code>
-	 *
+	 *                       need to perform a binding-based retrieval of the <code>UserDetails</code>
 	 * @return the user information (never <code>null</code> - instead an exception should
 	 * the thrown)
-	 *
 	 * @throws AuthenticationException if the credentials could not be validated
-	 * (generally a <code>BadCredentialsException</code>, an
-	 * <code>AuthenticationServiceException</code> or
-	 * <code>UsernameNotFoundException</code>)
+	 *                                 (generally a <code>BadCredentialsException</code>, an
+	 *                                 <code>AuthenticationServiceException</code> or
+	 *                                 <code>UsernameNotFoundException</code>)
 	 */
 	protected abstract UserDetails retrieveUser(String username,
 			UsernamePasswordAuthenticationToken authentication)
@@ -301,13 +281,14 @@ public abstract class AbstractUserDetailsAuthenticationProvider implements
 	 * for both exceptions.
 	 *
 	 * @param hideUserNotFoundExceptions set to <code>false</code> if you wish
-	 * <code>UsernameNotFoundException</code>s to be thrown instead of the non-specific
-	 * <code>BadCredentialsException</code> (defaults to <code>true</code>)
+	 *                                   <code>UsernameNotFoundException</code>s to be thrown instead of the non-specific
+	 *                                   <code>BadCredentialsException</code> (defaults to <code>true</code>)
 	 */
 	public void setHideUserNotFoundExceptions(boolean hideUserNotFoundExceptions) {
 		this.hideUserNotFoundExceptions = hideUserNotFoundExceptions;
 	}
 
+	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		this.messages = new MessageSourceAccessor(messageSource);
 	}
@@ -316,6 +297,7 @@ public abstract class AbstractUserDetailsAuthenticationProvider implements
 		this.userCache = userCache;
 	}
 
+	@Override
 	public boolean supports(Class<?> authentication) {
 		return (UsernamePasswordAuthenticationToken.class
 				.isAssignableFrom(authentication));
@@ -348,6 +330,8 @@ public abstract class AbstractUserDetailsAuthenticationProvider implements
 	}
 
 	private class DefaultPreAuthenticationChecks implements UserDetailsChecker {
+
+		@Override
 		public void check(UserDetails user) {
 			if (!user.isAccountNonLocked()) {
 				logger.debug("User account is locked");
@@ -376,6 +360,8 @@ public abstract class AbstractUserDetailsAuthenticationProvider implements
 	}
 
 	private class DefaultPostAuthenticationChecks implements UserDetailsChecker {
+
+		@Override
 		public void check(UserDetails user) {
 			if (!user.isCredentialsNonExpired()) {
 				logger.debug("User account credentials have expired");

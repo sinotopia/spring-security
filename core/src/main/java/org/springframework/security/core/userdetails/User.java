@@ -16,28 +16,20 @@
 
 package org.springframework.security.core.userdetails;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
-import java.util.function.Function;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.CredentialsContainer;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.Assert;
+
+import java.io.Serializable;
+import java.util.*;
+import java.util.function.Function;
 
 /**
  * Models core user information retrieved by a {@link UserDetailsService}.
@@ -90,20 +82,19 @@ public class User implements UserDetails, CredentialsContainer {
 	 * Construct the <code>User</code> with the details required by
 	 * {@link org.springframework.security.authentication.dao.DaoAuthenticationProvider}.
 	 *
-	 * @param username the username presented to the
-	 * <code>DaoAuthenticationProvider</code>
-	 * @param password the password that should be presented to the
-	 * <code>DaoAuthenticationProvider</code>
-	 * @param enabled set to <code>true</code> if the user is enabled
-	 * @param accountNonExpired set to <code>true</code> if the account has not expired
+	 * @param username              the username presented to the
+	 *                              <code>DaoAuthenticationProvider</code>
+	 * @param password              the password that should be presented to the
+	 *                              <code>DaoAuthenticationProvider</code>
+	 * @param enabled               set to <code>true</code> if the user is enabled
+	 * @param accountNonExpired     set to <code>true</code> if the account has not expired
 	 * @param credentialsNonExpired set to <code>true</code> if the credentials have not
-	 * expired
-	 * @param accountNonLocked set to <code>true</code> if the account is not locked
-	 * @param authorities the authorities that should be granted to the caller if they
-	 * presented the correct username and password and the user is enabled. Not null.
-	 *
+	 *                              expired
+	 * @param accountNonLocked      set to <code>true</code> if the account is not locked
+	 * @param authorities           the authorities that should be granted to the caller if they
+	 *                              presented the correct username and password and the user is enabled. Not null.
 	 * @throws IllegalArgumentException if a <code>null</code> value was passed either as
-	 * a parameter or as an element in the <code>GrantedAuthority</code> collection
+	 *                                  a parameter or as an element in the <code>GrantedAuthority</code> collection
 	 */
 	public User(String username, String password, boolean enabled,
 			boolean accountNonExpired, boolean credentialsNonExpired,
@@ -126,34 +117,42 @@ public class User implements UserDetails, CredentialsContainer {
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public Collection<GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
 
+	@Override
 	public String getPassword() {
 		return password;
 	}
 
+	@Override
 	public String getUsername() {
 		return username;
 	}
 
+	@Override
 	public boolean isEnabled() {
 		return enabled;
 	}
 
+	@Override
 	public boolean isAccountNonExpired() {
 		return accountNonExpired;
 	}
 
+	@Override
 	public boolean isAccountNonLocked() {
 		return accountNonLocked;
 	}
 
+	@Override
 	public boolean isCredentialsNonExpired() {
 		return credentialsNonExpired;
 	}
 
+	@Override
 	public void eraseCredentials() {
 		password = null;
 	}
@@ -179,6 +178,7 @@ public class User implements UserDetails, CredentialsContainer {
 			Serializable {
 		private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
+		@Override
 		public int compare(GrantedAuthority g1, GrantedAuthority g2) {
 			// Neither should ever be null as each entry is checked before adding it to
 			// the set.
@@ -243,8 +243,7 @@ public class User implements UserDetails, CredentialsContainer {
 
 				sb.append(auth);
 			}
-		}
-		else {
+		} else {
 			sb.append("Not granted any authorities");
 		}
 
@@ -291,7 +290,7 @@ public class User implements UserDetails, CredentialsContainer {
 	 * System.out.println(user.getPassword());
 	 * </code>
 	 * </pre>
-	 *
+	 * <p>
 	 * This is not safe for production (it is intended for getting started experience)
 	 * because the password "password" is compiled into the source code and then is
 	 * included in memory at the time of creation. This means there are still ways to
@@ -299,7 +298,7 @@ public class User implements UserDetails, CredentialsContainer {
 	 * improvement to using plain text passwords since the UserDetails password is
 	 * securely hashed. This means if the UserDetails password is accidentally exposed,
 	 * the password is securely stored.
-	 *
+	 * <p>
 	 * In a production setting, it is recommended to hash the password ahead of time.
 	 * For example:
 	 *
@@ -338,12 +337,12 @@ public class User implements UserDetails, CredentialsContainer {
 
 	public static UserBuilder withUserDetails(UserDetails userDetails) {
 		return withUsername(userDetails.getUsername())
-			.password(userDetails.getPassword())
-			.accountExpired(!userDetails.isAccountNonExpired())
-			.accountLocked(!userDetails.isAccountNonLocked())
-			.authorities(userDetails.getAuthorities())
-			.credentialsExpired(!userDetails.isCredentialsNonExpired())
-			.disabled(!userDetails.isEnabled());
+				.password(userDetails.getPassword())
+				.accountExpired(!userDetails.isAccountNonExpired())
+				.accountLocked(!userDetails.isAccountNonLocked())
+				.authorities(userDetails.getAuthorities())
+				.credentialsExpired(!userDetails.isCredentialsNonExpired())
+				.disabled(!userDetails.isEnabled());
 	}
 
 	/**
@@ -412,13 +411,13 @@ public class User implements UserDetails, CredentialsContainer {
 		 * "ROLE_". This means the following:
 		 *
 		 * <code>
-		 *     builder.roles("USER","ADMIN");
+		 * builder.roles("USER","ADMIN");
 		 * </code>
-		 *
+		 * <p>
 		 * is equivalent to
 		 *
 		 * <code>
-		 *     builder.authorities("ROLE_USER","ROLE_ADMIN");
+		 * builder.authorities("ROLE_USER","ROLE_ADMIN");
 		 * </code>
 		 *
 		 * <p>
@@ -427,7 +426,7 @@ public class User implements UserDetails, CredentialsContainer {
 		 * </p>
 		 *
 		 * @param roles the roles for this user (i.e. USER, ADMIN, etc). Cannot be null,
-		 * contain null values or start with "ROLE_"
+		 *              contain null values or start with "ROLE_"
 		 * @return the {@link UserBuilder} for method chaining (i.e. to populate
 		 * additional attributes for this user)
 		 */
@@ -446,7 +445,7 @@ public class User implements UserDetails, CredentialsContainer {
 		 * Populates the authorities. This attribute is required.
 		 *
 		 * @param authorities the authorities for this user. Cannot be null, or contain
-		 * null values
+		 *                    null values
 		 * @return the {@link UserBuilder} for method chaining (i.e. to populate
 		 * additional attributes for this user)
 		 * @see #roles(String...)
@@ -459,7 +458,7 @@ public class User implements UserDetails, CredentialsContainer {
 		 * Populates the authorities. This attribute is required.
 		 *
 		 * @param authorities the authorities for this user. Cannot be null, or contain
-		 * null values
+		 *                    null values
 		 * @return the {@link UserBuilder} for method chaining (i.e. to populate
 		 * additional attributes for this user)
 		 * @see #roles(String...)
@@ -473,7 +472,7 @@ public class User implements UserDetails, CredentialsContainer {
 		 * Populates the authorities. This attribute is required.
 		 *
 		 * @param authorities the authorities for this user (i.e. ROLE_USER, ROLE_ADMIN,
-		 * etc). Cannot be null, or contain null values
+		 *                    etc). Cannot be null, or contain null values
 		 * @return the {@link UserBuilder} for method chaining (i.e. to populate
 		 * additional attributes for this user)
 		 * @see #roles(String...)

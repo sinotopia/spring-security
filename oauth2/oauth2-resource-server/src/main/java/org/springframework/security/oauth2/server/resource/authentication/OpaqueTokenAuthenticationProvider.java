@@ -15,9 +15,6 @@
  */
 package org.springframework.security.oauth2.server.resource.authentication;
 
-import java.time.Instant;
-import java.util.Collection;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -33,6 +30,9 @@ import org.springframework.security.oauth2.server.resource.BearerTokenError;
 import org.springframework.security.oauth2.server.resource.introspection.OAuth2IntrospectionException;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.util.Assert;
+
+import java.time.Instant;
+import java.util.Collection;
 
 import static org.springframework.security.oauth2.server.resource.introspection.OAuth2IntrospectionClaimNames.EXPIRES_AT;
 import static org.springframework.security.oauth2.server.resource.introspection.OAuth2IntrospectionClaimNames.ISSUED_AT;
@@ -56,8 +56,8 @@ import static org.springframework.security.oauth2.server.resource.introspection.
  * </ol>
  *
  * @author Josh Cummings
- * @since 5.2
  * @see AuthenticationProvider
+ * @since 5.2
  */
 public final class OpaqueTokenAuthenticationProvider implements AuthenticationProvider {
 	private static final BearerTokenError DEFAULT_INVALID_TOKEN =
@@ -80,7 +80,6 @@ public final class OpaqueTokenAuthenticationProvider implements AuthenticationPr
 	 * <a href="https://tools.ietf.org/html/rfc6750#section-1.2" target="_blank">Bearer Token</a>.
 	 *
 	 * @param authentication the authentication request object.
-	 *
 	 * @return A successful authentication
 	 * @throws AuthenticationException if authentication failed for some reason
 	 */

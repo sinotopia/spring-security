@@ -36,7 +36,7 @@ import java.util.Map;
 /**
  * An implementation of an {@link org.springframework.security.authentication.AuthenticationProvider} for OAuth 2.0 Login,
  * which leverages the OAuth 2.0 Authorization Code Grant Flow.
- *
+ * <p>
  * This {@link org.springframework.security.authentication.AuthenticationProvider} is responsible for authenticating
  * an Authorization Code credential with the Authorization Server's Token Endpoint
  * and if valid, exchanging it for an Access Token credential.
@@ -48,7 +48,6 @@ import java.util.Map;
  * to complete the authentication.
  *
  * @author Rob Winch
- * @since 5.1
  * @see OAuth2LoginAuthenticationToken
  * @see org.springframework.security.oauth2.client.endpoint.ReactiveOAuth2AccessTokenResponseClient
  * @see org.springframework.security.oauth2.client.userinfo.ReactiveOAuth2UserService
@@ -56,6 +55,7 @@ import java.util.Map;
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc6749#section-4.1">Section 4.1 Authorization Code Grant Flow</a>
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc6749#section-4.1.3">Section 4.1.3 Access Token Request</a>
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc6749#section-4.1.4">Section 4.1.4 Access Token Response</a>
+ * @since 5.1
  */
 public class OAuth2LoginReactiveAuthenticationManager implements
 		ReactiveAuthenticationManager {

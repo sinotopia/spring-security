@@ -16,14 +16,13 @@
 
 package org.springframework.security.authentication;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.util.Assert;
-
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A {@link ReactiveAuthenticationManager} that delegates to other {@link ReactiveAuthenticationManager} instances using
@@ -47,6 +46,7 @@ public class DelegatingReactiveAuthenticationManager
 		this.delegates = entryPoints;
 	}
 
+	@Override
 	public Mono<Authentication> authenticate(Authentication authentication) {
 		return Flux.fromIterable(this.delegates)
 				.concatMap(m -> m.authenticate(authentication))

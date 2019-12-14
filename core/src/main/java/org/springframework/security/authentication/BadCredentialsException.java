@@ -42,7 +42,7 @@ public class BadCredentialsException extends AuthenticationException {
 	 * root cause.
 	 *
 	 * @param msg the detail message
-	 * @param t root cause
+	 * @param t   root cause
 	 */
 	public BadCredentialsException(String msg, Throwable t) {
 		super(msg, t);

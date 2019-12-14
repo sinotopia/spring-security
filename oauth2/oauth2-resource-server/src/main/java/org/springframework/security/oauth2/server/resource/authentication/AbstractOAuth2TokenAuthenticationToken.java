@@ -15,9 +15,6 @@
  */
 package org.springframework.security.oauth2.server.resource.authentication;
 
-import java.util.Collection;
-import java.util.Map;
-
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,6 +23,9 @@ import org.springframework.security.oauth2.core.AbstractOAuth2Token;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.util.Assert;
+
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * Base class for {@link AbstractAuthenticationToken} implementations
@@ -37,12 +37,13 @@ import org.springframework.util.Assert;
  * could expose the attributes of the Introspection Response via {@link #getTokenAttributes()}.
  *
  * @author Joe Grandja
- * @since 5.1
  * @see OAuth2AccessToken
  * @see Jwt
  * @see <a target="_blank" href="https://tools.ietf.org/search/rfc7662#section-2.2">2.2 Introspection Response</a>
+ * @since 5.1
  */
 public abstract class AbstractOAuth2TokenAuthenticationToken<T extends AbstractOAuth2Token> extends AbstractAuthenticationToken {
+
 	private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
 	private Object principal;

@@ -15,13 +15,13 @@
  */
 package org.springframework.security.core.token;
 
-import java.io.InputStream;
-import java.security.SecureRandom;
-
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 import org.springframework.util.FileCopyUtils;
+
+import java.io.InputStream;
+import java.security.SecureRandom;
 
 /**
  * Creates a {@link SecureRandom} instance.
@@ -34,6 +34,7 @@ public class SecureRandomFactoryBean implements FactoryBean<SecureRandom> {
 	private String algorithm = "SHA1PRNG";
 	private Resource seed;
 
+	@Override
 	public SecureRandom getObject() throws Exception {
 		SecureRandom rnd = SecureRandom.getInstance(algorithm);
 
@@ -50,10 +51,12 @@ public class SecureRandomFactoryBean implements FactoryBean<SecureRandom> {
 		return rnd;
 	}
 
+	@Override
 	public Class<SecureRandom> getObjectType() {
 		return SecureRandom.class;
 	}
 
+	@Override
 	public boolean isSingleton() {
 		return false;
 	}

@@ -31,8 +31,7 @@ public interface AuthenticationDetailsSource<C, T> {
 	 * created.
 	 *
 	 * @param context the request object, which may be used by the authentication details
-	 * object
-	 *
+	 *                object
 	 * @return a fully-configured authentication details instance
 	 */
 	T buildDetails(C context);

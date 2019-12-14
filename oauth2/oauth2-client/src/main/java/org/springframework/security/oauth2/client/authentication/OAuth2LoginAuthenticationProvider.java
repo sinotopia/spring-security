@@ -38,7 +38,7 @@ import java.util.Map;
 /**
  * An implementation of an {@link AuthenticationProvider} for OAuth 2.0 Login,
  * which leverages the OAuth 2.0 Authorization Code Grant Flow.
- *
+ * <p>
  * This {@link AuthenticationProvider} is responsible for authenticating
  * an Authorization Code credential with the Authorization Server's Token Endpoint
  * and if valid, exchanging it for an Access Token credential.
@@ -50,7 +50,6 @@ import java.util.Map;
  * to complete the authentication.
  *
  * @author Joe Grandja
- * @since 5.0
  * @see OAuth2LoginAuthenticationToken
  * @see OAuth2AccessTokenResponseClient
  * @see OAuth2UserService
@@ -58,8 +57,10 @@ import java.util.Map;
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc6749#section-4.1">Section 4.1 Authorization Code Grant Flow</a>
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc6749#section-4.1.3">Section 4.1.3 Access Token Request</a>
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc6749#section-4.1.4">Section 4.1.4 Access Token Response</a>
+ * @since 5.0
  */
 public class OAuth2LoginAuthenticationProvider implements AuthenticationProvider {
+	
 	private final OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient;
 	private final OAuth2UserService<OAuth2UserRequest, OAuth2User> userService;
 	private GrantedAuthoritiesMapper authoritiesMapper = (authorities -> authorities);
@@ -68,11 +69,11 @@ public class OAuth2LoginAuthenticationProvider implements AuthenticationProvider
 	 * Constructs an {@code OAuth2LoginAuthenticationProvider} using the provided parameters.
 	 *
 	 * @param accessTokenResponseClient the client used for requesting the access token credential from the Token Endpoint
-	 * @param userService the service used for obtaining the user attributes of the End-User from the UserInfo Endpoint
+	 * @param userService               the service used for obtaining the user attributes of the End-User from the UserInfo Endpoint
 	 */
 	public OAuth2LoginAuthenticationProvider(
-		OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient,
-		OAuth2UserService<OAuth2UserRequest, OAuth2User> userService) {
+			OAuth2AccessTokenResponseClient<OAuth2AuthorizationCodeGrantRequest> accessTokenResponseClient,
+			OAuth2UserService<OAuth2UserRequest, OAuth2User> userService) {
 
 		Assert.notNull(accessTokenResponseClient, "accessTokenResponseClient cannot be null");
 		Assert.notNull(userService, "userService cannot be null");
@@ -83,13 +84,13 @@ public class OAuth2LoginAuthenticationProvider implements AuthenticationProvider
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		OAuth2LoginAuthenticationToken authorizationCodeAuthentication =
-			(OAuth2LoginAuthenticationToken) authentication;
+				(OAuth2LoginAuthenticationToken) authentication;
 
 		// Section 3.1.2.1 Authentication Request - https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest
 		// scope
 		// 		REQUIRED. OpenID Connect requests MUST contain the "openid" scope value.
 		if (authorizationCodeAuthentication.getAuthorizationExchange()
-			.getAuthorizationRequest().getScopes().contains("openid")) {
+				.getAuthorizationRequest().getScopes().contains("openid")) {
 			// This is an OpenID Connect Authentication Request so return null
 			// and let OidcAuthorizationCodeAuthenticationProvider handle it instead
 			return null;
@@ -117,15 +118,15 @@ public class OAuth2LoginAuthenticationProvider implements AuthenticationProvider
 				authorizationCodeAuthentication.getClientRegistration(), accessToken, additionalParameters));
 
 		Collection<? extends GrantedAuthority> mappedAuthorities =
-			this.authoritiesMapper.mapAuthorities(oauth2User.getAuthorities());
+				this.authoritiesMapper.mapAuthorities(oauth2User.getAuthorities());
 
 		OAuth2LoginAuthenticationToken authenticationResult = new OAuth2LoginAuthenticationToken(
-			authorizationCodeAuthentication.getClientRegistration(),
-			authorizationCodeAuthentication.getAuthorizationExchange(),
-			oauth2User,
-			mappedAuthorities,
-			accessToken,
-			accessTokenResponse.getRefreshToken());
+				authorizationCodeAuthentication.getClientRegistration(),
+				authorizationCodeAuthentication.getAuthorizationExchange(),
+				oauth2User,
+				mappedAuthorities,
+				accessToken,
+				accessTokenResponse.getRefreshToken());
 		authenticationResult.setDetails(authorizationCodeAuthentication.getDetails());
 
 		return authenticationResult;

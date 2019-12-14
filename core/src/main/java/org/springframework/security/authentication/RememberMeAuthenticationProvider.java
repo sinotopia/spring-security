@@ -48,10 +48,12 @@ public class RememberMeAuthenticationProvider implements AuthenticationProvider,
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public void afterPropertiesSet() {
 		Assert.notNull(this.messages, "A message source must be set");
 	}
 
+	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
 		if (!supports(authentication.getClass())) {
@@ -72,10 +74,12 @@ public class RememberMeAuthenticationProvider implements AuthenticationProvider,
 		return key;
 	}
 
+	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		this.messages = new MessageSourceAccessor(messageSource);
 	}
 
+	@Override
 	public boolean supports(Class<?> authentication) {
 		return (RememberMeAuthenticationToken.class.isAssignableFrom(authentication));
 	}

@@ -36,11 +36,12 @@ public class Saml2AuthenticationToken extends AbstractAuthenticationToken {
 
 	/**
 	 * Creates an authentication token from an incoming SAML 2 Response object
-	 * @param saml2Response inflated and decoded XML representation of the SAML 2 Response
-	 * @param recipientUri the URL that the SAML 2 Response was received at. Used for validation
-	 * @param idpEntityId the entity ID of the asserting entity
+	 *
+	 * @param saml2Response   inflated and decoded XML representation of the SAML 2 Response
+	 * @param recipientUri    the URL that the SAML 2 Response was received at. Used for validation
+	 * @param idpEntityId     the entity ID of the asserting entity
 	 * @param localSpEntityId the configured local SP, the relying party, entity ID
-	 * @param credentials the credentials configured for signature verification and decryption
+	 * @param credentials     the credentials configured for signature verification and decryption
 	 */
 	public Saml2AuthenticationToken(String saml2Response,
 									String recipientUri,

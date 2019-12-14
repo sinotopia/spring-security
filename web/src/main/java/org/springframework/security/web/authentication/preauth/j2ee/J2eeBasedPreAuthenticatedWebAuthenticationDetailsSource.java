@@ -83,6 +83,7 @@ public class J2eeBasedPreAuthenticatedWebAuthenticationDetailsSource
 	 *
 	 * @see org.springframework.security.authentication.AuthenticationDetailsSource#buildDetails(Object)
 	 */
+	@Override
 	public PreAuthenticatedGrantedAuthoritiesWebAuthenticationDetails buildDetails(
 			HttpServletRequest context) {
 

@@ -16,8 +16,6 @@
 
 package org.springframework.security.authentication.rcp;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,6 +23,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.Assert;
+
+import java.util.Collection;
 
 /**
  * Client-side object which queries a {@link RemoteAuthenticationManager} to validate an

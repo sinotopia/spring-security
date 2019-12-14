@@ -16,11 +16,10 @@
 
 package org.springframework.security.authentication;
 
-import reactor.core.publisher.Mono;
-
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
+import reactor.core.publisher.Mono;
 
 /**
  * A {@link ReactiveAuthenticationManager} that uses a {@link ReactiveUserDetailsService} to validate the provided

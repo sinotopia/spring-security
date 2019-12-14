@@ -32,14 +32,15 @@ import java.util.Map;
  * An {@link AbstractAuthenticationToken} for the OAuth 2.0 Authorization Code Grant.
  *
  * @author Joe Grandja
- * @since 5.1
  * @see AbstractAuthenticationToken
  * @see ClientRegistration
  * @see OAuth2AuthorizationExchange
  * @see OAuth2AccessToken
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc6749#section-4.1">Section 4.1 Authorization Code Grant Flow</a>
+ * @since 5.1
  */
 public class OAuth2AuthorizationCodeAuthenticationToken extends AbstractAuthenticationToken {
+
 	private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 	private Map<String, Object> additionalParameters = new HashMap<>();
 	private ClientRegistration clientRegistration;
@@ -50,11 +51,11 @@ public class OAuth2AuthorizationCodeAuthenticationToken extends AbstractAuthenti
 	/**
 	 * This constructor should be used when the Authorization Request/Response is complete.
 	 *
-	 * @param clientRegistration the client registration
+	 * @param clientRegistration    the client registration
 	 * @param authorizationExchange the authorization exchange
 	 */
 	public OAuth2AuthorizationCodeAuthenticationToken(ClientRegistration clientRegistration,
-														OAuth2AuthorizationExchange authorizationExchange) {
+			OAuth2AuthorizationExchange authorizationExchange) {
 		super(Collections.emptyList());
 		Assert.notNull(clientRegistration, "clientRegistration cannot be null");
 		Assert.notNull(authorizationExchange, "authorizationExchange cannot be null");
@@ -66,13 +67,13 @@ public class OAuth2AuthorizationCodeAuthenticationToken extends AbstractAuthenti
 	 * This constructor should be used when the Access Token Request/Response is complete,
 	 * which indicates that the Authorization Code Grant flow has fully completed.
 	 *
-	 * @param clientRegistration the client registration
+	 * @param clientRegistration    the client registration
 	 * @param authorizationExchange the authorization exchange
-	 * @param accessToken the access token credential
+	 * @param accessToken           the access token credential
 	 */
 	public OAuth2AuthorizationCodeAuthenticationToken(ClientRegistration clientRegistration,
-														OAuth2AuthorizationExchange authorizationExchange,
-														OAuth2AccessToken accessToken) {
+			OAuth2AuthorizationExchange authorizationExchange,
+			OAuth2AccessToken accessToken) {
 		this(clientRegistration, authorizationExchange, accessToken, null);
 	}
 
@@ -80,15 +81,15 @@ public class OAuth2AuthorizationCodeAuthenticationToken extends AbstractAuthenti
 	 * This constructor should be used when the Access Token Request/Response is complete,
 	 * which indicates that the Authorization Code Grant flow has fully completed.
 	 *
-	 * @param clientRegistration the client registration
+	 * @param clientRegistration    the client registration
 	 * @param authorizationExchange the authorization exchange
-	 * @param accessToken the access token credential
-	 * @param refreshToken the refresh token credential
+	 * @param accessToken           the access token credential
+	 * @param refreshToken          the refresh token credential
 	 */
 	public OAuth2AuthorizationCodeAuthenticationToken(ClientRegistration clientRegistration,
-														OAuth2AuthorizationExchange authorizationExchange,
-														OAuth2AccessToken accessToken,
-														@Nullable OAuth2RefreshToken refreshToken) {
+			OAuth2AuthorizationExchange authorizationExchange,
+			OAuth2AccessToken accessToken,
+			@Nullable OAuth2RefreshToken refreshToken) {
 		this(clientRegistration, authorizationExchange, accessToken, refreshToken, Collections.emptyMap());
 	}
 
@@ -110,8 +111,8 @@ public class OAuth2AuthorizationCodeAuthenticationToken extends AbstractAuthenti
 	@Override
 	public Object getCredentials() {
 		return this.accessToken != null ?
-			this.accessToken.getTokenValue() :
-			this.authorizationExchange.getAuthorizationResponse().getCode();
+				this.accessToken.getTokenValue() :
+				this.authorizationExchange.getAuthorizationResponse().getCode();
 	}
 
 	/**
@@ -146,7 +147,8 @@ public class OAuth2AuthorizationCodeAuthenticationToken extends AbstractAuthenti
 	 *
 	 * @return the {@link OAuth2RefreshToken}
 	 */
-	public @Nullable OAuth2RefreshToken getRefreshToken() {
+	public @Nullable
+	OAuth2RefreshToken getRefreshToken() {
 		return this.refreshToken;
 	}
 

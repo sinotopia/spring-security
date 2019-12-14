@@ -15,13 +15,13 @@
  */
 package org.springframework.security.openid;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * OpenID Authentication Token
@@ -59,8 +59,7 @@ public class OpenIDAuthenticationToken extends AbstractAuthenticationToken {
 	 * Created by the <tt>OpenIDAuthenticationProvider</tt> on successful authentication.
 	 *
 	 * @param principal usually the <tt>UserDetails</tt> returned by the configured
-	 * <tt>UserDetailsService</tt> used by the <tt>OpenIDAuthenticationProvider</tt>.
-	 *
+	 *                  <tt>UserDetailsService</tt> used by the <tt>OpenIDAuthenticationProvider</tt>.
 	 */
 	public OpenIDAuthenticationToken(Object principal,
 			Collection<? extends GrantedAuthority> authorities, String identityUrl,
@@ -80,6 +79,7 @@ public class OpenIDAuthenticationToken extends AbstractAuthenticationToken {
 
 	/**
 	 * Returns 'null' always, as no credentials are processed by the OpenID provider.
+	 *
 	 * @see org.springframework.security.core.Authentication#getCredentials()
 	 */
 	public Object getCredentials() {

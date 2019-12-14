@@ -46,8 +46,8 @@ import org.springframework.util.Assert;
  */
 public class PreAuthenticatedAuthenticationProvider implements AuthenticationProvider,
 		InitializingBean, Ordered {
-	private static final Log logger = LogFactory
-			.getLog(PreAuthenticatedAuthenticationProvider.class);
+
+	private static final Log logger = LogFactory.getLog(PreAuthenticatedAuthenticationProvider.class);
 
 	private AuthenticationUserDetailsService<PreAuthenticatedAuthenticationToken> preAuthenticatedUserDetailsService = null;
 	private UserDetailsChecker userDetailsChecker = new AccountStatusUserDetailsChecker();
@@ -142,6 +142,7 @@ public class PreAuthenticatedAuthenticationProvider implements AuthenticationPro
 	/**
 	 * Sets the strategy which will be used to validate the loaded <tt>UserDetails</tt>
 	 * object for the user. Defaults to an {@link AccountStatusUserDetailsChecker}.
+	 *
 	 * @param userDetailsChecker
 	 */
 	public void setUserDetailsChecker(UserDetailsChecker userDetailsChecker) {

@@ -18,7 +18,7 @@ package org.springframework.security.core.session;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.security.core.context.SecurityContext;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * Generic "session termination" event which indicates that a session (potentially

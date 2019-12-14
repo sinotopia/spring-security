@@ -23,11 +23,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.core.userdetails.UserDetailsPasswordService;
 import org.springframework.util.Assert;
 
 /**
@@ -74,6 +74,7 @@ public class DaoAuthenticationProvider extends AbstractUserDetailsAuthentication
 	// ========================================================================================================
 
 	@SuppressWarnings("deprecation")
+	@Override
 	protected void additionalAuthenticationChecks(UserDetails userDetails,
 			UsernamePasswordAuthenticationToken authentication)
 			throws AuthenticationException {
@@ -96,13 +97,14 @@ public class DaoAuthenticationProvider extends AbstractUserDetailsAuthentication
 		}
 	}
 
+	@Override
 	protected void doAfterPropertiesSet() {
 		Assert.notNull(this.userDetailsService, "A UserDetailsService must be set");
 	}
 
+	@Override
 	protected final UserDetails retrieveUser(String username,
-			UsernamePasswordAuthenticationToken authentication)
-			throws AuthenticationException {
+			UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
 		prepareTimingAttackProtection();
 		try {
 			UserDetails loadedUser = this.getUserDetailsService().loadUserByUsername(username);
@@ -111,15 +113,12 @@ public class DaoAuthenticationProvider extends AbstractUserDetailsAuthentication
 						"UserDetailsService returned null, which is an interface contract violation");
 			}
 			return loadedUser;
-		}
-		catch (UsernameNotFoundException ex) {
+		} catch (UsernameNotFoundException ex) {
 			mitigateAgainstTimingAttack(authentication);
 			throw ex;
-		}
-		catch (InternalAuthenticationServiceException ex) {
+		} catch (InternalAuthenticationServiceException ex) {
 			throw ex;
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			throw new InternalAuthenticationServiceException(ex.getMessage(), ex);
 		}
 	}
@@ -155,7 +154,7 @@ public class DaoAuthenticationProvider extends AbstractUserDetailsAuthentication
 	 * not set, the password will be compared using {@link PasswordEncoderFactories#createDelegatingPasswordEncoder()}
 	 *
 	 * @param passwordEncoder must be an instance of one of the {@code PasswordEncoder}
-	 * types.
+	 *                        types.
 	 */
 	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
 		Assert.notNull(passwordEncoder, "passwordEncoder cannot be null");

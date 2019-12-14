@@ -16,10 +16,10 @@
 
 package org.springframework.security.authentication;
 
-import java.util.Collection;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
+
+import java.util.Collection;
 
 /**
  * Represents a remembered <code>Authentication</code>.
@@ -52,7 +52,7 @@ public class RememberMeAuthenticationToken extends AbstractAuthenticationToken {
 	 * @throws IllegalArgumentException if a <code>null</code> was passed
 	 */
 	public RememberMeAuthenticationToken(String key, Object principal,
-										Collection<? extends GrantedAuthority> authorities) {
+			Collection<? extends GrantedAuthority> authorities) {
 		super(authorities);
 
 		if ((key == null) || ("".equals(key)) || (principal == null)

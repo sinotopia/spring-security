@@ -15,9 +15,9 @@
  */
 package org.springframework.security.core.token;
 
-import java.util.Date;
-
 import org.springframework.util.Assert;
+
+import java.util.Date;
 
 /**
  * The default implementation of {@link Token}.

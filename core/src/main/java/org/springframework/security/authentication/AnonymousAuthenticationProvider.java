@@ -50,6 +50,7 @@ public class AnonymousAuthenticationProvider implements AuthenticationProvider,
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public Authentication authenticate(Authentication authentication)
 			throws AuthenticationException {
 		if (!supports(authentication.getClass())) {
@@ -70,11 +71,13 @@ public class AnonymousAuthenticationProvider implements AuthenticationProvider,
 		return key;
 	}
 
+	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		Assert.notNull(messageSource, "messageSource cannot be null");
 		this.messages = new MessageSourceAccessor(messageSource);
 	}
 
+	@Override
 	public boolean supports(Class<?> authentication) {
 		return (AnonymousAuthenticationToken.class.isAssignableFrom(authentication));
 	}

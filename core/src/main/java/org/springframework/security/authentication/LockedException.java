@@ -40,7 +40,7 @@ public class LockedException extends AccountStatusException {
 	 * cause.
 	 *
 	 * @param msg the detail message.
-	 * @param t root cause
+	 * @param t   root cause
 	 */
 	public LockedException(String msg, Throwable t) {
 		super(msg, t);

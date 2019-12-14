@@ -19,8 +19,8 @@ package org.springframework.security.core.session;
 import org.springframework.security.core.SpringSecurityCoreVersion;
 import org.springframework.util.Assert;
 
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Represents a record of a session within the Spring Security framework.

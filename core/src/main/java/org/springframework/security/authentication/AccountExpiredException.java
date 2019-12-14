@@ -40,7 +40,7 @@ public class AccountExpiredException extends AccountStatusException {
 	 * root cause.
 	 *
 	 * @param msg the detail message
-	 * @param t root cause
+	 * @param t   root cause
 	 */
 	public AccountExpiredException(String msg, Throwable t) {
 		super(msg, t);

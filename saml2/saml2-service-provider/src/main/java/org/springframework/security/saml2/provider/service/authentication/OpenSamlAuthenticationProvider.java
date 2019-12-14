@@ -15,37 +15,16 @@
  */
 package org.springframework.security.saml2.provider.service.authentication;
 
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
-import org.springframework.security.saml2.Saml2Exception;
-import org.springframework.security.saml2.credentials.Saml2X509Credential;
-import org.springframework.util.Assert;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.opensaml.saml.common.SignableSAMLObject;
 import org.opensaml.saml.common.assertion.AssertionValidationException;
 import org.opensaml.saml.common.assertion.ValidationContext;
 import org.opensaml.saml.common.assertion.ValidationResult;
-import org.opensaml.saml.saml2.assertion.ConditionValidator;
-import org.opensaml.saml.saml2.assertion.SAML20AssertionValidator;
-import org.opensaml.saml.saml2.assertion.SAML2AssertionValidationParameters;
-import org.opensaml.saml.saml2.assertion.StatementValidator;
-import org.opensaml.saml.saml2.assertion.SubjectConfirmationValidator;
+import org.opensaml.saml.saml2.assertion.*;
 import org.opensaml.saml.saml2.assertion.impl.AudienceRestrictionConditionValidator;
 import org.opensaml.saml.saml2.assertion.impl.BearerSubjectConfirmationValidator;
-import org.opensaml.saml.saml2.core.Assertion;
-import org.opensaml.saml.saml2.core.EncryptedAssertion;
-import org.opensaml.saml.saml2.core.EncryptedID;
-import org.opensaml.saml.saml2.core.NameID;
-import org.opensaml.saml.saml2.core.Response;
-import org.opensaml.saml.saml2.core.Subject;
-import org.opensaml.saml.saml2.core.SubjectConfirmation;
+import org.opensaml.saml.saml2.core.*;
 import org.opensaml.saml.saml2.encryption.Decrypter;
 import org.opensaml.saml.security.impl.SAMLSignatureProfileValidator;
 import org.opensaml.security.credential.Credential;
@@ -61,28 +40,25 @@ import org.opensaml.xmlsec.signature.support.SignaturePrevalidator;
 import org.opensaml.xmlsec.signature.support.SignatureTrustEngine;
 import org.opensaml.xmlsec.signature.support.SignatureValidator;
 import org.opensaml.xmlsec.signature.support.impl.ExplicitKeySignatureTrustEngine;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.saml2.Saml2Exception;
+import org.springframework.security.saml2.credentials.Saml2X509Credential;
+import org.springframework.util.Assert;
 
 import java.security.cert.X509Certificate;
 import java.time.Duration;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static java.lang.String.format;
 import static java.util.Collections.singleton;
 import static java.util.Collections.singletonList;
-import static org.springframework.security.saml2.provider.service.authentication.Saml2ErrorCodes.DECRYPTION_ERROR;
-import static org.springframework.security.saml2.provider.service.authentication.Saml2ErrorCodes.INVALID_DESTINATION;
-import static org.springframework.security.saml2.provider.service.authentication.Saml2ErrorCodes.INVALID_ISSUER;
-import static org.springframework.security.saml2.provider.service.authentication.Saml2ErrorCodes.MALFORMED_RESPONSE_DATA;
-import static org.springframework.security.saml2.provider.service.authentication.Saml2ErrorCodes.SUBJECT_NOT_FOUND;
-import static org.springframework.security.saml2.provider.service.authentication.Saml2ErrorCodes.UNKNOWN_RESPONSE_CLASS;
-import static org.springframework.security.saml2.provider.service.authentication.Saml2ErrorCodes.USERNAME_NOT_FOUND;
+import static org.springframework.security.saml2.provider.service.authentication.Saml2ErrorCodes.*;
 import static org.springframework.util.Assert.notNull;
 import static org.springframework.util.StringUtils.hasText;
 
@@ -92,22 +68,22 @@ import static org.springframework.util.StringUtils.hasText;
  * the {@code OpenSAML 3} library.
  *
  * <p>
- *  The {@link OpenSamlAuthenticationProvider} supports {@link Saml2AuthenticationToken} objects
- *  that contain a SAML response in its decoded XML format {@link Saml2AuthenticationToken#getSaml2Response()}
- *  along with the information about the asserting party, the identity provider (IDP), as well as
- *  the relying party, the service provider (SP, this application).
+ * The {@link OpenSamlAuthenticationProvider} supports {@link Saml2AuthenticationToken} objects
+ * that contain a SAML response in its decoded XML format {@link Saml2AuthenticationToken#getSaml2Response()}
+ * along with the information about the asserting party, the identity provider (IDP), as well as
+ * the relying party, the service provider (SP, this application).
  * </p>
  * <p>
- *   The {@link Saml2AuthenticationToken} will be processed into a SAML Response object.
- *   The SAML response object can be signed. If the Response is signed, a signature will not be required on the assertion.
+ * The {@link Saml2AuthenticationToken} will be processed into a SAML Response object.
+ * The SAML response object can be signed. If the Response is signed, a signature will not be required on the assertion.
  * </p>
  * <p>
- *   While a response object can contain a list of assertion, this provider will only leverage
- *   the first valid assertion for the purpose of authentication. Assertions that do not pass validation
- *   will be ignored. If no valid assertions are found a {@link Saml2AuthenticationException} is thrown.
+ * While a response object can contain a list of assertion, this provider will only leverage
+ * the first valid assertion for the purpose of authentication. Assertions that do not pass validation
+ * will be ignored. If no valid assertions are found a {@link Saml2AuthenticationException} is thrown.
  * </p>
  * <p>
- *   This provider supports two types of encrypted SAML elements
+ * This provider supports two types of encrypted SAML elements
  *   <ul>
  *     <li><a href="https://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf#page=17">EncryptedAssertion</a></li>
  *     <li><a href="https://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf#page=14">EncryptedID</a></li>
@@ -118,9 +94,10 @@ import static org.springframework.util.StringUtils.hasText;
  *   This provider does not perform an X509 certificate validation on the configured asserting party, IDP, verification
  *   certificates.
  * </p>
- * @since 5.2
+ *
  * @see <a href="https://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf#page=38">SAML 2 StatusResponse</a>
  * @see <a href="https://wiki.shibboleth.net/confluence/display/OS30/Home">OpenSAML 3</a>
+ * @since 5.2
  */
 public final class OpenSamlAuthenticationProvider implements AuthenticationProvider {
 
@@ -135,6 +112,7 @@ public final class OpenSamlAuthenticationProvider implements AuthenticationProvi
 	/**
 	 * Sets the {@link Converter} used for extracting assertion attributes that
 	 * can be mapped to authorities.
+	 *
 	 * @param authoritiesExtractor the {@code Converter} used for mapping the
 	 *                             assertion attributes to authorities
 	 */
@@ -147,6 +125,7 @@ public final class OpenSamlAuthenticationProvider implements AuthenticationProvi
 	 * Sets the {@link GrantedAuthoritiesMapper} used for mapping assertion attributes
 	 * to a new set of authorities which will be associated to the {@link Saml2Authentication}.
 	 * Note: This implementation is only retrieving
+	 *
 	 * @param authoritiesMapper the {@link GrantedAuthoritiesMapper} used for mapping the user's authorities
 	 */
 	public void setAuthoritiesMapper(GrantedAuthoritiesMapper authoritiesMapper) {
@@ -157,6 +136,7 @@ public final class OpenSamlAuthenticationProvider implements AuthenticationProvi
 	/**
 	 * Sets the duration for how much time skew an assertion may tolerate during
 	 * timestamp, NotOnOrBefore and NotOnOrAfter, validation.
+	 *
 	 * @param responseTimeValidationSkew duration for skew tolerance
 	 */
 	public void setResponseTimeValidationSkew(Duration responseTimeValidationSkew) {
@@ -166,7 +146,6 @@ public final class OpenSamlAuthenticationProvider implements AuthenticationProvi
 	/**
 	 * @param authentication the authentication request object, must be of type
 	 *                       {@link Saml2AuthenticationToken}
-	 *
 	 * @return {@link Saml2Authentication} if the assertion is valid
 	 * @throws AuthenticationException if a validation exception occurs
 	 */
@@ -208,8 +187,7 @@ public final class OpenSamlAuthenticationProvider implements AuthenticationProvi
 		}
 		if (subject.getNameID() != null) {
 			username = subject.getNameID().getValue();
-		}
-		else if (subject.getEncryptedID() != null) {
+		} else if (subject.getEncryptedID() != null) {
 			NameID nameId = decrypt(token, subject.getEncryptedID());
 			username = nameId.getValue();
 		}
@@ -220,8 +198,8 @@ public final class OpenSamlAuthenticationProvider implements AuthenticationProvi
 	}
 
 	private Assertion validateSaml2Response(Saml2AuthenticationToken token,
-											String recipient,
-											Response samlResponse) throws Saml2AuthenticationException {
+			String recipient,
+			Response samlResponse) throws Saml2AuthenticationException {
 		//optional validation if the response contains a destination
 		if (hasText(samlResponse.getDestination()) && !recipient.equals(samlResponse.getDestination())) {
 			throw authException(INVALID_DESTINATION, "Invalid SAML response destination: " + samlResponse.getDestination());
@@ -263,8 +241,7 @@ public final class OpenSamlAuthenticationProvider implements AuthenticationProvi
 		}
 		if (lastValidationError != null) {
 			throw lastValidationError;
-		}
-		else {
+		} else {
 			throw authException(MALFORMED_RESPONSE_DATA, "No assertions found in response.");
 		}
 	}
@@ -287,16 +264,14 @@ public final class OpenSamlAuthenticationProvider implements AuthenticationProvi
 			try {
 				SignatureValidator.validate(samlObject.getSignature(), credential);
 				if (logger.isDebugEnabled()) {
-					logger.debug("Valid signature found in SAML object:"+samlObject.getClass().getName());
+					logger.debug("Valid signature found in SAML object:" + samlObject.getClass().getName());
 				}
 				return true;
-			}
-			catch (SignatureException ignored) {
+			} catch (SignatureException ignored) {
 				if (logger.isTraceEnabled()) {
-					logger.trace("Signature validation failed with cert:"+certificate.toString(), ignored);
-				}
-				else if (logger.isDebugEnabled()) {
-					logger.debug("Signature validation failed with cert:"+certificate.toString());
+					logger.trace("Signature validation failed with cert:" + certificate.toString(), ignored);
+				} else if (logger.isDebugEnabled()) {
+					logger.debug("Signature validation failed with cert:" + certificate.toString());
 				}
 			}
 		}
@@ -348,8 +323,7 @@ public final class OpenSamlAuthenticationProvider implements AuthenticationProvi
 				}
 				throw authException(Saml2ErrorCodes.INVALID_ASSERTION, vctx.getValidationFailureMessage());
 			}
-		}
-		catch (AssertionValidationException e) {
+		} catch (AssertionValidationException e) {
 			if (logger.isDebugEnabled()) {
 				logger.debug("Failed to validate assertion:", e);
 			}
@@ -363,8 +337,7 @@ public final class OpenSamlAuthenticationProvider implements AuthenticationProvi
 			Object result = this.saml.resolve(token.getSaml2Response());
 			if (result instanceof Response) {
 				return (Response) result;
-			}
-			else {
+			} else {
 				throw authException(UNKNOWN_RESPONSE_CLASS, "Invalid response class:" + result.getClass().getName());
 			}
 		} catch (Saml2Exception x) {
@@ -444,8 +417,7 @@ public final class OpenSamlAuthenticationProvider implements AuthenticationProvi
 			Decrypter decrypter = getDecrypter(key);
 			try {
 				return decrypter.decrypt(assertion);
-			}
-			catch (DecryptionException e) {
+			} catch (DecryptionException e) {
 				last = authException(DECRYPTION_ERROR, e.getMessage(), e);
 			}
 		}
@@ -462,8 +434,7 @@ public final class OpenSamlAuthenticationProvider implements AuthenticationProvi
 			Decrypter decrypter = getDecrypter(key);
 			try {
 				return (NameID) decrypter.decrypt(assertion);
-			}
-			catch (DecryptionException e) {
+			} catch (DecryptionException e) {
 				last = authException(DECRYPTION_ERROR, e.getMessage(), e);
 			}
 		}

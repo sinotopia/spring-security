@@ -38,6 +38,7 @@ import java.util.Collections;
  */
 public abstract class AbstractAuthenticationToken implements Authentication,
 		CredentialsContainer {
+
 	// ~ Instance fields
 	// ================================================================================================
 

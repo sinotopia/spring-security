@@ -24,6 +24,7 @@ import org.springframework.security.core.AuthenticationException;
  * @author Luke Taylor
  */
 public abstract class AccountStatusException extends AuthenticationException {
+	
 	public AccountStatusException(String msg) {
 		super(msg);
 	}

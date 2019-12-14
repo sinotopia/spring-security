@@ -35,13 +35,11 @@ public interface AuthenticationProvider {
 	 * .
 	 *
 	 * @param authentication the authentication request object.
-	 *
 	 * @return a fully authenticated object including credentials. May return
 	 * <code>null</code> if the <code>AuthenticationProvider</code> is unable to support
 	 * authentication of the passed <code>Authentication</code> object. In such a case,
 	 * the next <code>AuthenticationProvider</code> that supports the presented
 	 * <code>Authentication</code> class will be tried.
-	 *
 	 * @throws AuthenticationException if authentication fails.
 	 */
 	Authentication authenticate(Authentication authentication)
@@ -64,7 +62,6 @@ public interface AuthenticationProvider {
 	 * </p>
 	 *
 	 * @param authentication
-	 *
 	 * @return <code>true</code> if the implementation can more closely evaluate the
 	 * <code>Authentication</code> class presented
 	 */

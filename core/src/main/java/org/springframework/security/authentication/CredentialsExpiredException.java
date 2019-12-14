@@ -40,7 +40,7 @@ public class CredentialsExpiredException extends AccountStatusException {
 	 * and root cause.
 	 *
 	 * @param msg the detail message
-	 * @param t root cause
+	 * @param t   root cause
 	 */
 	public CredentialsExpiredException(String msg, Throwable t) {
 		super(msg, t);

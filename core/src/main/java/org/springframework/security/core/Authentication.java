@@ -16,12 +16,12 @@
 
 package org.springframework.security.core;
 
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.Collection;
-
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * Represents the token for an authentication request or for an authenticated principal
@@ -38,7 +38,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * <pre>
  * SecurityContextHolder.getContext().setAuthentication(anAuthentication);
  * </pre>
- *
+ * <p>
  * Note that unless the <tt>Authentication</tt> has the <tt>authenticated</tt> property
  * set to <tt>true</tt>, it will still be authenticated by any security interceptor (for
  * method or web invocations) which encounters it.
@@ -132,12 +132,11 @@ public interface Authentication extends Principal, Serializable {
 	 * should throw an {@link IllegalArgumentException}.
 	 *
 	 * @param isAuthenticated <code>true</code> if the token should be trusted (which may
-	 * result in an exception) or <code>false</code> if the token should not be trusted
-	 *
+	 *                        result in an exception) or <code>false</code> if the token should not be trusted
 	 * @throws IllegalArgumentException if an attempt to make the authentication token
-	 * trusted (by passing <code>true</code> as the argument) is rejected due to the
-	 * implementation being immutable or implementing its own alternative approach to
-	 * {@link #isAuthenticated()}
+	 *                                  trusted (by passing <code>true</code> as the argument) is rejected due to the
+	 *                                  implementation being immutable or implementing its own alternative approach to
+	 *                                  {@link #isAuthenticated()}
 	 */
 	void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException;
 }

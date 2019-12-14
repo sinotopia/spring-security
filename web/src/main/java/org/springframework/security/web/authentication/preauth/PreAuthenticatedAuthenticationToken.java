@@ -15,11 +15,11 @@
  */
 package org.springframework.security.web.authentication.preauth;
 
-import java.util.Collection;
-
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
+
+import java.util.Collection;
 
 /**
  * {@link org.springframework.security.core.Authentication} implementation for
@@ -40,7 +40,7 @@ public class PreAuthenticatedAuthenticationToken extends AbstractAuthenticationT
 	 * {@link org.springframework.security.core.Authentication#isAuthenticated()} will
 	 * return <code>false</code>.
 	 *
-	 * @param aPrincipal The pre-authenticated principal
+	 * @param aPrincipal   The pre-authenticated principal
 	 * @param aCredentials The pre-authenticated credentials
 	 */
 	public PreAuthenticatedAuthenticationToken(Object aPrincipal, Object aCredentials) {
@@ -54,7 +54,7 @@ public class PreAuthenticatedAuthenticationToken extends AbstractAuthenticationT
 	 * {@link org.springframework.security.core.Authentication#isAuthenticated()} will
 	 * return <code>true</code>.
 	 *
-	 * @param aPrincipal The authenticated principal
+	 * @param aPrincipal    The authenticated principal
 	 * @param anAuthorities The granted authorities
 	 */
 	public PreAuthenticatedAuthenticationToken(Object aPrincipal, Object aCredentials,

@@ -26,6 +26,7 @@ public interface AuthenticationManagerResolver<C> {
 
 	/**
 	 * Resolve an {@link AuthenticationManager} from a provided context
+	 *
 	 * @param context
 	 * @return the {@link AuthenticationManager} to use
 	 */
