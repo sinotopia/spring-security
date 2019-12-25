@@ -49,10 +49,14 @@ public class MapBasedMethodSecurityMetadataSource extends
 	// ================================================================================================
 	private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
-	/** Map from RegisteredMethod to ConfigAttribute list */
+	/**
+	 * Map from RegisteredMethod to ConfigAttribute list
+	 */
 	protected final Map<RegisteredMethod, List<ConfigAttribute>> methodMap = new HashMap<>();
 
-	/** Map from RegisteredMethod to name pattern used for registration */
+	/**
+	 * Map from RegisteredMethod to name pattern used for registration
+	 */
 	private final Map<RegisteredMethod, String> nameMap = new HashMap<>();
 
 	// ~ Methods
@@ -63,6 +67,7 @@ public class MapBasedMethodSecurityMetadataSource extends
 
 	/**
 	 * Creates the <tt>MapBasedMethodSecurityMetadataSource</tt> from a
+	 *
 	 * @param methodMap map of method names to <tt>ConfigAttribute</tt>s.
 	 */
 	public MapBasedMethodSecurityMetadataSource(
@@ -135,10 +140,10 @@ public class MapBasedMethodSecurityMetadataSource extends
 	 * Add configuration attributes for a secure method. Mapped method names can end or
 	 * start with <code>*</code> for matching multiple methods.
 	 *
-	 * @param javaType target interface or class the security configuration attribute
-	 * applies to
+	 * @param javaType   target interface or class the security configuration attribute
+	 *                   applies to
 	 * @param mappedName mapped method name, which the javaType has declared or inherited
-	 * @param attr required authorities associated with the method
+	 * @param attr       required authorities associated with the method
 	 */
 	public void addSecureMethod(Class<?> javaType, String mappedName,
 			List<ConfigAttribute> attr) {
@@ -170,7 +175,7 @@ public class MapBasedMethodSecurityMetadataSource extends
 
 			if ((regMethodName == null)
 					|| (!regMethodName.equals(name) && (regMethodName.length() <= name
-							.length()))) {
+					.length()))) {
 				// no already registered method name, or more specific
 				// method name specification now -> (re-)register method
 				if (regMethodName != null) {
@@ -181,8 +186,7 @@ public class MapBasedMethodSecurityMetadataSource extends
 
 				this.nameMap.put(registeredMethod, name);
 				addSecureMethod(registeredMethod, attr);
-			}
-			else {
+			} else {
 				logger.debug("Keeping attributes for secure method [" + method
 						+ "]: current name [" + name + "] is not more specific than ["
 						+ regMethodName + "]");
@@ -217,7 +221,7 @@ public class MapBasedMethodSecurityMetadataSource extends
 	 * Add configuration attributes for a secure method.
 	 *
 	 * @param method the method to be secured
-	 * @param attr required authorities associated with the method
+	 * @param attr   required authorities associated with the method
 	 */
 	private void addSecureMethod(RegisteredMethod method, List<ConfigAttribute> attr) {
 		Assert.notNull(method, "RegisteredMethod required");
@@ -251,14 +255,13 @@ public class MapBasedMethodSecurityMetadataSource extends
 	 *
 	 * @param methodName the method name of the class
 	 * @param mappedName the name in the descriptor
-	 *
 	 * @return if the names match
 	 */
 	private boolean isMatch(String methodName, String mappedName) {
 		return (mappedName.endsWith("*") && methodName.startsWith(mappedName.substring(0,
 				mappedName.length() - 1)))
 				|| (mappedName.startsWith("*") && methodName.endsWith(mappedName
-						.substring(1, mappedName.length())));
+				.substring(1, mappedName.length())));
 	}
 
 	@Override

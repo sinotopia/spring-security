@@ -53,8 +53,7 @@ public class ExpressionBasedAnnotationAttributeFactory implements
 					.parseExpression(preFilterAttribute);
 			return new PreInvocationExpressionAttribute(preFilterExpression,
 					filterObject, preAuthorizeExpression);
-		}
-		catch (ParseException e) {
+		} catch (ParseException e) {
 			throw new IllegalArgumentException("Failed to parse expression '"
 					+ e.getExpressionString() + "'", e);
 		}
@@ -73,8 +72,7 @@ public class ExpressionBasedAnnotationAttributeFactory implements
 				return new PostInvocationExpressionAttribute(postFilterExpression,
 						postAuthorizeExpression);
 			}
-		}
-		catch (ParseException e) {
+		} catch (ParseException e) {
 			throw new IllegalArgumentException("Failed to parse expression '"
 					+ e.getExpressionString() + "'", e);
 		}

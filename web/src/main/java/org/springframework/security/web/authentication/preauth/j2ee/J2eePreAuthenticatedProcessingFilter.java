@@ -33,6 +33,7 @@ public class J2eePreAuthenticatedProcessingFilter extends
 	/**
 	 * Return the J2EE user name.
 	 */
+	@Override
 	protected Object getPreAuthenticatedPrincipal(HttpServletRequest httpRequest) {
 		Object principal = httpRequest.getUserPrincipal() == null ? null : httpRequest
 				.getUserPrincipal().getName();
@@ -46,6 +47,7 @@ public class J2eePreAuthenticatedProcessingFilter extends
 	 * For J2EE container-based authentication there is no generic way to retrieve the
 	 * credentials, as such this method returns a fixed dummy value.
 	 */
+	@Override
 	protected Object getPreAuthenticatedCredentials(HttpServletRequest httpRequest) {
 		return "N/A";
 	}

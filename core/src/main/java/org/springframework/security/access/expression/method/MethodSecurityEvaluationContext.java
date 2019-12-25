@@ -15,8 +15,6 @@
  */
 package org.springframework.security.access.expression.method;
 
-import java.lang.reflect.Method;
-
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -27,6 +25,8 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.parameters.DefaultSecurityParameterNameDiscoverer;
 
+import java.lang.reflect.Method;
+
 /**
  * Internal security-specific EvaluationContext implementation which lazily adds the
  * method parameter values as variables (with the corresponding parameter names) if and
@@ -36,8 +36,8 @@ import org.springframework.security.core.parameters.DefaultSecurityParameterName
  * @since 3.0
  */
 class MethodSecurityEvaluationContext extends StandardEvaluationContext {
-	private static final Log logger = LogFactory
-			.getLog(MethodSecurityEvaluationContext.class);
+
+	private static final Log logger = LogFactory.getLog(MethodSecurityEvaluationContext.class);
 
 	private ParameterNameDiscoverer parameterNameDiscoverer;
 	private final MethodInvocation mi;
@@ -52,8 +52,9 @@ class MethodSecurityEvaluationContext extends StandardEvaluationContext {
 		this(user, mi, new DefaultSecurityParameterNameDiscoverer());
 	}
 
-	MethodSecurityEvaluationContext(Authentication user, MethodInvocation mi,
-			ParameterNameDiscoverer parameterNameDiscoverer) {
+	MethodSecurityEvaluationContext(Authentication user,
+									MethodInvocation mi,
+									ParameterNameDiscoverer parameterNameDiscoverer) {
 		this.mi = mi;
 		this.parameterNameDiscoverer = parameterNameDiscoverer;
 	}

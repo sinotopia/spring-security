@@ -28,21 +28,21 @@ import java.util.Map;
 /**
  * Simple expression configuration attribute for use in {@link Message} authorizations.
  *
- * @since 4.0
  * @author Rob Winch
  * @author Daniel Bustamante Ospina
+ * @since 4.0
  */
 @SuppressWarnings("serial")
 class MessageExpressionConfigAttribute implements ConfigAttribute, EvaluationContextPostProcessor<Message<?>> {
+
 	private final Expression authorizeExpression;
 	private final MessageMatcher<?> matcher;
-
 
 	/**
 	 * Creates a new instance
 	 *
 	 * @param authorizeExpression the {@link Expression} to use. Cannot be null
-	 * @param matcher the {@link MessageMatcher} used to match the messages.
+	 * @param matcher             the {@link MessageMatcher} used to match the messages.
 	 */
 	MessageExpressionConfigAttribute(Expression authorizeExpression, MessageMatcher<?> matcher) {
 		Assert.notNull(authorizeExpression, "authorizeExpression cannot be null");
@@ -51,11 +51,11 @@ class MessageExpressionConfigAttribute implements ConfigAttribute, EvaluationCon
 		this.matcher = matcher;
 	}
 
-
 	Expression getAuthorizeExpression() {
 		return authorizeExpression;
 	}
 
+	@Override
 	public String getAttribute() {
 		return null;
 	}
@@ -69,7 +69,7 @@ class MessageExpressionConfigAttribute implements ConfigAttribute, EvaluationCon
 	public EvaluationContext postProcess(EvaluationContext ctx, Message<?> message) {
 		if (matcher instanceof SimpDestinationMessageMatcher) {
 			final Map<String, String> variables = ((SimpDestinationMessageMatcher) matcher).extractPathVariables(message);
-			for (Map.Entry<String, String> entry : variables.entrySet()){
+			for (Map.Entry<String, String> entry : variables.entrySet()) {
 				ctx.setVariable(entry.getKey(), entry.getValue());
 			}
 		}

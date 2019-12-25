@@ -16,22 +16,15 @@
 
 package org.springframework.security.acls.afterinvocation;
 
-import java.util.List;
-
 import org.springframework.security.access.AfterInvocationProvider;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.acls.domain.ObjectIdentityRetrievalStrategyImpl;
 import org.springframework.security.acls.domain.SidRetrievalStrategyImpl;
-import org.springframework.security.acls.model.Acl;
-import org.springframework.security.acls.model.AclService;
-import org.springframework.security.acls.model.NotFoundException;
-import org.springframework.security.acls.model.ObjectIdentity;
-import org.springframework.security.acls.model.ObjectIdentityRetrievalStrategy;
-import org.springframework.security.acls.model.Permission;
-import org.springframework.security.acls.model.Sid;
-import org.springframework.security.acls.model.SidRetrievalStrategy;
+import org.springframework.security.acls.model.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.util.Assert;
+
+import java.util.List;
 
 /**
  * Abstract {@link AfterInvocationProvider} which provides commonly-used ACL-related
@@ -88,8 +81,7 @@ public abstract class AbstractAclProvider implements AfterInvocationProvider {
 			Acl acl = aclService.readAclById(objectIdentity, sids);
 
 			return acl.isGranted(requirePermission, sids, false);
-		}
-		catch (NotFoundException ignore) {
+		} catch (NotFoundException ignore) {
 			return false;
 		}
 	}
@@ -117,6 +109,7 @@ public abstract class AbstractAclProvider implements AfterInvocationProvider {
 		this.sidRetrievalStrategy = sidRetrievalStrategy;
 	}
 
+	@Override
 	public boolean supports(ConfigAttribute attribute) {
 		return processConfigAttribute.equals(attribute.getAttribute());
 	}
@@ -126,9 +119,9 @@ public abstract class AbstractAclProvider implements AfterInvocationProvider {
 	 * presented secure object.
 	 *
 	 * @param clazz the secure object
-	 *
 	 * @return always <code>true</code>
 	 */
+	@Override
 	public boolean supports(Class<?> clazz) {
 		return true;
 	}

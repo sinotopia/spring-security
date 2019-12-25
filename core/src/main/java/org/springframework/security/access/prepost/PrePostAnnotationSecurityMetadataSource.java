@@ -105,6 +105,7 @@ public class PrePostAnnotationSecurityMetadataSource extends
 		return attrs;
 	}
 
+	@Override
 	public Collection<ConfigAttribute> getAllConfigAttributes() {
 		return null;
 	}

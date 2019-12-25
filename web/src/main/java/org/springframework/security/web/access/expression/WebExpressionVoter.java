@@ -15,8 +15,6 @@
  */
 package org.springframework.security.web.access.expression;
 
-import java.util.Collection;
-
 import org.springframework.expression.EvaluationContext;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.ConfigAttribute;
@@ -25,14 +23,19 @@ import org.springframework.security.access.expression.SecurityExpressionHandler;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.FilterInvocation;
 
+import java.util.Collection;
+
 /**
  * Voter which handles web authorisation decisions.
+ *
  * @author Luke Taylor
  * @since 3.0
  */
 public class WebExpressionVoter implements AccessDecisionVoter<FilterInvocation> {
+
 	private SecurityExpressionHandler<FilterInvocation> expressionHandler = new DefaultWebSecurityExpressionHandler();
 
+	@Override
 	public int vote(Authentication authentication, FilterInvocation fi,
 			Collection<ConfigAttribute> attributes) {
 		assert authentication != null;
@@ -63,10 +66,12 @@ public class WebExpressionVoter implements AccessDecisionVoter<FilterInvocation>
 		return null;
 	}
 
+	@Override
 	public boolean supports(ConfigAttribute attribute) {
 		return attribute instanceof WebExpressionConfigAttribute;
 	}
 
+	@Override
 	public boolean supports(Class<?> clazz) {
 		return FilterInvocation.class.isAssignableFrom(clazz);
 	}

@@ -23,13 +23,16 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.util.matcher.IpAddressMatcher;
 
 /**
- *
  * @author Luke Taylor
  * @since 3.0
  */
 public class WebSecurityExpressionRoot extends SecurityExpressionRoot {
+
 	// private FilterInvocation filterInvocation;
-	/** Allows direct access to the request object */
+
+	/**
+	 * Allows direct access to the request object
+	 */
 	public final HttpServletRequest request;
 
 	public WebSecurityExpressionRoot(Authentication a, FilterInvocation fi) {
@@ -43,7 +46,7 @@ public class WebSecurityExpressionRoot extends SecurityExpressionRoot {
 	 * 202.24.0.0/14).
 	 *
 	 * @param ipAddress the address or range of addresses from which the request must
-	 * come.
+	 *                  come.
 	 * @return true if the IP address of the current request is in the required range.
 	 */
 	public boolean hasIpAddress(String ipAddress) {

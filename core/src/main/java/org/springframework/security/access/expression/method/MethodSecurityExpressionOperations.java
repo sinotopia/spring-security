@@ -25,6 +25,7 @@ import org.springframework.security.access.expression.SecurityExpressionOperatio
  * @since 3.1.1
  */
 public interface MethodSecurityExpressionOperations extends SecurityExpressionOperations {
+
 	void setFilterObject(Object filterObject);
 
 	Object getFilterObject();

@@ -251,6 +251,7 @@ public class SecuredAnnotationSecurityMetadataSourceTests {
 	enum SecurityEnum implements ConfigAttribute, GrantedAuthority {
 		ADMIN, USER;
 
+		@Override
 		public String getAttribute() {
 			return toString();
 		}

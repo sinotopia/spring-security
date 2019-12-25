@@ -16,9 +16,9 @@
 
 package org.springframework.security.access;
 
-import java.util.Collection;
-
 import org.springframework.security.core.Authentication;
+
+import java.util.Collection;
 
 /**
  * Indicates a class is responsible for voting on authorization decisions.
@@ -30,6 +30,7 @@ import org.springframework.security.core.Authentication;
  * @author Ben Alex
  */
 public interface AccessDecisionVoter<S> {
+
 	// ~ Static fields/initializers
 	// =====================================================================================
 
@@ -49,8 +50,7 @@ public interface AccessDecisionVoter<S> {
 	 * {@code RunAsManager} and/or {@code AfterInvocationManager}.
 	 *
 	 * @param attribute a configuration attribute that has been configured against the
-	 * {@code AbstractSecurityInterceptor}
-	 *
+	 *                  {@code AbstractSecurityInterceptor}
 	 * @return true if this {@code AccessDecisionVoter} can support the passed
 	 * configuration attribute
 	 */
@@ -61,7 +61,6 @@ public interface AccessDecisionVoter<S> {
 	 * access control votes for the indicated secured object type.
 	 *
 	 * @param clazz the class that is being queried
-	 *
 	 * @return true if the implementation can process the indicated class
 	 */
 	boolean supports(Class<?> clazz);
@@ -89,9 +88,8 @@ public interface AccessDecisionVoter<S> {
 	 * example, by calling {@code MethodInvocation.proceed()}).
 	 *
 	 * @param authentication the caller making the invocation
-	 * @param object the secured object being invoked
-	 * @param attributes the configuration attributes associated with the secured object
-	 *
+	 * @param object         the secured object being invoked
+	 * @param attributes     the configuration attributes associated with the secured object
 	 * @return either {@link #ACCESS_GRANTED}, {@link #ACCESS_ABSTAIN} or
 	 * {@link #ACCESS_DENIED}
 	 */

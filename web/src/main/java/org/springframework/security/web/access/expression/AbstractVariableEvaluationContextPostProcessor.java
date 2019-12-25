@@ -15,12 +15,11 @@
  */
 package org.springframework.security.web.access.expression;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.expression.EvaluationContext;
 import org.springframework.security.web.FilterInvocation;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * Exposes URI template variables as variables on the {@link EvaluationContext}. For

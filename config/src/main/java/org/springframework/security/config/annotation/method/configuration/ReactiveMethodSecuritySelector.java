@@ -28,7 +28,7 @@ import java.util.List;
  * @since 5.0
  */
 class ReactiveMethodSecuritySelector extends
-	AdviceModeImportSelector<EnableReactiveMethodSecurity> {
+		AdviceModeImportSelector<EnableReactiveMethodSecurity> {
 
 	@Override
 	protected String[] selectImports(AdviceMode adviceMode) {

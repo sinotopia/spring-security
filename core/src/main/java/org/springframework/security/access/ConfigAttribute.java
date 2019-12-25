@@ -16,9 +16,9 @@
 
 package org.springframework.security.access;
 
-import java.io.Serializable;
-
 import org.springframework.security.access.intercept.RunAsManager;
+
+import java.io.Serializable;
 
 /**
  * Stores a security system related configuration attribute.

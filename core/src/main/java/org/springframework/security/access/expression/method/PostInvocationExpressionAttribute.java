@@ -20,7 +20,6 @@ import org.springframework.expression.ParseException;
 import org.springframework.security.access.prepost.PostInvocationAttribute;
 
 /**
- *
  * @author Luke Taylor
  * @since 3.0
  */
@@ -33,7 +32,7 @@ class PostInvocationExpressionAttribute extends
 	}
 
 	PostInvocationExpressionAttribute(Expression filterExpression,
-			Expression authorizeExpression) throws ParseException {
+									  Expression authorizeExpression) throws ParseException {
 		super(filterExpression, authorizeExpression);
 	}
 

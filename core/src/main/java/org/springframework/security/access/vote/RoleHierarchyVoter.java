@@ -15,12 +15,12 @@
  */
 package org.springframework.security.access.vote;
 
-import java.util.Collection;
-
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.Assert;
+
+import java.util.Collection;
 
 /**
  * Extended RoleVoter which uses a {@link RoleHierarchy} definition to determine the roles
@@ -30,6 +30,7 @@ import org.springframework.util.Assert;
  * @since 2.0.4
  */
 public class RoleHierarchyVoter extends RoleVoter {
+
 	private RoleHierarchy roleHierarchy = null;
 
 	public RoleHierarchyVoter(RoleHierarchy roleHierarchy) {

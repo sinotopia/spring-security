@@ -16,11 +16,11 @@
 
 package org.springframework.security.access.event;
 
-import java.util.Collection;
-
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
+
+import java.util.Collection;
 
 /**
  * Indicates a secure object invocation failed because the principal could not be
@@ -48,12 +48,11 @@ public class AuthorizationFailureEvent extends AbstractAuthorizationEvent {
 	/**
 	 * Construct the event.
 	 *
-	 * @param secureObject the secure object
-	 * @param attributes that apply to the secure object
-	 * @param authentication that was found in the <code>SecurityContextHolder</code>
+	 * @param secureObject          the secure object
+	 * @param attributes            that apply to the secure object
+	 * @param authentication        that was found in the <code>SecurityContextHolder</code>
 	 * @param accessDeniedException that was returned by the
-	 * <code>AccessDecisionManager</code>
-	 *
+	 *                              <code>AccessDecisionManager</code>
 	 * @throws IllegalArgumentException if any null arguments are presented.
 	 */
 	public AuthorizationFailureEvent(Object secureObject,

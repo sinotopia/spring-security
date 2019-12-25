@@ -26,6 +26,7 @@ import org.springframework.security.core.Authentication;
  */
 class MethodSecurityExpressionRoot extends SecurityExpressionRoot implements
 		MethodSecurityExpressionOperations {
+
 	private Object filterObject;
 	private Object returnObject;
 	private Object target;
@@ -34,18 +35,22 @@ class MethodSecurityExpressionRoot extends SecurityExpressionRoot implements
 		super(a);
 	}
 
+	@Override
 	public void setFilterObject(Object filterObject) {
 		this.filterObject = filterObject;
 	}
 
+	@Override
 	public Object getFilterObject() {
 		return filterObject;
 	}
 
+	@Override
 	public void setReturnObject(Object returnObject) {
 		this.returnObject = returnObject;
 	}
 
+	@Override
 	public Object getReturnObject() {
 		return returnObject;
 	}
@@ -61,6 +66,7 @@ class MethodSecurityExpressionRoot extends SecurityExpressionRoot implements
 		this.target = target;
 	}
 
+	@Override
 	public Object getThis() {
 		return target;
 	}

@@ -38,6 +38,7 @@ public class LoggerListener implements ApplicationListener<AbstractAuthorization
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public void onApplicationEvent(AbstractAuthorizationEvent event) {
 		if (event instanceof AuthenticationCredentialsNotFoundEvent) {
 			AuthenticationCredentialsNotFoundEvent authEvent = (AuthenticationCredentialsNotFoundEvent) event;

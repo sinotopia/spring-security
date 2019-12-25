@@ -79,6 +79,7 @@ import javax.servlet.http.HttpSession;
  * @since 3.0
  */
 public class HttpSessionSecurityContextRepository implements SecurityContextRepository {
+
 	/**
 	 * The default key under which the security context will be stored in the session.
 	 */
@@ -134,9 +135,9 @@ public class HttpSessionSecurityContextRepository implements SecurityContextRepo
 	@Override
 	public void saveContext(SecurityContext context, HttpServletRequest request,
 			HttpServletResponse response) {
+		
 		SaveContextOnUpdateOrErrorResponseWrapper responseWrapper = WebUtils
-				.getNativeResponse(response,
-						SaveContextOnUpdateOrErrorResponseWrapper.class);
+				.getNativeResponse(response, SaveContextOnUpdateOrErrorResponseWrapper.class);
 		if (responseWrapper == null) {
 			throw new IllegalStateException(
 					"Cannot invoke saveContext on response "

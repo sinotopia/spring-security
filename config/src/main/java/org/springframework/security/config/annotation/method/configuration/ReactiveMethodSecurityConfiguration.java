@@ -48,7 +48,7 @@ class ReactiveMethodSecurityConfiguration implements ImportAware {
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	public MethodSecurityMetadataSourceAdvisor methodSecurityInterceptor(AbstractMethodSecurityMetadataSource source) {
 		MethodSecurityMetadataSourceAdvisor advisor = new MethodSecurityMetadataSourceAdvisor(
-			"securityMethodInterceptor", source, "methodMetadataSource");
+				"securityMethodInterceptor", source, "methodMetadataSource");
 		advisor.setOrder(advisorOrder);
 		return advisor;
 	}
@@ -58,7 +58,7 @@ class ReactiveMethodSecurityConfiguration implements ImportAware {
 		ExpressionBasedAnnotationAttributeFactory attributeFactory = new ExpressionBasedAnnotationAttributeFactory(
 				methodSecurityExpressionHandler);
 		PrePostAnnotationSecurityMetadataSource prePostSource = new PrePostAnnotationSecurityMetadataSource(
-			attributeFactory);
+				attributeFactory);
 		return new DelegatingMethodSecurityMetadataSource(Arrays.asList(prePostSource));
 	}
 

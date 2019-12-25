@@ -15,9 +15,6 @@
  */
 package org.springframework.security.acls.afterinvocation;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.access.AccessDeniedException;
@@ -26,6 +23,9 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.acls.model.AclService;
 import org.springframework.security.acls.model.Permission;
 import org.springframework.security.core.Authentication;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>
@@ -80,6 +80,7 @@ public class AclEntryAfterInvocationCollectionFilteringProvider extends
 	// ========================================================================================================
 
 	@SuppressWarnings("unchecked")
+	@Override
 	public Object decide(Authentication authentication, Object object,
 			Collection<ConfigAttribute> config, Object returnedObject)
 			throws AccessDeniedException {
@@ -100,11 +101,9 @@ public class AclEntryAfterInvocationCollectionFilteringProvider extends
 
 			if (returnedObject instanceof Collection) {
 				filterer = new CollectionFilterer((Collection) returnedObject);
-			}
-			else if (returnedObject.getClass().isArray()) {
+			} else if (returnedObject.getClass().isArray()) {
 				filterer = new ArrayFilterer((Object[]) returnedObject);
-			}
-			else {
+			} else {
 				throw new AuthorizationServiceException(
 						"A Collection or an array (or null) was required as the "
 								+ "returnedObject, but the returnedObject was: "
@@ -117,7 +116,7 @@ public class AclEntryAfterInvocationCollectionFilteringProvider extends
 				// object class
 				if (domainObject == null
 						|| !getProcessDomainObjectClass().isAssignableFrom(
-								domainObject.getClass())) {
+						domainObject.getClass())) {
 					continue;
 				}
 

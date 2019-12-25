@@ -38,11 +38,16 @@ import org.springframework.util.Assert;
  */
 public abstract class AbstractSecurityExpressionHandler<T> implements
 		SecurityExpressionHandler<T>, ApplicationContextAware {
+
 	private ExpressionParser expressionParser = new SpelExpressionParser();
+
 	private BeanResolver br;
+
 	private RoleHierarchy roleHierarchy;
+
 	private PermissionEvaluator permissionEvaluator = new DenyAllPermissionEvaluator();
 
+	@Override
 	public final ExpressionParser getExpressionParser() {
 		return expressionParser;
 	}
@@ -57,12 +62,13 @@ public abstract class AbstractSecurityExpressionHandler<T> implements
 	 * and {@code SecurityExpressionRoot} objects.
 	 *
 	 * @param authentication the current authentication object
-	 * @param invocation the invocation (filter, method, channel)
+	 * @param invocation     the invocation (filter, method, channel)
 	 * @return the context object for use in evaluating the expression, populated with a
 	 * suitable root object.
 	 */
+	@Override
 	public final EvaluationContext createEvaluationContext(Authentication authentication,
-			T invocation) {
+														   T invocation) {
 		SecurityExpressionOperations root = createSecurityExpressionRoot(authentication,
 				invocation);
 		StandardEvaluationContext ctx = createEvaluationContextInternal(authentication,
@@ -81,7 +87,7 @@ public abstract class AbstractSecurityExpressionHandler<T> implements
 	 * expression properties.
 	 *
 	 * @param authentication the current authentication object
-	 * @param invocation the invocation (filter, method, channel)
+	 * @param invocation     the invocation (filter, method, channel)
 	 * @return A {@code StandardEvaluationContext} or potentially a custom subclass if
 	 * overridden.
 	 */
@@ -95,7 +101,7 @@ public abstract class AbstractSecurityExpressionHandler<T> implements
 	 * invocation type.
 	 *
 	 * @param authentication the current authentication object
-	 * @param invocation the invocation (filter, method, channel)
+	 * @param invocation     the invocation (filter, method, channel)
 	 * @return the object wh
 	 */
 	protected abstract SecurityExpressionOperations createSecurityExpressionRoot(
@@ -117,6 +123,7 @@ public abstract class AbstractSecurityExpressionHandler<T> implements
 		this.permissionEvaluator = permissionEvaluator;
 	}
 
+	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		br = new BeanFactoryResolver(applicationContext);
 	}

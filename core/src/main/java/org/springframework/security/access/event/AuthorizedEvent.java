@@ -16,10 +16,10 @@
 
 package org.springframework.security.access.event;
 
-import java.util.Collection;
-
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
+
+import java.util.Collection;
 
 /**
  * Event indicating a secure object was invoked successfully.
@@ -42,10 +42,9 @@ public class AuthorizedEvent extends AbstractAuthorizationEvent {
 	/**
 	 * Construct the event.
 	 *
-	 * @param secureObject the secure object
-	 * @param attributes that apply to the secure object
+	 * @param secureObject   the secure object
+	 * @param attributes     that apply to the secure object
 	 * @param authentication that successfully called the secure object
-	 *
 	 */
 	public AuthorizedEvent(Object secureObject, Collection<ConfigAttribute> attributes,
 			Authentication authentication) {

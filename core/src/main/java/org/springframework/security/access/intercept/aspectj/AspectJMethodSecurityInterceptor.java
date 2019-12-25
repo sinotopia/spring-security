@@ -48,10 +48,9 @@ public final class AspectJMethodSecurityInterceptor extends MethodSecurityInterc
 	/**
 	 * Method that is suitable for user with traditional AspectJ-code aspects.
 	 *
-	 * @param jp The AspectJ joint point being invoked which requires a security decision
+	 * @param jp             The AspectJ joint point being invoked which requires a security decision
 	 * @param advisorProceed the advice-defined anonymous class that implements
-	 * {@code AspectJCallback} containing a simple {@code return proceed();} statement
-	 *
+	 *                       {@code AspectJCallback} containing a simple {@code return proceed();} statement
 	 * @return The returned value from the method invocation
 	 */
 	public Object invoke(JoinPoint jp, AspectJCallback advisorProceed) {
@@ -61,8 +60,7 @@ public final class AspectJMethodSecurityInterceptor extends MethodSecurityInterc
 		Object result;
 		try {
 			result = advisorProceed.proceedWithObject();
-		}
-		finally {
+		} finally {
 			super.finallyInvocation(token);
 		}
 

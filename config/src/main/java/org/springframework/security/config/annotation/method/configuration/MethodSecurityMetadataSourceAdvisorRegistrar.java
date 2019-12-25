@@ -29,8 +29,8 @@ import org.springframework.util.MultiValueMap;
  * The conditional logic is controlled through {@link GlobalMethodSecuritySelector}.
  *
  * @author Rob Winch
- * @since 4.0.2
  * @see GlobalMethodSecuritySelector
+ * @since 4.0.2
  */
 class MethodSecurityMetadataSourceAdvisorRegistrar implements
 		ImportBeanDefinitionRegistrar {
@@ -40,8 +40,9 @@ class MethodSecurityMetadataSourceAdvisorRegistrar implements
 	 * of the @{@link EnableGlobalMethodSecurity#proxyTargetClass()} attribute on the
 	 * importing {@code @Configuration} class.
 	 */
+	@Override
 	public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata,
-			BeanDefinitionRegistry registry) {
+										BeanDefinitionRegistry registry) {
 
 		BeanDefinitionBuilder advisor = BeanDefinitionBuilder
 				.rootBeanDefinition(MethodSecurityMetadataSourceAdvisor.class);

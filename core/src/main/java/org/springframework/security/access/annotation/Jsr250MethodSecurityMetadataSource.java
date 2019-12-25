@@ -16,19 +16,18 @@
 
 package org.springframework.security.access.annotation;
 
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.access.method.AbstractFallbackMethodSecurityMetadataSource;
+
+import javax.annotation.security.DenyAll;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import javax.annotation.security.DenyAll;
-import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
-
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.access.method.AbstractFallbackMethodSecurityMetadataSource;
 
 /**
  * Sources method security metadata from major JSR 250 security annotations.
@@ -58,15 +57,18 @@ public class Jsr250MethodSecurityMetadataSource extends
 		this.defaultRolePrefix = defaultRolePrefix;
 	}
 
+	@Override
 	protected Collection<ConfigAttribute> findAttributes(Class<?> clazz) {
 		return processAnnotations(clazz.getAnnotations());
 	}
 
+	@Override
 	protected Collection<ConfigAttribute> findAttributes(Method method,
 			Class<?> targetClass) {
 		return processAnnotations(AnnotationUtils.getAnnotations(method));
 	}
 
+	@Override
 	public Collection<ConfigAttribute> getAllConfigAttributes() {
 		return null;
 	}

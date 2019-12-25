@@ -92,7 +92,6 @@ import org.springframework.util.StringUtils;
  * <p>
  * All comparisons and prefixes are case sensitive.
  *
- *
  * @author Ben Alex
  */
 public class AclEntryVoter extends AbstractAclVoter {
@@ -199,21 +198,18 @@ public class AclEntryVoter extends AbstractAclVoter {
 					Class<?> clazz = domainObject.getClass();
 					Method method = clazz.getMethod(internalMethod, new Class[0]);
 					domainObject = method.invoke(domainObject);
-				}
-				catch (NoSuchMethodException nsme) {
+				} catch (NoSuchMethodException nsme) {
 					throw new AuthorizationServiceException("Object of class '"
 							+ domainObject.getClass()
 							+ "' does not provide the requested internalMethod: "
 							+ internalMethod);
-				}
-				catch (IllegalAccessException iae) {
+				} catch (IllegalAccessException iae) {
 					logger.debug("IllegalAccessException", iae);
 
 					throw new AuthorizationServiceException(
 							"Problem invoking internalMethod: " + internalMethod
 									+ " for object: " + domainObject);
-				}
-				catch (InvocationTargetException ite) {
+				} catch (InvocationTargetException ite) {
 					logger.debug("InvocationTargetException", ite);
 
 					throw new AuthorizationServiceException(
@@ -234,8 +230,7 @@ public class AclEntryVoter extends AbstractAclVoter {
 			try {
 				// Lookup only ACLs for SIDs we're interested in
 				acl = aclService.readAclById(objectIdentity, sids);
-			}
-			catch (NotFoundException nfe) {
+			} catch (NotFoundException nfe) {
 				if (logger.isDebugEnabled()) {
 					logger.debug("Voting to deny access - no ACLs apply for this principal");
 				}
@@ -250,16 +245,14 @@ public class AclEntryVoter extends AbstractAclVoter {
 					}
 
 					return ACCESS_GRANTED;
-				}
-				else {
+				} else {
 					if (logger.isDebugEnabled()) {
 						logger.debug("Voting to deny access - ACLs returned, but insufficient permissions for this principal");
 					}
 
 					return ACCESS_DENIED;
 				}
-			}
-			catch (NotFoundException nfe) {
+			} catch (NotFoundException nfe) {
 				if (logger.isDebugEnabled()) {
 					logger.debug("Voting to deny access - no ACLs apply for this principal");
 				}

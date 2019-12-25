@@ -33,11 +33,12 @@ import org.springframework.util.Assert;
  * <p>
  * Refer to {@link AbstractSecurityInterceptor} for details on the workflow.
  *
- * @since 4.0
  * @author Rob Winch
+ * @since 4.0
  */
 public final class ChannelSecurityInterceptor extends AbstractSecurityInterceptor
 		implements ChannelInterceptor {
+
 	private static final ThreadLocal<InterceptorStatusToken> tokenHolder = new ThreadLocal<>();
 
 	private final MessageSecurityMetadataSource metadataSource;
@@ -46,7 +47,6 @@ public final class ChannelSecurityInterceptor extends AbstractSecurityIntercepto
 	 * Creates a new instance
 	 *
 	 * @param metadataSource the MessageSecurityMetadataSource to use. Cannot be null.
-	 *
 	 * @see DefaultMessageSecurityMetadataSource
 	 * @see ExpressionBasedMessageSecurityMetadataSourceFactory
 	 */
@@ -65,6 +65,7 @@ public final class ChannelSecurityInterceptor extends AbstractSecurityIntercepto
 		return metadataSource;
 	}
 
+	@Override
 	public Message<?> preSend(Message<?> message, MessageChannel channel) {
 		InterceptorStatusToken token = beforeInvocation(message);
 		if (token != null) {
@@ -73,27 +74,31 @@ public final class ChannelSecurityInterceptor extends AbstractSecurityIntercepto
 		return message;
 	}
 
+	@Override
 	public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
 		InterceptorStatusToken token = clearToken();
 		afterInvocation(token, null);
 	}
 
+	@Override
 	public void afterSendCompletion(Message<?> message, MessageChannel channel,
-			boolean sent, Exception ex) {
+									boolean sent, Exception ex) {
 		InterceptorStatusToken token = clearToken();
 		finallyInvocation(token);
 	}
 
+	@Override
 	public boolean preReceive(MessageChannel channel) {
 		return true;
 	}
 
+	@Override
 	public Message<?> postReceive(Message<?> message, MessageChannel channel) {
 		return message;
 	}
 
-	public void afterReceiveCompletion(Message<?> message, MessageChannel channel,
-			Exception ex) {
+	@Override
+	public void afterReceiveCompletion(Message<?> message, MessageChannel channel, Exception ex) {
 	}
 
 	private InterceptorStatusToken clearToken() {

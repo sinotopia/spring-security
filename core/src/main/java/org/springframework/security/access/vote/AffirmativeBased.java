@@ -16,12 +16,13 @@
 
 package org.springframework.security.access.vote;
 
-import java.util.*;
-
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Simple concrete implementation of
@@ -48,13 +49,13 @@ public class AffirmativeBased extends AbstractAccessDecisionManager {
 	 * false).
 	 * </p>
 	 *
-	 * @param authentication the caller invoking the method
-	 * @param object the secured object
+	 * @param authentication   the caller invoking the method
+	 * @param object           the secured object
 	 * @param configAttributes the configuration attributes associated with the method
-	 * being invoked
-	 *
+	 *                         being invoked
 	 * @throws AccessDeniedException if access is denied
 	 */
+	@Override
 	public void decide(Authentication authentication, Object object,
 			Collection<ConfigAttribute> configAttributes) throws AccessDeniedException {
 		int deny = 0;
@@ -67,16 +68,16 @@ public class AffirmativeBased extends AbstractAccessDecisionManager {
 			}
 
 			switch (result) {
-			case AccessDecisionVoter.ACCESS_GRANTED:
-				return;
+				case AccessDecisionVoter.ACCESS_GRANTED:
+					return;
 
-			case AccessDecisionVoter.ACCESS_DENIED:
-				deny++;
+				case AccessDecisionVoter.ACCESS_DENIED:
+					deny++;
 
-				break;
+					break;
 
-			default:
-				break;
+				default:
+					break;
 			}
 		}
 

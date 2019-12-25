@@ -16,12 +16,6 @@
 
 package org.springframework.security.access.intercept.aopalliance;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.util.*;
-
 import org.aopalliance.aop.Advice;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.springframework.aop.Pointcut;
@@ -32,6 +26,12 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.security.access.method.MethodSecurityMetadataSource;
 import org.springframework.util.Assert;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.lang.reflect.Method;
+import java.util.Collection;
 
 /**
  * Advisor driven by a {@link MethodSecurityMetadataSource}, used to exclude a
@@ -74,11 +74,11 @@ public class MethodSecurityMetadataSourceAdvisor extends AbstractPointcutAdvisor
 	 * SEC-773, for example. The metadataSourceBeanName is used rather than a direct
 	 * reference to support serialization via a bean factory lookup.
 	 *
-	 * @param adviceBeanName name of the MethodSecurityInterceptor bean
-	 * @param attributeSource the SecurityMetadataSource (should be the same as the one
-	 * used on the interceptor)
+	 * @param adviceBeanName          name of the MethodSecurityInterceptor bean
+	 * @param attributeSource         the SecurityMetadataSource (should be the same as the one
+	 *                                used on the interceptor)
 	 * @param attributeSourceBeanName the bean name of the attributeSource (required for
-	 * serialization)
+	 *                                serialization)
 	 */
 	public MethodSecurityMetadataSourceAdvisor(String adviceBeanName,
 			MethodSecurityMetadataSource attributeSource, String attributeSourceBeanName) {
@@ -95,10 +95,12 @@ public class MethodSecurityMetadataSourceAdvisor extends AbstractPointcutAdvisor
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public Pointcut getPointcut() {
 		return pointcut;
 	}
 
+	@Override
 	public Advice getAdvice() {
 		synchronized (this.adviceMonitor) {
 			if (interceptor == null) {
@@ -107,12 +109,13 @@ public class MethodSecurityMetadataSourceAdvisor extends AbstractPointcutAdvisor
 				Assert.state(beanFactory != null,
 						"BeanFactory must be set to resolve 'adviceBeanName'");
 				interceptor = beanFactory.getBean(this.adviceBeanName,
-					MethodInterceptor.class);
+						MethodInterceptor.class);
 			}
 			return interceptor;
 		}
 	}
 
+	@Override
 	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
 		this.beanFactory = beanFactory;
 	}
@@ -130,6 +133,8 @@ public class MethodSecurityMetadataSourceAdvisor extends AbstractPointcutAdvisor
 
 	class MethodSecurityMetadataSourcePointcut extends StaticMethodMatcherPointcut
 			implements Serializable {
+
+		@Override
 		@SuppressWarnings("unchecked")
 		public boolean matches(Method m, Class targetClass) {
 			Collection attributes = attributeSource.getAttributes(m, targetClass);

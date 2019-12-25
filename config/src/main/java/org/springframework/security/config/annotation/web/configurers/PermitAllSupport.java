@@ -15,15 +15,16 @@
  */
 package org.springframework.security.config.annotation.web.configurers;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
 import org.springframework.security.config.annotation.web.configurers.AbstractConfigAttributeRequestMatcherRegistry.UrlMapping;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Configures non-null URL's to grant access to every URL
+ *
  * @author Rob Winch
  * @since 3.2
  */
@@ -71,6 +72,7 @@ final class PermitAllSupport {
 			this.processUrl = processUrl;
 		}
 
+		@Override
 		public boolean matches(HttpServletRequest request) {
 			String uri = request.getRequestURI();
 			String query = request.getQueryString();

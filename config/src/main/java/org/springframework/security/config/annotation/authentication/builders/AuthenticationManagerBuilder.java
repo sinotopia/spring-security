@@ -61,6 +61,7 @@ public class AuthenticationManagerBuilder
 
 	/**
 	 * Creates a new instance
+	 *
 	 * @param objectPostProcessor the {@link ObjectPostProcessor} instance to use.
 	 */
 	public AuthenticationManagerBuilder(ObjectPostProcessor<Object> objectPostProcessor) {
@@ -73,8 +74,8 @@ public class AuthenticationManagerBuilder
 	 * {@link Authentication}.
 	 *
 	 * @param authenticationManager the {@link AuthenticationManager} that should be used
-	 * if the current {@link AuthenticationManager} was unable to attempt to authenticate
-	 * the provided {@link Authentication}.
+	 *                              if the current {@link AuthenticationManager} was unable to attempt to authenticate
+	 *                              the provided {@link Authentication}.
 	 * @return the {@link AuthenticationManagerBuilder} for further adding types of
 	 * authentication
 	 */
@@ -102,10 +103,8 @@ public class AuthenticationManagerBuilder
 	}
 
 	/**
-	 *
-	 *
 	 * @param eraseCredentials true if {@link AuthenticationManager} should clear the
-	 * credentials from the {@link Authentication} object after authenticating
+	 *                         credentials from the {@link Authentication} object after authenticating
 	 * @return the {@link AuthenticationManagerBuilder} for further customizations
 	 */
 	public AuthenticationManagerBuilder eraseCredentials(boolean eraseCredentials) {
@@ -179,7 +178,7 @@ public class AuthenticationManagerBuilder
 	 * @return a {@link DaoAuthenticationConfigurer} to allow customization of the DAO
 	 * authentication
 	 * @throws Exception if an error occurs when adding the {@link UserDetailsService}
-	 * based authentication
+	 *                   based authentication
 	 */
 	public <T extends UserDetailsService> DaoAuthenticationConfigurer<AuthenticationManagerBuilder, T> userDetailsService(
 			T userDetailsService) throws Exception {
@@ -215,12 +214,13 @@ public class AuthenticationManagerBuilder
 	 * <p>
 	 * This method <b>does NOT</b> ensure that the {@link UserDetailsService} is available
 	 * for the {@link #getDefaultUserDetailsService()} method.
-	 *
+	 * <p>
 	 * Note that an {@link Exception} might be thrown if an error occurs when adding the {@link AuthenticationProvider}.
 	 *
 	 * @return a {@link AuthenticationManagerBuilder} to allow further authentication to
 	 * be provided to the {@link AuthenticationManagerBuilder}
 	 */
+	@Override
 	public AuthenticationManagerBuilder authenticationProvider(
 			AuthenticationProvider authenticationProvider) {
 		this.authenticationProviders.add(authenticationProvider);
@@ -280,7 +280,7 @@ public class AuthenticationManagerBuilder
 	 * .
 	 *
 	 * @param configurer the {@link UserDetailsAwareConfigurer} to capture the
-	 * {@link UserDetailsService} from.
+	 *                   {@link UserDetailsService} from.
 	 * @return the {@link UserDetailsAwareConfigurer} for further customizations
 	 * @throws Exception if an error occurs
 	 */

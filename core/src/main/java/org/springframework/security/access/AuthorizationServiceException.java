@@ -43,7 +43,7 @@ public class AuthorizationServiceException extends AccessDeniedException {
 	 * and root cause.
 	 *
 	 * @param msg the detail message
-	 * @param t root cause
+	 * @param t   root cause
 	 */
 	public AuthorizationServiceException(String msg, Throwable t) {
 		super(msg, t);

@@ -15,13 +15,6 @@
  */
 package org.springframework.security.access.expression.method;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.*;
-
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,6 +30,13 @@ import org.springframework.security.authentication.AuthenticationTrustResolverIm
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.parameters.DefaultSecurityParameterNameDiscoverer;
 import org.springframework.util.Assert;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * The standard implementation of {@code MethodSecurityExpressionHandler}.
@@ -65,14 +65,16 @@ public class DefaultMethodSecurityExpressionHandler extends
 	 * Uses a {@link MethodSecurityEvaluationContext} as the <tt>EvaluationContext</tt>
 	 * implementation.
 	 */
+	@Override
 	public StandardEvaluationContext createEvaluationContextInternal(Authentication auth,
-			MethodInvocation mi) {
+																	 MethodInvocation mi) {
 		return new MethodSecurityEvaluationContext(auth, mi, getParameterNameDiscoverer());
 	}
 
 	/**
 	 * Creates the root object for expression evaluation.
 	 */
+	@Override
 	protected MethodSecurityExpressionOperations createSecurityExpressionRoot(
 			Authentication authentication, MethodInvocation invocation) {
 		MethodSecurityExpressionRoot root = new MethodSecurityExpressionRoot(
@@ -94,9 +96,10 @@ public class DefaultMethodSecurityExpressionHandler extends
 	 * the elements for which the permission expression evaluates to {@code true}. For an
 	 * array, a new array instance will be returned.
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public Object filter(Object filterTarget, Expression filterExpression,
-			EvaluationContext ctx) {
+						 EvaluationContext ctx) {
 		MethodSecurityExpressionOperations rootObject = (MethodSecurityExpressionOperations) ctx
 				.getRootObject().getValue();
 		final boolean debug = logger.isDebugEnabled();
@@ -193,7 +196,7 @@ public class DefaultMethodSecurityExpressionHandler extends
 	 * {@link AuthenticationTrustResolverImpl}.
 	 *
 	 * @param trustResolver the {@link AuthenticationTrustResolver} to use. Cannot be
-	 * null.
+	 *                      null.
 	 */
 	public void setTrustResolver(AuthenticationTrustResolver trustResolver) {
 		Assert.notNull(trustResolver, "trustResolver cannot be null");
@@ -202,7 +205,7 @@ public class DefaultMethodSecurityExpressionHandler extends
 
 	/**
 	 * @return The current {@link AuthenticationTrustResolver}
-     */
+	 */
 	protected AuthenticationTrustResolver getTrustResolver() {
 		return trustResolver;
 	}
@@ -210,6 +213,7 @@ public class DefaultMethodSecurityExpressionHandler extends
 	/**
 	 * Sets the {@link ParameterNameDiscoverer} to use. The default is
 	 * {@link DefaultSecurityParameterNameDiscoverer}.
+	 *
 	 * @param parameterNameDiscoverer
 	 */
 	public void setParameterNameDiscoverer(ParameterNameDiscoverer parameterNameDiscoverer) {
@@ -218,7 +222,7 @@ public class DefaultMethodSecurityExpressionHandler extends
 
 	/**
 	 * @return The current {@link ParameterNameDiscoverer}
-     */
+	 */
 	protected ParameterNameDiscoverer getParameterNameDiscoverer() {
 		return parameterNameDiscoverer;
 	}
@@ -228,6 +232,7 @@ public class DefaultMethodSecurityExpressionHandler extends
 		this.permissionCacheOptimizer = permissionCacheOptimizer;
 	}
 
+	@Override
 	public void setReturnObject(Object returnObject, EvaluationContext ctx) {
 		((MethodSecurityExpressionOperations) ctx.getRootObject().getValue())
 				.setReturnObject(returnObject);
@@ -253,7 +258,7 @@ public class DefaultMethodSecurityExpressionHandler extends
 
 	/**
 	 * @return The default role prefix
-     */
+	 */
 	protected String getDefaultRolePrefix() {
 		return defaultRolePrefix;
 	}

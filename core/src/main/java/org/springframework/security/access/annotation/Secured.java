@@ -16,12 +16,7 @@
 
 package org.springframework.security.access.annotation;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Java 5 annotation for describing service layer security attributes.
@@ -43,9 +38,10 @@ import java.lang.annotation.Target;
  * &#064;Secured({ &quot;ROLE_ADMIN&quot; })
  * public void delete(Contact contact);
  * </pre>
+ *
  * @author Mark St.Godard
  */
-@Target({ ElementType.METHOD, ElementType.TYPE })
+@Target({ElementType.METHOD, ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented

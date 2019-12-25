@@ -16,14 +16,14 @@
 
 package org.springframework.security.access.vote;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Simple concrete implementation of
@@ -54,12 +54,12 @@ public class UnanimousBased extends AbstractAccessDecisionManager {
 	 * false).
 	 *
 	 * @param authentication the caller invoking the method
-	 * @param object the secured object
-	 * @param attributes the configuration attributes associated with the method being
-	 * invoked
-	 *
+	 * @param object         the secured object
+	 * @param attributes     the configuration attributes associated with the method being
+	 *                       invoked
 	 * @throws AccessDeniedException if access is denied
 	 */
+	@Override
 	public void decide(Authentication authentication, Object object,
 			Collection<ConfigAttribute> attributes) throws AccessDeniedException {
 
@@ -79,18 +79,18 @@ public class UnanimousBased extends AbstractAccessDecisionManager {
 				}
 
 				switch (result) {
-				case AccessDecisionVoter.ACCESS_GRANTED:
-					grant++;
+					case AccessDecisionVoter.ACCESS_GRANTED:
+						grant++;
 
-					break;
+						break;
 
-				case AccessDecisionVoter.ACCESS_DENIED:
-					throw new AccessDeniedException(messages.getMessage(
-							"AbstractAccessDecisionManager.accessDenied",
-							"Access is denied"));
+					case AccessDecisionVoter.ACCESS_DENIED:
+						throw new AccessDeniedException(messages.getMessage(
+								"AbstractAccessDecisionManager.accessDenied",
+								"Access is denied"));
 
-				default:
-					break;
+					default:
+						break;
 				}
 			}
 		}

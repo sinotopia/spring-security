@@ -40,7 +40,7 @@ public class AccessDeniedException extends RuntimeException {
 	 * root cause.
 	 *
 	 * @param msg the detail message
-	 * @param t root cause
+	 * @param t   root cause
 	 */
 	public AccessDeniedException(String msg, Throwable t) {
 		super(msg, t);

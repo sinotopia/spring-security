@@ -26,14 +26,13 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- *
  * @author Rob Winch
  * @since 5.0
  */
 @Retention(value = java.lang.annotation.RetentionPolicy.RUNTIME)
-@Target(value = { java.lang.annotation.ElementType.TYPE })
+@Target(value = {java.lang.annotation.ElementType.TYPE})
 @Documented
-@Import({ ReactiveMethodSecuritySelector.class })
+@Import({ReactiveMethodSecuritySelector.class})
 @Configuration
 public @interface EnableReactiveMethodSecurity {
 	/**
@@ -52,9 +51,9 @@ public @interface EnableReactiveMethodSecurity {
 	/**
 	 * Indicate how security advice should be applied. The default is
 	 * {@link AdviceMode#PROXY}.
-	 * @see AdviceMode
 	 *
 	 * @return the {@link AdviceMode} to use
+	 * @see AdviceMode
 	 */
 	AdviceMode mode() default AdviceMode.PROXY;
 

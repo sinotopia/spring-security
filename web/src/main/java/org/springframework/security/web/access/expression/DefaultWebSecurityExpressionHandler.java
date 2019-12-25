@@ -25,7 +25,6 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.util.Assert;
 
 /**
- *
  * @author Luke Taylor
  * @author Eddú Meléndez
  * @since 3.0
@@ -53,7 +52,7 @@ public class DefaultWebSecurityExpressionHandler extends
 	 * {@link AuthenticationTrustResolverImpl}.
 	 *
 	 * @param trustResolver the {@link AuthenticationTrustResolver} to use. Cannot be
-	 * null.
+	 *                      null.
 	 */
 	public void setTrustResolver(AuthenticationTrustResolver trustResolver) {
 		Assert.notNull(trustResolver, "trustResolver cannot be null");

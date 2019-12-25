@@ -59,10 +59,12 @@ public class AbstractPreAuthenticatedProcessingFilterTests {
 	@Before
 	public void createFilter() {
 		filter = new AbstractPreAuthenticatedProcessingFilter() {
+			@Override
 			protected Object getPreAuthenticatedCredentials(HttpServletRequest request) {
 				return "n/a";
 			}
 
+			@Override
 			protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
 				return "doesntmatter";
 			}
@@ -446,10 +448,12 @@ public class AbstractPreAuthenticatedProcessingFilterTests {
 		private Object principal = "testPrincipal";
 		private boolean initFilterBeanInvoked;
 
+		@Override
 		protected Object getPreAuthenticatedPrincipal(HttpServletRequest httpRequest) {
 			return principal;
 		}
 
+		@Override
 		protected Object getPreAuthenticatedCredentials(HttpServletRequest httpRequest) {
 			return "testCredentials";
 		}

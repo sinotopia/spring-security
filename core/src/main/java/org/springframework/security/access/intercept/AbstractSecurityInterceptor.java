@@ -303,19 +303,19 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 			// public object
 			return returnedObject;
 		}
-
-		finallyInvocation(token); // continue to clean in this method for passivity
+		// continue to clean in this method for passivity
+		finallyInvocation(token);
 
 		if (afterInvocationManager != null) {
 			// Attempt after invocation handling
 			try {
 				returnedObject = afterInvocationManager.decide(token.getSecurityContext()
-						.getAuthentication(), token.getSecureObject(), token
-						.getAttributes(), returnedObject);
+								.getAuthentication(), token.getSecureObject(),
+						token.getAttributes(), returnedObject);
 			} catch (AccessDeniedException accessDeniedException) {
 				AuthorizationFailureEvent event = new AuthorizationFailureEvent(
-						token.getSecureObject(), token.getAttributes(), token
-						.getSecurityContext().getAuthentication(),
+						token.getSecureObject(), token.getAttributes(),
+						token.getSecurityContext().getAuthentication(),
 						accessDeniedException);
 				publishEvent(event);
 
@@ -369,7 +369,7 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 	 * @param configAttribs that were defined for the secureObject
 	 */
 	private void credentialsNotFound(String reason, Object secureObject,
-			Collection<ConfigAttribute> configAttribs) {
+									 Collection<ConfigAttribute> configAttribs) {
 		AuthenticationCredentialsNotFoundException exception = new AuthenticationCredentialsNotFoundException(
 				reason);
 

@@ -16,12 +16,12 @@
 
 package org.springframework.security.access.vote;
 
-import java.util.Collection;
-
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 /**
  * Votes if any {@link ConfigAttribute#getAttribute()} starts with a prefix indicating
@@ -50,6 +50,7 @@ import org.springframework.security.core.GrantedAuthority;
  * @author colin sampaleanu
  */
 public class RoleVoter implements AccessDecisionVoter<Object> {
+
 	// ~ Instance fields
 	// ================================================================================================
 
@@ -72,12 +73,12 @@ public class RoleVoter implements AccessDecisionVoter<Object> {
 		this.rolePrefix = rolePrefix;
 	}
 
+	@Override
 	public boolean supports(ConfigAttribute attribute) {
 		if ((attribute.getAttribute() != null)
 				&& attribute.getAttribute().startsWith(getRolePrefix())) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -87,13 +88,14 @@ public class RoleVoter implements AccessDecisionVoter<Object> {
 	 * presented secure object.
 	 *
 	 * @param clazz the secure object
-	 *
 	 * @return always <code>true</code>
 	 */
+	@Override
 	public boolean supports(Class<?> clazz) {
 		return true;
 	}
 
+	@Override
 	public int vote(Authentication authentication, Object object,
 			Collection<ConfigAttribute> attributes) {
 		if (authentication == null) {

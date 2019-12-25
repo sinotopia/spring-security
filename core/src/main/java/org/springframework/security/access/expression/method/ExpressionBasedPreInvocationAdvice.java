@@ -18,8 +18,6 @@
  */
 package org.springframework.security.access.expression.method;
 
-import java.util.Collection;
-
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
@@ -27,6 +25,8 @@ import org.springframework.security.access.expression.ExpressionUtils;
 import org.springframework.security.access.prepost.PreInvocationAttribute;
 import org.springframework.security.access.prepost.PreInvocationAuthorizationAdvice;
 import org.springframework.security.core.Authentication;
+
+import java.util.Collection;
 
 /**
  * Method pre-invocation handling based on expressions.
@@ -36,10 +36,12 @@ import org.springframework.security.core.Authentication;
  */
 public class ExpressionBasedPreInvocationAdvice implements
 		PreInvocationAuthorizationAdvice {
+
 	private MethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
 
+	@Override
 	public boolean before(Authentication authentication, MethodInvocation mi,
-			PreInvocationAttribute attr) {
+						  PreInvocationAttribute attr) {
 		PreInvocationExpressionAttribute preAttr = (PreInvocationExpressionAttribute) attr;
 		EvaluationContext ctx = expressionHandler.createEvaluationContext(authentication,
 				mi);
@@ -60,7 +62,7 @@ public class ExpressionBasedPreInvocationAdvice implements
 	}
 
 	private Object findFilterTarget(String filterTargetName, EvaluationContext ctx,
-			MethodInvocation mi) {
+									MethodInvocation mi) {
 		Object filterTarget = null;
 
 		if (filterTargetName.length() > 0) {
@@ -70,8 +72,7 @@ public class ExpressionBasedPreInvocationAdvice implements
 						"Filter target was null, or no argument with name "
 								+ filterTargetName + " found in method");
 			}
-		}
-		else if (mi.getArguments().length == 1) {
+		} else if (mi.getArguments().length == 1) {
 			Object arg = mi.getArguments()[0];
 			if (arg.getClass().isArray() || arg instanceof Collection<?>) {
 				filterTarget = arg;

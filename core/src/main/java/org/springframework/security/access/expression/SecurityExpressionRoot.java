@@ -15,17 +15,17 @@
  */
 package org.springframework.security.access.expression;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Base root object for use in Spring Security expression evaluations.
@@ -40,10 +40,14 @@ public abstract class SecurityExpressionRoot implements SecurityExpressionOperat
 	private Set<String> roles;
 	private String defaultRolePrefix = "ROLE_";
 
-	/** Allows "permitAll" expression */
+	/**
+	 * Allows "permitAll" expression
+	 */
 	public final boolean permitAll = true;
 
-	/** Allows "denyAll" expression */
+	/**
+	 * Allows "denyAll" expression
+	 */
 	public final boolean denyAll = false;
 	private PermissionEvaluator permissionEvaluator;
 	public final String read = "read";
@@ -54,6 +58,7 @@ public abstract class SecurityExpressionRoot implements SecurityExpressionOperat
 
 	/**
 	 * Creates a new instance
+	 *
 	 * @param authentication the {@link Authentication} to use. Cannot be null.
 	 */
 	public SecurityExpressionRoot(Authentication authentication) {
@@ -63,18 +68,22 @@ public abstract class SecurityExpressionRoot implements SecurityExpressionOperat
 		this.authentication = authentication;
 	}
 
+	@Override
 	public final boolean hasAuthority(String authority) {
 		return hasAnyAuthority(authority);
 	}
 
+	@Override
 	public final boolean hasAnyAuthority(String... authorities) {
 		return hasAnyAuthorityName(null, authorities);
 	}
 
+	@Override
 	public final boolean hasRole(String role) {
 		return hasAnyRole(role);
 	}
 
+	@Override
 	public final boolean hasAnyRole(String... roles) {
 		return hasAnyAuthorityName(defaultRolePrefix, roles);
 	}
@@ -92,30 +101,37 @@ public abstract class SecurityExpressionRoot implements SecurityExpressionOperat
 		return false;
 	}
 
+	@Override
 	public final Authentication getAuthentication() {
 		return authentication;
 	}
 
+	@Override
 	public final boolean permitAll() {
 		return true;
 	}
 
+	@Override
 	public final boolean denyAll() {
 		return false;
 	}
 
+	@Override
 	public final boolean isAnonymous() {
 		return trustResolver.isAnonymous(authentication);
 	}
 
+	@Override
 	public final boolean isAuthenticated() {
 		return !isAnonymous();
 	}
 
+	@Override
 	public final boolean isRememberMe() {
 		return trustResolver.isRememberMe(authentication);
 	}
 
+	@Override
 	public final boolean isFullyAuthenticated() {
 		return !trustResolver.isAnonymous(authentication)
 				&& !trustResolver.isRememberMe(authentication);
@@ -124,6 +140,7 @@ public abstract class SecurityExpressionRoot implements SecurityExpressionOperat
 	/**
 	 * Convenience method to access {@link Authentication#getPrincipal()} from
 	 * {@link #getAuthentication()}
+	 *
 	 * @return
 	 */
 	public Object getPrincipal() {
@@ -173,10 +190,12 @@ public abstract class SecurityExpressionRoot implements SecurityExpressionOperat
 		return roles;
 	}
 
+	@Override
 	public boolean hasPermission(Object target, Object permission) {
 		return permissionEvaluator.hasPermission(authentication, target, permission);
 	}
 
+	@Override
 	public boolean hasPermission(Object targetId, String targetType, Object permission) {
 		return permissionEvaluator.hasPermission(authentication, (Serializable) targetId,
 				targetType, permission);

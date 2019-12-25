@@ -47,6 +47,7 @@ public class WebSpherePreAuthenticatedProcessingFilter extends
 	/**
 	 * Return the WebSphere user name.
 	 */
+	@Override
 	protected Object getPreAuthenticatedPrincipal(HttpServletRequest httpRequest) {
 		Object principal = wasHelper.getCurrentUserName();
 		if (logger.isDebugEnabled()) {
@@ -59,6 +60,7 @@ public class WebSpherePreAuthenticatedProcessingFilter extends
 	 * For J2EE container-based authentication there is no generic way to retrieve the
 	 * credentials, as such this method returns a fixed dummy value.
 	 */
+	@Override
 	protected Object getPreAuthenticatedCredentials(HttpServletRequest httpRequest) {
 		return "N/A";
 	}

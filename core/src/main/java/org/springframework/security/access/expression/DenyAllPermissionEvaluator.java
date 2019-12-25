@@ -15,12 +15,12 @@
  */
 package org.springframework.security.access.expression;
 
-import java.io.Serializable;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
+
+import java.io.Serializable;
 
 /**
  * A null PermissionEvaluator which denies all access. Used by default for situations when
@@ -36,6 +36,7 @@ public class DenyAllPermissionEvaluator implements PermissionEvaluator {
 	/**
 	 * @return false always
 	 */
+	@Override
 	public boolean hasPermission(Authentication authentication, Object target,
 			Object permission) {
 		logger.warn("Denying user " + authentication.getName() + " permission '"
@@ -46,6 +47,7 @@ public class DenyAllPermissionEvaluator implements PermissionEvaluator {
 	/**
 	 * @return false always
 	 */
+	@Override
 	public boolean hasPermission(Authentication authentication, Serializable targetId,
 			String targetType, Object permission) {
 		logger.warn("Denying user " + authentication.getName() + " permission '"

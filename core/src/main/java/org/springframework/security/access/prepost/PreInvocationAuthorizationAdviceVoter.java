@@ -15,14 +15,14 @@
  */
 package org.springframework.security.access.prepost;
 
-import java.util.Collection;
-
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
+
+import java.util.Collection;
 
 /**
  * Voter which performs the actions using a PreInvocationAuthorizationAdvice
@@ -47,14 +47,17 @@ public class PreInvocationAuthorizationAdviceVoter implements
 		this.preAdvice = pre;
 	}
 
+	@Override
 	public boolean supports(ConfigAttribute attribute) {
 		return attribute instanceof PreInvocationAttribute;
 	}
 
+	@Override
 	public boolean supports(Class<?> clazz) {
 		return MethodInvocation.class.isAssignableFrom(clazz);
 	}
 
+	@Override
 	public int vote(Authentication authentication, MethodInvocation method,
 			Collection<ConfigAttribute> attributes) {
 

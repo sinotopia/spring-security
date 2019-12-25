@@ -15,21 +15,19 @@
  */
 package org.springframework.security.config.annotation.method.configuration;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import org.aopalliance.intercept.MethodInterceptor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.AdviceMode;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportAware;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.type.AnnotationMetadata;
@@ -40,11 +38,7 @@ import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.access.annotation.Jsr250MethodSecurityMetadataSource;
 import org.springframework.security.access.annotation.Jsr250Voter;
 import org.springframework.security.access.annotation.SecuredAnnotationSecurityMetadataSource;
-import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
-import org.springframework.security.access.expression.method.ExpressionBasedAnnotationAttributeFactory;
-import org.springframework.security.access.expression.method.ExpressionBasedPostInvocationAdvice;
-import org.springframework.security.access.expression.method.ExpressionBasedPreInvocationAdvice;
-import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
+import org.springframework.security.access.expression.method.*;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.intercept.AfterInvocationManager;
 import org.springframework.security.access.intercept.AfterInvocationProviderManager;
@@ -69,6 +63,10 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.util.Assert;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Base {@link Configuration} for enabling global method security. Classes may extend this
  * class to customize the defaults, but must be sure to specify the
@@ -76,21 +74,25 @@ import org.springframework.util.Assert;
  *
  * @author Rob Winch
  * @author Eddú Meléndez
- * @since 3.2
  * @see EnableGlobalMethodSecurity
+ * @since 3.2
  */
 @Configuration(proxyBeanMethods = false)
 public class GlobalMethodSecurityConfiguration
 		implements ImportAware, SmartInitializingSingleton, BeanFactoryAware {
-	private static final Log logger = LogFactory
-			.getLog(GlobalMethodSecurityConfiguration.class);
+
+	private static final Log logger = LogFactory.getLog(GlobalMethodSecurityConfiguration.class);
+
 	private ObjectPostProcessor<Object> objectPostProcessor = new ObjectPostProcessor<Object>() {
+
+		@Override
 		public <T> T postProcess(T object) {
 			throw new IllegalStateException(ObjectPostProcessor.class.getName()
 					+ " is a required bean. Ensure you have used @"
 					+ EnableGlobalMethodSecurity.class.getName());
 		}
 	};
+
 	private DefaultMethodSecurityExpressionHandler defaultMethodExpressionHandler = new DefaultMethodSecurityExpressionHandler();
 	private AuthenticationManager authenticationManager;
 	private AuthenticationManagerBuilder auth;
@@ -115,8 +117,8 @@ public class GlobalMethodSecurityConfiguration
 	 * Subclasses can override this method to provide a different
 	 * {@link MethodInterceptor}.
 	 * </p>
-	 * @param methodSecurityMetadataSource the default {@link MethodSecurityMetadataSource}.
 	 *
+	 * @param methodSecurityMetadataSource the default {@link MethodSecurityMetadataSource}.
 	 * @return the {@link MethodInterceptor}.
 	 */
 	@Bean
@@ -126,8 +128,7 @@ public class GlobalMethodSecurityConfiguration
 				: new MethodSecurityInterceptor();
 		methodSecurityInterceptor.setAccessDecisionManager(accessDecisionManager());
 		methodSecurityInterceptor.setAfterInvocationManager(afterInvocationManager());
-		methodSecurityInterceptor
-				.setSecurityMetadataSource(methodSecurityMetadataSource);
+		methodSecurityInterceptor.setSecurityMetadataSource(methodSecurityMetadataSource);
 		RunAsManager runAsManager = runAsManager();
 		if (runAsManager != null) {
 			methodSecurityInterceptor.setRunAsManager(runAsManager);
@@ -146,8 +147,7 @@ public class GlobalMethodSecurityConfiguration
 	public void afterSingletonsInstantiated() {
 		try {
 			initializeMethodSecurityInterceptor();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
@@ -180,7 +180,8 @@ public class GlobalMethodSecurityConfiguration
 	private <T> T getSingleBeanOrNull(Class<T> type) {
 		try {
 			return context.getBean(type);
-		} catch (NoSuchBeanDefinitionException e) {}
+		} catch (NoSuchBeanDefinitionException e) {
+		}
 		return null;
 	}
 
@@ -323,8 +324,7 @@ public class GlobalMethodSecurityConfiguration
 			if (disableAuthenticationRegistry) {
 				authenticationManager = getAuthenticationConfiguration()
 						.getAuthenticationManager();
-			}
-			else {
+			} else {
 				authenticationManager = auth.build();
 			}
 		}
@@ -337,7 +337,7 @@ public class GlobalMethodSecurityConfiguration
 	 * autowire by type.
 	 *
 	 * @param auth the {@link AuthenticationManagerBuilder} used to register different
-	 * authentication mechanisms for the global method security.
+	 *             authentication mechanisms for the global method security.
 	 * @throws Exception
 	 */
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -408,6 +408,7 @@ public class GlobalMethodSecurityConfiguration
 	 * Obtains the attributes from {@link EnableGlobalMethodSecurity} if this class was
 	 * imported using the {@link EnableGlobalMethodSecurity} annotation.
 	 */
+	@Override
 	public final void setImportMetadata(AnnotationMetadata importMetadata) {
 		Map<String, Object> annotationAttributes = importMetadata
 				.getAnnotationAttributes(EnableGlobalMethodSecurity.class.getName());

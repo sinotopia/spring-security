@@ -40,7 +40,7 @@ import org.springframework.security.web.authentication.ui.DefaultLoginPageGenera
  * when they enter their username and password that states to "Remember Me".
  *
  * <h2>Security Filters</h2>
- *
+ * <p>
  * The following Filters are populated
  *
  * <ul>
@@ -48,7 +48,7 @@ import org.springframework.security.web.authentication.ui.DefaultLoginPageGenera
  * </ul>
  *
  * <h2>Shared Objects Created</h2>
- *
+ * <p>
  * The following shared objects are populated
  *
  * <ul>
@@ -62,7 +62,7 @@ import org.springframework.security.web.authentication.ui.DefaultLoginPageGenera
  * </ul>
  *
  * <h2>Shared Objects Used</h2>
- *
+ * <p>
  * The following shared objects are used:
  *
  * <ul>
@@ -124,7 +124,7 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 	 * {@code true}.
 	 *
 	 * @param useSecureCookie set to {@code true} to always user secure cookies,
-	 * {@code false} to disable their use.
+	 *                        {@code false} to disable their use.
 	 * @return the {@link RememberMeConfigurer} for further customization
 	 * @see AbstractRememberMeServices#setUseSecureCookie(boolean)
 	 */
@@ -192,7 +192,7 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 	 * to 'remember-me'.
 	 *
 	 * @param rememberMeCookieName the name of cookie which store the token for remember
-	 * me authentication
+	 *                             me authentication
 	 * @return the {@link RememberMeConfigurer} for further customization
 	 * @since 4.0.1
 	 */
@@ -205,7 +205,7 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 	 * The domain name within which the remember me cookie is visible.
 	 *
 	 * @param rememberMeCookieDomain the domain name within which the remember me cookie
-	 * is visible.
+	 *                               is visible.
 	 * @return the {@link RememberMeConfigurer} for further customization
 	 * @since 4.1.0
 	 */
@@ -223,7 +223,7 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 	 * original request was for.
 	 *
 	 * @param authenticationSuccessHandler the strategy to invoke immediately before
-	 * returning from {@code doFilter()}.
+	 *                                     returning from {@code doFilter()}.
 	 * @return {@link RememberMeConfigurer} for further customization
 	 * @see RememberMeAuthenticationFilter#setAuthenticationSuccessHandler(AuthenticationSuccessHandler)
 	 */
@@ -235,6 +235,7 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 
 	/**
 	 * Specify the {@link RememberMeServices} to use.
+	 *
 	 * @param rememberMeServices the {@link RememberMeServices} to use
 	 * @return the {@link RememberMeConfigurer} for further customizations
 	 * @see RememberMeServices
@@ -252,7 +253,7 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 	 * By default this will be set to {@code false}.
 	 *
 	 * @param alwaysRemember set to {@code true} to always trigger remember me,
-	 * {@code false} to use the remember-me parameter.
+	 *                       {@code false} to use the remember-me parameter.
 	 * @return the {@link RememberMeConfigurer} for further customization
 	 * @see AbstractRememberMeServices#setAlwaysRemember(boolean)
 	 */
@@ -307,6 +308,7 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 
 	/**
 	 * Returns the HTTP parameter used to indicate to remember the user at time of login.
+	 *
 	 * @return the HTTP parameter used to indicate to remember the user
 	 */
 	private String getRememberMeParameter() {
@@ -329,8 +331,9 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 
 	/**
 	 * Gets the {@link RememberMeServices} or creates the {@link RememberMeServices}.
+	 *
 	 * @param http the {@link HttpSecurity} to lookup shared objects
-	 * @param key the {@link #key(String)}
+	 * @param key  the {@link #key(String)}
 	 * @return the {@link RememberMeServices} to use
 	 * @throws Exception
 	 */
@@ -371,7 +374,7 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 	 * specified, else {@link TokenBasedRememberMeServices}.
 	 *
 	 * @param http the {@link HttpSecurity} to lookup shared objects
-	 * @param key the {@link #key(String)}
+	 * @param key  the {@link #key(String)}
 	 * @return the {@link RememberMeServices} to use
 	 */
 	private AbstractRememberMeServices createRememberMeServices(H http, String key) {
@@ -384,11 +387,11 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 	 * Creates {@link TokenBasedRememberMeServices}
 	 *
 	 * @param http the {@link HttpSecurity} to lookup shared objects
-	 * @param key the {@link #key(String)}
+	 * @param key  the {@link #key(String)}
 	 * @return the {@link TokenBasedRememberMeServices}
 	 */
 	private AbstractRememberMeServices createTokenBasedRememberMeServices(H http,
-			String key) {
+																		  String key) {
 		UserDetailsService userDetailsService = getUserDetailsService(http);
 		return new TokenBasedRememberMeServices(key, userDetailsService);
 	}
@@ -397,11 +400,11 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 	 * Creates {@link PersistentTokenBasedRememberMeServices}
 	 *
 	 * @param http the {@link HttpSecurity} to lookup shared objects
-	 * @param key the {@link #key(String)}
+	 * @param key  the {@link #key(String)}
 	 * @return the {@link PersistentTokenBasedRememberMeServices}
 	 */
 	private AbstractRememberMeServices createPersistentRememberMeServices(H http,
-			String key) {
+																		  String key) {
 		UserDetailsService userDetailsService = getUserDetailsService(http);
 		return new PersistentTokenBasedRememberMeServices(key, userDetailsService,
 				this.tokenRepository);

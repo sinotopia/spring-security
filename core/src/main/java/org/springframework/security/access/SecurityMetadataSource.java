@@ -16,10 +16,10 @@
 
 package org.springframework.security.access;
 
-import java.util.Collection;
-
 import org.springframework.aop.framework.AopInfrastructureBean;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
+
+import java.util.Collection;
 
 /**
  * Implemented by classes that store and can identify the {@link ConfigAttribute}s that
@@ -35,12 +35,10 @@ public interface SecurityMetadataSource extends AopInfrastructureBean {
 	 * Accesses the {@code ConfigAttribute}s that apply to a given secure object.
 	 *
 	 * @param object the object being secured
-	 *
 	 * @return the attributes that apply to the passed in secured object. Should return an
 	 * empty collection if there are no applicable attributes.
-	 *
 	 * @throws IllegalArgumentException if the passed object is not of a type supported by
-	 * the <code>SecurityMetadataSource</code> implementation
+	 *                                  the <code>SecurityMetadataSource</code> implementation
 	 */
 	Collection<ConfigAttribute> getAttributes(Object object)
 			throws IllegalArgumentException;
@@ -61,7 +59,6 @@ public interface SecurityMetadataSource extends AopInfrastructureBean {
 	 * provide {@code ConfigAttribute}s for the indicated secure object type.
 	 *
 	 * @param clazz the class that is being queried
-	 *
 	 * @return true if the implementation can process the indicated class
 	 */
 	boolean supports(Class<?> clazz);

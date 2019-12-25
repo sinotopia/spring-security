@@ -15,12 +15,12 @@
  */
 package org.springframework.security.access.annotation;
 
-import java.util.Collection;
-
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 /**
  * Voter on JSR-250 configuration attributes.
@@ -37,6 +37,7 @@ public class Jsr250Voter implements AccessDecisionVoter<Object> {
 	 * @param configAttribute The config attribute.
 	 * @return whether the config attribute is supported.
 	 */
+	@Override
 	public boolean supports(ConfigAttribute configAttribute) {
 		return configAttribute instanceof Jsr250SecurityConfig;
 	}
@@ -47,6 +48,7 @@ public class Jsr250Voter implements AccessDecisionVoter<Object> {
 	 * @param clazz the class.
 	 * @return true
 	 */
+	@Override
 	public boolean supports(Class<?> clazz) {
 		return true;
 	}
@@ -58,10 +60,11 @@ public class Jsr250Voter implements AccessDecisionVoter<Object> {
 	 * deny access based on the attributes that are found.
 	 *
 	 * @param authentication The authentication object.
-	 * @param object The access object.
-	 * @param definition The configuration definition.
+	 * @param object         The access object.
+	 * @param definition     The configuration definition.
 	 * @return The vote.
 	 */
+	@Override
 	public int vote(Authentication authentication, Object object,
 			Collection<ConfigAttribute> definition) {
 		boolean jsr250AttributeFound = false;

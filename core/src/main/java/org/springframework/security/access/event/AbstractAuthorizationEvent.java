@@ -24,15 +24,15 @@ import org.springframework.context.ApplicationEvent;
  * @author Ben Alex
  */
 public abstract class AbstractAuthorizationEvent extends ApplicationEvent {
-	// ~ Constructors
-	// ===================================================================================================
+    // ~ Constructors
+    // ===================================================================================================
 
-	/**
-	 * Construct the event, passing in the secure object being intercepted.
-	 *
-	 * @param secureObject the secure object
-	 */
-	public AbstractAuthorizationEvent(Object secureObject) {
-		super(secureObject);
-	}
+    /**
+     * Construct the event, passing in the secure object being intercepted.
+     *
+     * @param secureObject the secure object
+     */
+    public AbstractAuthorizationEvent(Object secureObject) {
+        super(secureObject);
+    }
 }

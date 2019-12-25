@@ -15,11 +15,6 @@
  */
 package org.springframework.security.acls;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.access.PermissionEvaluator;
@@ -27,16 +22,13 @@ import org.springframework.security.acls.domain.DefaultPermissionFactory;
 import org.springframework.security.acls.domain.ObjectIdentityRetrievalStrategyImpl;
 import org.springframework.security.acls.domain.PermissionFactory;
 import org.springframework.security.acls.domain.SidRetrievalStrategyImpl;
-import org.springframework.security.acls.model.Acl;
-import org.springframework.security.acls.model.AclService;
-import org.springframework.security.acls.model.NotFoundException;
-import org.springframework.security.acls.model.ObjectIdentity;
-import org.springframework.security.acls.model.ObjectIdentityGenerator;
-import org.springframework.security.acls.model.ObjectIdentityRetrievalStrategy;
-import org.springframework.security.acls.model.Permission;
-import org.springframework.security.acls.model.Sid;
-import org.springframework.security.acls.model.SidRetrievalStrategy;
+import org.springframework.security.acls.model.*;
 import org.springframework.security.core.Authentication;
+
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Used by Spring Security's expression-based access control implementation to evaluate
@@ -65,6 +57,7 @@ public class AclPermissionEvaluator implements PermissionEvaluator {
 	 * the ACL configuration. If the domain object is null, returns false (this can always
 	 * be overridden using a null check in the expression itself).
 	 */
+	@Override
 	public boolean hasPermission(Authentication authentication, Object domainObject,
 			Object permission) {
 		if (domainObject == null) {
@@ -77,6 +70,7 @@ public class AclPermissionEvaluator implements PermissionEvaluator {
 		return checkPermission(authentication, objectIdentity, permission);
 	}
 
+	@Override
 	public boolean hasPermission(Authentication authentication, Serializable targetId,
 			String targetType, Object permission) {
 		ObjectIdentity objectIdentity = objectIdentityGenerator.createObjectIdentity(
@@ -114,8 +108,7 @@ public class AclPermissionEvaluator implements PermissionEvaluator {
 				logger.debug("Returning false - ACLs returned, but insufficient permissions for this principal");
 			}
 
-		}
-		catch (NotFoundException nfe) {
+		} catch (NotFoundException nfe) {
 			if (debug) {
 				logger.debug("Returning false - no ACLs apply for this principal");
 			}
@@ -144,8 +137,7 @@ public class AclPermissionEvaluator implements PermissionEvaluator {
 
 			try {
 				p = permissionFactory.buildFromName(permString);
-			}
-			catch (IllegalArgumentException notfound) {
+			} catch (IllegalArgumentException notfound) {
 				p = permissionFactory.buildFromName(permString.toUpperCase(Locale.ENGLISH));
 			}
 

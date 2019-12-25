@@ -16,10 +16,10 @@
 
 package org.springframework.security.access;
 
-import java.util.Collection;
-
 import org.springframework.security.access.intercept.AfterInvocationProviderManager;
 import org.springframework.security.core.Authentication;
+
+import java.util.Collection;
 
 /**
  * Indicates a class is responsible for participating in an
@@ -46,8 +46,7 @@ public interface AfterInvocationProvider {
 	 * </p>
 	 *
 	 * @param attribute a configuration attribute that has been configured against the
-	 * <code>AbstractSecurityInterceptor</code>
-	 *
+	 *                  <code>AbstractSecurityInterceptor</code>
 	 * @return true if this <code>AfterInvocationProvider</code> can support the passed
 	 * configuration attribute
 	 */
@@ -58,7 +57,6 @@ public interface AfterInvocationProvider {
 	 * "after invocation" processing for the indicated secured object type.
 	 *
 	 * @param clazz the class of secure object that is being queried
-	 *
 	 * @return true if the implementation can process the indicated class
 	 */
 	boolean supports(Class<?> clazz);

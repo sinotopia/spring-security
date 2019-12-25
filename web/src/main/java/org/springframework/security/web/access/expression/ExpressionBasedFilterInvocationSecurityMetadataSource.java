@@ -79,8 +79,7 @@ public final class ExpressionBasedFilterInvocationSecurityMetadataSource
 			try {
 				attributes.add(new WebExpressionConfigAttribute(
 						parser.parseExpression(expression), postProcessor));
-			}
-			catch (ParseException e) {
+			} catch (ParseException e) {
 				throw new IllegalArgumentException(
 						"Failed to parse expression '" + expression + "'");
 			}

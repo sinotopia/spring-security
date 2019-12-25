@@ -202,6 +202,7 @@ public class ChannelProcessingFilterTests {
 			this.provideIterator = provideIterator;
 		}
 
+		@Override
 		public Collection<ConfigAttribute> getAttributes(Object object)
 				throws IllegalArgumentException {
 			FilterInvocation fi = (FilterInvocation) object;
@@ -214,6 +215,7 @@ public class ChannelProcessingFilterTests {
 			}
 		}
 
+		@Override
 		public Collection<ConfigAttribute> getAllConfigAttributes() {
 			if (!provideIterator) {
 				return null;

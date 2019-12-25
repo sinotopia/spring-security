@@ -27,12 +27,12 @@ import org.springframework.security.access.prepost.PostInvocationAuthorizationAd
 import org.springframework.security.core.Authentication;
 
 /**
- *
  * @author Luke Taylor
  * @since 3.0
  */
 public class ExpressionBasedPostInvocationAdvice implements
 		PostInvocationAuthorizationAdvice {
+
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	private final MethodSecurityExpressionHandler expressionHandler;
@@ -42,12 +42,12 @@ public class ExpressionBasedPostInvocationAdvice implements
 		this.expressionHandler = expressionHandler;
 	}
 
+	@Override
 	public Object after(Authentication authentication, MethodInvocation mi,
-			PostInvocationAttribute postAttr, Object returnedObject)
+						PostInvocationAttribute postAttr, Object returnedObject)
 			throws AccessDeniedException {
 		PostInvocationExpressionAttribute pia = (PostInvocationExpressionAttribute) postAttr;
-		EvaluationContext ctx = expressionHandler.createEvaluationContext(authentication,
-				mi);
+		EvaluationContext ctx = expressionHandler.createEvaluationContext(authentication, mi);
 		Expression postFilter = pia.getFilterExpression();
 		Expression postAuthorize = pia.getAuthorizeExpression();
 
@@ -59,8 +59,7 @@ public class ExpressionBasedPostInvocationAdvice implements
 			if (returnedObject != null) {
 				returnedObject = expressionHandler
 						.filter(returnedObject, postFilter, ctx);
-			}
-			else {
+			} else {
 				if (logger.isDebugEnabled()) {
 					logger.debug("Return object is null, filtering will be skipped");
 				}

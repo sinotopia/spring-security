@@ -16,12 +16,13 @@
 
 package org.springframework.security.access.vote;
 
-import java.util.*;
-
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Simple concrete implementation of
@@ -33,6 +34,7 @@ import org.springframework.security.core.Authentication;
  * {@link UnanimousBased}.
  */
 public class ConsensusBased extends AbstractAccessDecisionManager {
+
 	// ~ Instance fields
 	// ================================================================================================
 
@@ -57,13 +59,13 @@ public class ConsensusBased extends AbstractAccessDecisionManager {
 	 * be based on the {@link #isAllowIfAllAbstainDecisions()} property (defaults to
 	 * false).
 	 *
-	 * @param authentication the caller invoking the method
-	 * @param object the secured object
+	 * @param authentication   the caller invoking the method
+	 * @param object           the secured object
 	 * @param configAttributes the configuration attributes associated with the method
-	 * being invoked
-	 *
+	 *                         being invoked
 	 * @throws AccessDeniedException if access is denied
 	 */
+	@Override
 	public void decide(Authentication authentication, Object object,
 			Collection<ConfigAttribute> configAttributes) throws AccessDeniedException {
 		int grant = 0;
@@ -77,18 +79,18 @@ public class ConsensusBased extends AbstractAccessDecisionManager {
 			}
 
 			switch (result) {
-			case AccessDecisionVoter.ACCESS_GRANTED:
-				grant++;
+				case AccessDecisionVoter.ACCESS_GRANTED:
+					grant++;
 
-				break;
+					break;
 
-			case AccessDecisionVoter.ACCESS_DENIED:
-				deny++;
+				case AccessDecisionVoter.ACCESS_DENIED:
+					deny++;
 
-				break;
+					break;
 
-			default:
-				break;
+				default:
+					break;
 			}
 		}
 
@@ -104,8 +106,7 @@ public class ConsensusBased extends AbstractAccessDecisionManager {
 		if ((grant == deny) && (grant != 0)) {
 			if (this.allowIfEqualGrantedDeniedDecisions) {
 				return;
-			}
-			else {
+			} else {
 				throw new AccessDeniedException(messages.getMessage(
 						"AbstractAccessDecisionManager.accessDenied", "Access is denied"));
 			}

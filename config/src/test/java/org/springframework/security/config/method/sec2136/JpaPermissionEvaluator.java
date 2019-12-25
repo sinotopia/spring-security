@@ -15,20 +15,18 @@
  */
 package org.springframework.security.config.method.sec2136;
 
-import java.io.Serializable;
-
-import javax.persistence.EntityManager;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 
+import javax.persistence.EntityManager;
+import java.io.Serializable;
+
 /**
- *
  * @author Rob Winch
- *
  */
 public class JpaPermissionEvaluator implements PermissionEvaluator {
+
 	@Autowired
 	private EntityManager entityManager;
 

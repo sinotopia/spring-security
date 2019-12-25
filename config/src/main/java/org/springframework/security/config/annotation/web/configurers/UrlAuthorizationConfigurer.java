@@ -54,7 +54,7 @@ import org.springframework.util.Assert;
  * 			.antMatchers(&quot;/signup&quot;).hasRole(&quot;ANONYMOUS&quot;).anyRequest().hasRole(&quot;USER&quot;);
  * }
  * </pre>
- *
+ * <p>
  * The following Filters are populated
  *
  * <ul>
@@ -63,7 +63,7 @@ import org.springframework.util.Assert;
  * </ul>
  *
  * <h2>Shared Objects Created</h2>
- *
+ * <p>
  * The following shared objects are populated to allow other
  * {@link org.springframework.security.config.annotation.SecurityConfigurer}'s to
  * customize:
@@ -73,7 +73,7 @@ import org.springframework.util.Assert;
  * </ul>
  *
  * <h2>Shared Objects Used</h2>
- *
+ * <p>
  * The following shared objects are used:
  *
  * <ul>
@@ -82,13 +82,13 @@ import org.springframework.util.Assert;
  * </ul>
  *
  * @param <H> the type of {@link HttpSecurityBuilder} that is being configured
- *
  * @author Rob Winch
- * @since 3.2
  * @see ExpressionUrlAuthorizationConfigurer
+ * @since 3.2
  */
 public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> extends
 		AbstractInterceptUrlConfigurer<UrlAuthorizationConfigurer<H>, H> {
+
 	private final StandardInterceptUrlRegistry REGISTRY;
 
 	public UrlAuthorizationConfigurer(ApplicationContext context) {
@@ -111,6 +111,7 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 	 * @param objectPostProcessor
 	 * @return the {@link UrlAuthorizationConfigurer} for further customizations
 	 */
+	@Override
 	public UrlAuthorizationConfigurer<H> withObjectPostProcessor(
 			ObjectPostProcessor<?> objectPostProcessor) {
 		addObjectPostProcessor(objectPostProcessor);
@@ -130,7 +131,7 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 
 		@Override
 		public MvcMatchersAuthorizedUrl mvcMatchers(HttpMethod method,
-				String... mvcPatterns) {
+													String... mvcPatterns) {
 			return new MvcMatchersAuthorizedUrl(createMvcMatchers(method, mvcPatterns));
 		}
 
@@ -140,8 +141,7 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 		}
 
 		@Override
-		protected final AuthorizedUrl chainRequestMatchersInternal(
-				List<RequestMatcher> requestMatchers) {
+		protected final AuthorizedUrl chainRequestMatchersInternal(List<RequestMatcher> requestMatchers) {
 			return new AuthorizedUrl(requestMatchers);
 		}
 
@@ -194,10 +194,11 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 	/**
 	 * Adds a mapping of the {@link RequestMatcher} instances to the
 	 * {@link ConfigAttribute} instances.
-	 * @param requestMatchers the {@link RequestMatcher} instances that should map to the
-	 * provided {@link ConfigAttribute} instances
+	 *
+	 * @param requestMatchers  the {@link RequestMatcher} instances that should map to the
+	 *                         provided {@link ConfigAttribute} instances
 	 * @param configAttributes the {@link ConfigAttribute} instances that should be mapped
-	 * by the {@link RequestMatcher} instances
+	 *                         by the {@link RequestMatcher} instances
 	 * @return the {@link ExpressionUrlAuthorizationConfigurer} for further customizations
 	 */
 	private StandardInterceptUrlRegistry addMapping(
@@ -214,7 +215,7 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 	 * Creates a String for specifying a user requires a role.
 	 *
 	 * @param role the role that should be required which is prepended with ROLE_
-	 * automatically (i.e. USER, ADMIN, etc). It should not start with ROLE_
+	 *             automatically (i.e. USER, ADMIN, etc). It should not start with ROLE_
 	 * @return the {@link ConfigAttribute} expressed as a String
 	 */
 	private static String hasRole(String role) {
@@ -229,8 +230,8 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 	 * Creates a String for specifying that a user requires one of many roles.
 	 *
 	 * @param roles the roles that the user should have at least one of (i.e. ADMIN, USER,
-	 * etc). Each role should not start with ROLE_ since it is automatically prepended
-	 * already.
+	 *              etc). Each role should not start with ROLE_ since it is automatically prepended
+	 *              already.
 	 * @return the {@link ConfigAttribute} expressed as a String
 	 */
 	private static String[] hasAnyRole(String... roles) {
@@ -242,8 +243,9 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 
 	/**
 	 * Creates a String for specifying that a user requires one of many authorities
+	 *
 	 * @param authorities the authorities that the user should have at least one of (i.e.
-	 * ROLE_USER, ROLE_ADMIN, etc).
+	 *                    ROLE_USER, ROLE_ADMIN, etc).
 	 * @return the {@link ConfigAttribute} expressed as a String.
 	 */
 	private static String[] hasAnyAuthority(String... authorities) {
@@ -287,8 +289,9 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 
 		/**
 		 * Creates a new instance
+		 *
 		 * @param requestMatchers the {@link RequestMatcher} instances to map to some
-		 * {@link ConfigAttribute} instances.
+		 *                        {@link ConfigAttribute} instances.
 		 */
 		private AuthorizedUrl(List<? extends RequestMatcher> requestMatchers) {
 			Assert.notEmpty(requestMatchers,
@@ -300,8 +303,8 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 		 * Specifies a user requires a role.
 		 *
 		 * @param role the role that should be required which is prepended with ROLE_
-		 * automatically (i.e. USER, ADMIN, etc). It should not start with ROLE_ the
-		 * {@link UrlAuthorizationConfigurer} for further customization
+		 *             automatically (i.e. USER, ADMIN, etc). It should not start with ROLE_ the
+		 *             {@link UrlAuthorizationConfigurer} for further customization
 		 */
 		public StandardInterceptUrlRegistry hasRole(String role) {
 			return access(UrlAuthorizationConfigurer.hasRole(role));
@@ -311,8 +314,8 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 		 * Specifies that a user requires one of many roles.
 		 *
 		 * @param roles the roles that the user should have at least one of (i.e. ADMIN,
-		 * USER, etc). Each role should not start with ROLE_ since it is automatically
-		 * prepended already.
+		 *              USER, etc). Each role should not start with ROLE_ since it is automatically
+		 *              prepended already.
 		 * @return the {@link UrlAuthorizationConfigurer} for further customization
 		 */
 		public StandardInterceptUrlRegistry hasAnyRole(String... roles) {
@@ -331,8 +334,9 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 
 		/**
 		 * Specifies that a user requires one of many authorities
+		 *
 		 * @param authorities the authorities that the user should have at least one of
-		 * (i.e. ROLE_USER, ROLE_ADMIN, etc).
+		 *                    (i.e. ROLE_USER, ROLE_ADMIN, etc).
 		 * @return the {@link UrlAuthorizationConfigurer} for further customization
 		 */
 		public StandardInterceptUrlRegistry hasAnyAuthority(String... authorities) {
@@ -341,6 +345,7 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 
 		/**
 		 * Specifies that an anonymous user is allowed access
+		 *
 		 * @return the {@link UrlAuthorizationConfigurer} for further customization
 		 */
 		public StandardInterceptUrlRegistry anonymous() {
@@ -349,6 +354,7 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 
 		/**
 		 * Specifies that the user must have the specified {@link ConfigAttribute}'s
+		 *
 		 * @param attributes the {@link ConfigAttribute}'s that restrict access to a URL
 		 * @return the {@link UrlAuthorizationConfigurer} for further customization
 		 */

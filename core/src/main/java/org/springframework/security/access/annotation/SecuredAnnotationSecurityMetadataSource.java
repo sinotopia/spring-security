@@ -16,16 +16,18 @@
 
 package org.springframework.security.access.annotation;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.*;
-
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.access.method.AbstractFallbackMethodSecurityMetadataSource;
 import org.springframework.util.Assert;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Sources method security metadata from Spring Security's {@link Secured} annotation.
@@ -37,7 +39,7 @@ import org.springframework.util.Assert;
  * @author Ben Alex
  * @author Luke Taylor
  */
-@SuppressWarnings({ "unchecked" })
+@SuppressWarnings({"unchecked"})
 public class SecuredAnnotationSecurityMetadataSource extends
 		AbstractFallbackMethodSecurityMetadataSource {
 	private AnnotationMetadataExtractor annotationExtractor;
@@ -58,15 +60,18 @@ public class SecuredAnnotationSecurityMetadataSource extends
 				+ " must supply a generic parameter for AnnotationMetadataExtractor");
 	}
 
+	@Override
 	protected Collection<ConfigAttribute> findAttributes(Class<?> clazz) {
 		return processAnnotation(AnnotationUtils.findAnnotation(clazz, annotationType));
 	}
 
+	@Override
 	protected Collection<ConfigAttribute> findAttributes(Method method,
 			Class<?> targetClass) {
 		return processAnnotation(AnnotationUtils.findAnnotation(method, annotationType));
 	}
 
+	@Override
 	public Collection<ConfigAttribute> getAllConfigAttributes() {
 		return null;
 	}
@@ -82,10 +87,10 @@ public class SecuredAnnotationSecurityMetadataSource extends
 
 class SecuredAnnotationMetadataExtractor implements AnnotationMetadataExtractor<Secured> {
 
+	@Override
 	public Collection<ConfigAttribute> extractAttributes(Secured secured) {
 		String[] attributeTokens = secured.value();
-		List<ConfigAttribute> attributes = new ArrayList<>(
-				attributeTokens.length);
+		List<ConfigAttribute> attributes = new ArrayList<>(attributeTokens.length);
 
 		for (String token : attributeTokens) {
 			attributes.add(new SecurityConfig(token));

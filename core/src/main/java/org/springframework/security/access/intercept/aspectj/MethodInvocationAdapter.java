@@ -15,13 +15,13 @@
  */
 package org.springframework.security.access.intercept.aspectj;
 
-import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Method;
-
 import org.aopalliance.intercept.MethodInvocation;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.CodeSignature;
+
+import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Method;
 
 /**
  * Decorates a JoinPoint to allow it to be used with method-security infrastructure
@@ -39,8 +39,7 @@ public final class MethodInvocationAdapter implements MethodInvocation {
 		this.jp = (ProceedingJoinPoint) jp;
 		if (jp.getTarget() != null) {
 			target = jp.getTarget();
-		}
-		else {
+		} else {
 			// SEC-1295: target may be null if an ITD is in use
 			target = jp.getSignature().getDeclaringType();
 		}
@@ -62,15 +61,13 @@ public final class MethodInvocationAdapter implements MethodInvocation {
 
 		try {
 			method = declaringType.getMethod(name, params);
-		}
-		catch (NoSuchMethodException ignored) {
+		} catch (NoSuchMethodException ignored) {
 		}
 
 		if (method == null) {
 			try {
 				method = declaringType.getDeclaredMethod(name, params);
-			}
-			catch (NoSuchMethodException ignored) {
+			} catch (NoSuchMethodException ignored) {
 			}
 		}
 

@@ -15,11 +15,12 @@
  */
 package org.springframework.security.access.method;
 
-import java.lang.reflect.Method;
-import java.util.*;
-
 import org.springframework.aop.support.AopUtils;
 import org.springframework.security.access.ConfigAttribute;
+
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Abstract implementation of {@link MethodSecurityMetadataSource} that supports both
@@ -45,6 +46,7 @@ import org.springframework.security.access.ConfigAttribute;
 public abstract class AbstractFallbackMethodSecurityMetadataSource extends
 		AbstractMethodSecurityMetadataSource {
 
+	@Override
 	public Collection<ConfigAttribute> getAttributes(Method method, Class<?> targetClass) {
 		// The method may be on an interface, but we need attributes from the target
 		// class.
@@ -84,7 +86,7 @@ public abstract class AbstractFallbackMethodSecurityMetadataSource extends
 	 * "registered" against a method even if the target class does not declare the method
 	 * (i.e. the subclass may only inherit the method).
 	 *
-	 * @param method the method for the current invocation (never <code>null</code>)
+	 * @param method      the method for the current invocation (never <code>null</code>)
 	 * @param targetClass the target class for the invocation (may be <code>null</code>)
 	 * @return the security metadata (or null if no metadata applies)
 	 */

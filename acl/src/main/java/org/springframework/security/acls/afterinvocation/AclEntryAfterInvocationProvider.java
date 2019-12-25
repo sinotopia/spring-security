@@ -15,9 +15,6 @@
  */
 package org.springframework.security.acls.afterinvocation;
 
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.MessageSource;
@@ -29,6 +26,9 @@ import org.springframework.security.acls.model.AclService;
 import org.springframework.security.acls.model.Permission;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.SpringSecurityMessageSource;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Given a domain object instance returned from a secure object invocation, ensures the
@@ -87,6 +87,7 @@ public class AclEntryAfterInvocationProvider extends AbstractAclProvider impleme
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public Object decide(Authentication authentication, Object object,
 			Collection<ConfigAttribute> config, Object returnedObject)
 			throws AccessDeniedException {
@@ -118,14 +119,15 @@ public class AclEntryAfterInvocationProvider extends AbstractAclProvider impleme
 			logger.debug("Denying access");
 
 			throw new AccessDeniedException(messages.getMessage(
-					"AclEntryAfterInvocationProvider.noPermission", new Object[] {
-							authentication.getName(), returnedObject },
+					"AclEntryAfterInvocationProvider.noPermission", new Object[]{
+							authentication.getName(), returnedObject},
 					"Authentication {0} has NO permissions to the domain object {1}"));
 		}
 
 		return returnedObject;
 	}
 
+	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		this.messages = new MessageSourceAccessor(messageSource);
 	}

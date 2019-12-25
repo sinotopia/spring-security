@@ -42,9 +42,9 @@ import org.springframework.security.config.annotation.authentication.configurati
  * @since 3.2
  */
 @Retention(value = java.lang.annotation.RetentionPolicy.RUNTIME)
-@Target(value = { java.lang.annotation.ElementType.TYPE })
+@Target(value = {java.lang.annotation.ElementType.TYPE})
 @Documented
-@Import({ GlobalMethodSecuritySelector.class })
+@Import({GlobalMethodSecuritySelector.class})
 @EnableGlobalAuthentication
 @Configuration
 public @interface EnableGlobalMethodSecurity {
@@ -52,12 +52,14 @@ public @interface EnableGlobalMethodSecurity {
 	/**
 	 * Determines if Spring Security's pre post annotations should be enabled. Default is
 	 * false.
+	 *
 	 * @return true if pre post annotations should be enabled false otherwise.
 	 */
 	boolean prePostEnabled() default false;
 
 	/**
 	 * Determines if Spring Security's {@link Secured} annotations should be enabled.
+	 *
 	 * @return true if {@link Secured} annotations should be enabled false otherwise.
 	 * Default is false.
 	 */
@@ -65,6 +67,7 @@ public @interface EnableGlobalMethodSecurity {
 
 	/**
 	 * Determines if JSR-250 annotations should be enabled. Default is false.
+	 *
 	 * @return true if JSR-250 should be enabled false otherwise.
 	 */
 	boolean jsr250Enabled() default false;
@@ -91,9 +94,9 @@ public @interface EnableGlobalMethodSecurity {
 	/**
 	 * Indicate how security advice should be applied. The default is
 	 * {@link AdviceMode#PROXY}.
-	 * @see AdviceMode
 	 *
 	 * @return the {@link AdviceMode} to use
+	 * @see AdviceMode
 	 */
 	AdviceMode mode() default AdviceMode.PROXY;
 

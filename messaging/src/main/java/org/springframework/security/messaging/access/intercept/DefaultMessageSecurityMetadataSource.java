@@ -31,14 +31,14 @@ import java.util.*;
  * {@code Collection<ConfigAttribute>} is returned.
  * </p>
  *
+ * @author Rob Winch
  * @see ChannelSecurityInterceptor
  * @see ExpressionBasedMessageSecurityMetadataSourceFactory
- *
  * @since 4.0
- * @author Rob Winch
  */
 public final class DefaultMessageSecurityMetadataSource implements
 		MessageSecurityMetadataSource {
+	
 	private final Map<MessageMatcher<?>, Collection<ConfigAttribute>> messageMap;
 
 	public DefaultMessageSecurityMetadataSource(
@@ -46,7 +46,8 @@ public final class DefaultMessageSecurityMetadataSource implements
 		this.messageMap = messageMap;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	public Collection<ConfigAttribute> getAttributes(Object object)
 			throws IllegalArgumentException {
 		final Message message = (Message) object;
@@ -59,6 +60,7 @@ public final class DefaultMessageSecurityMetadataSource implements
 		return null;
 	}
 
+	@Override
 	public Collection<ConfigAttribute> getAllConfigAttributes() {
 		Set<ConfigAttribute> allAttributes = new HashSet<>();
 

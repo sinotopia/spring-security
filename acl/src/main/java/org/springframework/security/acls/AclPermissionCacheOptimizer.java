@@ -15,21 +15,17 @@
  */
 package org.springframework.security.acls;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.access.PermissionCacheOptimizer;
 import org.springframework.security.acls.domain.ObjectIdentityRetrievalStrategyImpl;
 import org.springframework.security.acls.domain.SidRetrievalStrategyImpl;
-import org.springframework.security.acls.model.AclService;
-import org.springframework.security.acls.model.ObjectIdentity;
-import org.springframework.security.acls.model.ObjectIdentityRetrievalStrategy;
-import org.springframework.security.acls.model.Sid;
-import org.springframework.security.acls.model.SidRetrievalStrategy;
+import org.springframework.security.acls.model.*;
 import org.springframework.security.core.Authentication;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Batch loads ACLs for collections of objects to allow optimised filtering.
@@ -47,6 +43,7 @@ public class AclPermissionCacheOptimizer implements PermissionCacheOptimizer {
 		this.aclService = aclService;
 	}
 
+	@Override
 	public void cachePermissionsFor(Authentication authentication, Collection<?> objects) {
 		if (objects.isEmpty()) {
 			return;

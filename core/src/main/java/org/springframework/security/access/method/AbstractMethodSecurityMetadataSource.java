@@ -16,13 +16,13 @@
 
 package org.springframework.security.access.method;
 
-import java.util.Collection;
-
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.security.access.ConfigAttribute;
+
+import java.util.Collection;
 
 /**
  * Abstract implementation of <tt>MethodSecurityMetadataSource</tt> which resolves the
@@ -39,6 +39,7 @@ public abstract class AbstractMethodSecurityMetadataSource implements
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public final Collection<ConfigAttribute> getAttributes(Object object) {
 		if (object instanceof MethodInvocation) {
 			MethodInvocation mi = (MethodInvocation) object;
@@ -62,6 +63,7 @@ public abstract class AbstractMethodSecurityMetadataSource implements
 		throw new IllegalArgumentException("Object must be a non-null MethodInvocation");
 	}
 
+	@Override
 	public final boolean supports(Class<?> clazz) {
 		return (MethodInvocation.class.isAssignableFrom(clazz));
 	}

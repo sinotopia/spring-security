@@ -76,8 +76,7 @@ public class DefaultFilterInvocationSecurityMetadataSource implements
 	public Collection<ConfigAttribute> getAllConfigAttributes() {
 		Set<ConfigAttribute> allAttributes = new HashSet<>();
 
-		for (Map.Entry<RequestMatcher, Collection<ConfigAttribute>> entry : requestMap
-				.entrySet()) {
+		for (Map.Entry<RequestMatcher, Collection<ConfigAttribute>> entry : requestMap.entrySet()) {
 			allAttributes.addAll(entry.getValue());
 		}
 

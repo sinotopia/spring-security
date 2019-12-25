@@ -16,11 +16,11 @@
 
 package org.springframework.security.access;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Stores a {@link ConfigAttribute} as a <code>String</code>.

@@ -15,8 +15,6 @@
  */
 package org.springframework.security.config.annotation.web;
 
-import javax.servlet.Filter;
-
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.SecurityBuilder;
 import org.springframework.security.config.annotation.SecurityConfigurer;
@@ -43,11 +41,11 @@ import org.springframework.security.web.servletapi.SecurityContextHolderAwareReq
 import org.springframework.security.web.session.ConcurrentSessionFilter;
 import org.springframework.security.web.session.SessionManagementFilter;
 
+import javax.servlet.Filter;
+
 /**
- *
- * @author Rob Winch
- *
  * @param <H>
+ * @author Rob Winch
  */
 public interface HttpSecurityBuilder<H extends HttpSecurityBuilder<H>> extends
 		SecurityBuilder<DefaultSecurityFilterChain> {
@@ -75,7 +73,7 @@ public interface HttpSecurityBuilder<H extends HttpSecurityBuilder<H>> extends
 	 * Sets an object that is shared by multiple {@link SecurityConfigurer}.
 	 *
 	 * @param sharedType the Class to key the shared object by.
-	 * @param object the Object to store
+	 * @param object     the Object to store
 	 */
 	<C> void setSharedObject(Class<C> sharedType, C object);
 
@@ -109,7 +107,7 @@ public interface HttpSecurityBuilder<H extends HttpSecurityBuilder<H>> extends
 	 * {@link #addFilter(Filter)} or a {@link Filter} that has already been added using
 	 * {@link #addFilterAfter(Filter, Class)} or {@link #addFilterBefore(Filter, Class)}.
 	 *
-	 * @param filter the {@link Filter} to register after the type {@code afterFilter}
+	 * @param filter      the {@link Filter} to register after the type {@code afterFilter}
 	 * @param afterFilter the Class of the known {@link Filter}.
 	 * @return the {@link HttpSecurity} for further customizations
 	 */
@@ -121,7 +119,7 @@ public interface HttpSecurityBuilder<H extends HttpSecurityBuilder<H>> extends
 	 * {@link #addFilter(Filter)} or a {@link Filter} that has already been added using
 	 * {@link #addFilterAfter(Filter, Class)} or {@link #addFilterBefore(Filter, Class)}.
 	 *
-	 * @param filter the {@link Filter} to register before the type {@code beforeFilter}
+	 * @param filter       the {@link Filter} to register before the type {@code beforeFilter}
 	 * @param beforeFilter the Class of the known {@link Filter}.
 	 * @return the {@link HttpSecurity} for further customizations
 	 */
@@ -131,7 +129,7 @@ public interface HttpSecurityBuilder<H extends HttpSecurityBuilder<H>> extends
 	 * Adds a {@link Filter} that must be an instance of or extend one of the Filters
 	 * provided within the Security framework. The method ensures that the ordering of the
 	 * Filters is automatically taken care of.
-	 *
+	 * <p>
 	 * The ordering of the Filters is:
 	 *
 	 * <ul>
