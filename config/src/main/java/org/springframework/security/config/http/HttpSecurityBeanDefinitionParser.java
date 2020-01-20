@@ -85,7 +85,7 @@ public class HttpSecurityBeanDefinitionParser implements BeanDefinitionParser {
 	 * been registered and will have the map of filter chains defined, with the
 	 * "universal" match pattern mapped to the list of beans which have been parsed here.
 	 */
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings({"unchecked"})
 	@Override
 	public BeanDefinition parse(Element element, ParserContext pc) {
 		CompositeComponentDefinition compositeDef = new CompositeComponentDefinition(
@@ -183,7 +183,7 @@ public class HttpSecurityBeanDefinitionParser implements BeanDefinitionParser {
 	}
 
 	private BeanReference createSecurityFilterChainBean(Element element,
-			ParserContext pc, List<?> filterChain) {
+														ParserContext pc, List<?> filterChain) {
 		BeanMetadataElement filterChainMatcher;
 
 		String requestMatcherRef = element.getAttribute(ATT_REQUEST_MATCHER_REF);
@@ -197,12 +197,10 @@ public class HttpSecurityBeanDefinitionParser implements BeanDefinitionParser {
 			}
 			filterChainMatcher = new RuntimeBeanReference(requestMatcherRef);
 
-		}
-		else if (StringUtils.hasText(filterChainPattern)) {
+		} else if (StringUtils.hasText(filterChainPattern)) {
 			filterChainMatcher = MatcherType.fromElement(element).createMatcher(pc,
 					filterChainPattern, null);
-		}
-		else {
+		} else {
 			filterChainMatcher = new RootBeanDefinition(AnyRequestMatcher.class);
 		}
 
@@ -238,7 +236,7 @@ public class HttpSecurityBeanDefinitionParser implements BeanDefinitionParser {
 	}
 
 	private RuntimeBeanReference createPortResolver(BeanReference portMapper,
-			ParserContext pc) {
+													ParserContext pc) {
 		RootBeanDefinition portResolver = new RootBeanDefinition(PortResolverImpl.class);
 		portResolver.getPropertyValues().addPropertyValue("portMapper", portMapper);
 		String portResolverName = pc.getReaderContext().generateBeanName(portResolver);
@@ -251,12 +249,12 @@ public class HttpSecurityBeanDefinitionParser implements BeanDefinitionParser {
 	 * Creates the internal AuthenticationManager bean which uses either the externally
 	 * registered (global) one as a parent or the bean specified by
 	 * "authentication-manager-ref".
-	 *
+	 * <p>
 	 * All the providers registered by this &lt;http&gt; block will be registered with the
 	 * internal authentication manager.
 	 */
 	private BeanReference createAuthenticationManager(Element element, ParserContext pc,
-			ManagedList<BeanReference> authenticationProviders) {
+													  ManagedList<BeanReference> authenticationProviders) {
 		String parentMgrRef = element.getAttribute(ATT_AUTHENTICATION_MANAGER_REF);
 		BeanDefinitionBuilder authManager = BeanDefinitionBuilder
 				.rootBeanDefinition(ProviderManager.class);
@@ -275,8 +273,7 @@ public class HttpSecurityBeanDefinitionParser implements BeanDefinitionParser {
 
 			authManager.addPropertyValue("eraseCredentialsAfterAuthentication",
 					clearCredentials);
-		}
-		else {
+		} else {
 			RootBeanDefinition amfb = new RootBeanDefinition(
 					AuthenticationManagerFactoryBean.class);
 			amfb.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
@@ -303,7 +300,7 @@ public class HttpSecurityBeanDefinitionParser implements BeanDefinitionParser {
 	}
 
 	private void checkFilterChainOrder(List<OrderDecorator> filters, ParserContext pc,
-			Object source) {
+									   Object source) {
 		logger.info("Checking sorted filter chain: " + filters);
 
 		for (int i = 0; i < filters.size(); i++) {
@@ -314,13 +311,13 @@ public class HttpSecurityBeanDefinitionParser implements BeanDefinitionParser {
 				if (filter.getOrder() == previous.getOrder()) {
 					pc.getReaderContext()
 							.error("Filter beans '"
-									+ filter.bean
-									+ "' and '"
-									+ previous.bean
-									+ "' have the same 'order' value. When using custom filters, "
-									+ "please make sure the positions do not conflict with default filters. "
-									+ "Alternatively you can disable the default filters by removing the corresponding "
-									+ "child elements from <http> and avoiding the use of <http auto-config='true'>.",
+											+ filter.bean
+											+ "' and '"
+											+ previous.bean
+											+ "' have the same 'order' value. When using custom filters, "
+											+ "please make sure the positions do not conflict with default filters. "
+											+ "Alternatively you can disable the default filters by removing the corresponding "
+											+ "child elements from <http> and avoiding the use of <http auto-config='true'>.",
 									source);
 				}
 			}
@@ -351,7 +348,7 @@ public class HttpSecurityBeanDefinitionParser implements BeanDefinitionParser {
 
 			RuntimeBeanReference bean = new RuntimeBeanReference(ref);
 
-			if (WebConfigUtils.countNonEmpty(new String[] { after, before, position }) != 1) {
+			if (WebConfigUtils.countNonEmpty(new String[]{after, before, position}) != 1) {
 				pc.getReaderContext().error(
 						"A single '" + ATT_AFTER + "', '" + ATT_BEFORE + "', or '"
 								+ ATT_POSITION + "' attribute must be supplied",
@@ -361,22 +358,18 @@ public class HttpSecurityBeanDefinitionParser implements BeanDefinitionParser {
 			if (StringUtils.hasText(position)) {
 				customFilters.add(new OrderDecorator(bean, SecurityFilters
 						.valueOf(position)));
-			}
-			else if (StringUtils.hasText(after)) {
+			} else if (StringUtils.hasText(after)) {
 				SecurityFilters order = SecurityFilters.valueOf(after);
 				if (order == SecurityFilters.LAST) {
 					customFilters.add(new OrderDecorator(bean, SecurityFilters.LAST));
-				}
-				else {
+				} else {
 					customFilters.add(new OrderDecorator(bean, order.getOrder() + 1));
 				}
-			}
-			else if (StringUtils.hasText(before)) {
+			} else if (StringUtils.hasText(before)) {
 				SecurityFilters order = SecurityFilters.valueOf(before);
 				if (order == SecurityFilters.FIRST) {
 					customFilters.add(new OrderDecorator(bean, SecurityFilters.FIRST));
-				}
-				else {
+				} else {
 					customFilters.add(new OrderDecorator(bean, order.getOrder() - 1));
 				}
 			}

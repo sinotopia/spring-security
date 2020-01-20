@@ -52,7 +52,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  * </p>
  *
  * <h2>Security Filters</h2>
- *
+ * <p>
  * The following Filters are populated
  *
  * <ul>
@@ -60,11 +60,11 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  * </ul>
  *
  * <h2>Shared Objects Created</h2>
- *
+ * <p>
  * No shared objects are created.
  *
  * <h2>Shared Objects Used</h2>
- *
+ * <p>
  * The following shared objects are used:
  *
  * <ul>
@@ -73,7 +73,6 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  * </ul>
  *
  * @param <H> the type of {@link HttpSecurityBuilder} that is being configured
- *
  * @author Rob Winch
  * @since 3.2
  */
@@ -87,6 +86,7 @@ public final class ChannelSecurityConfigurer<H extends HttpSecurityBuilder<H>> e
 
 	/**
 	 * Creates a new instance
+	 *
 	 * @see HttpSecurity#requiresChannel()
 	 */
 	public ChannelSecurityConfigurer(ApplicationContext context) {
@@ -133,15 +133,15 @@ public final class ChannelSecurityConfigurer<H extends HttpSecurityBuilder<H>> e
 		}
 		insecureChannelProcessor = postProcess(insecureChannelProcessor);
 		secureChannelProcessor = postProcess(secureChannelProcessor);
-		return Arrays.<ChannelProcessor> asList(insecureChannelProcessor,
+		return Arrays.<ChannelProcessor>asList(insecureChannelProcessor,
 				secureChannelProcessor);
 	}
 
 	private ChannelRequestMatcherRegistry addAttribute(String attribute,
-			List<? extends RequestMatcher> matchers) {
+													   List<? extends RequestMatcher> matchers) {
 		for (RequestMatcher matcher : matchers) {
 			Collection<ConfigAttribute> attrs = Arrays
-					.<ConfigAttribute> asList(new SecurityConfig(attribute));
+					.<ConfigAttribute>asList(new SecurityConfig(attribute));
 			requestMap.put(matcher, attrs);
 		}
 		return REGISTRY;
@@ -156,7 +156,7 @@ public final class ChannelSecurityConfigurer<H extends HttpSecurityBuilder<H>> e
 
 		@Override
 		public MvcMatchersRequiresChannelUrl mvcMatchers(HttpMethod method,
-				String... mvcPatterns) {
+														 String... mvcPatterns) {
 			List<MvcRequestMatcher> mvcMatchers = createMvcMatchers(method, mvcPatterns);
 			return new MvcMatchersRequiresChannelUrl(mvcMatchers);
 		}
@@ -187,6 +187,7 @@ public final class ChannelSecurityConfigurer<H extends HttpSecurityBuilder<H>> e
 		/**
 		 * Sets the {@link ChannelProcessor} instances to use in
 		 * {@link ChannelDecisionManagerImpl}
+		 *
 		 * @param channelProcessors
 		 * @return the {@link ChannelSecurityConfigurer} for further customizations
 		 */

@@ -33,6 +33,7 @@ import org.springframework.util.Assert;
  * @since 3.2
  */
 public final class AndRequestMatcher implements RequestMatcher {
+	
 	private final Log logger = LogFactory.getLog(getClass());
 
 	private final List<RequestMatcher> requestMatchers;

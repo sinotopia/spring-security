@@ -39,6 +39,7 @@ import java.util.Collection;
  */
 public class PreInvocationAuthorizationAdviceVoter implements
 		AccessDecisionVoter<MethodInvocation> {
+
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	private final PreInvocationAuthorizationAdvice preAdvice;
@@ -59,7 +60,7 @@ public class PreInvocationAuthorizationAdviceVoter implements
 
 	@Override
 	public int vote(Authentication authentication, MethodInvocation method,
-			Collection<ConfigAttribute> attributes) {
+					Collection<ConfigAttribute> attributes) {
 
 		// Find prefilter and preauth (or combined) attributes
 		// if both null, abstain

@@ -15,12 +15,11 @@
  */
 package org.springframework.security.web.util.matcher;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.Assert;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * A {@link RequestMatcher} that will negate the {@link RequestMatcher} passed in. For
@@ -32,12 +31,14 @@ import org.springframework.util.Assert;
  * @since 3.2
  */
 public class NegatedRequestMatcher implements RequestMatcher {
+
 	private final Log logger = LogFactory.getLog(getClass());
 
 	private final RequestMatcher requestMatcher;
 
 	/**
 	 * Creates a new instance
+	 *
 	 * @param requestMatcher the {@link RequestMatcher} that will be negated.
 	 */
 	public NegatedRequestMatcher(RequestMatcher requestMatcher) {

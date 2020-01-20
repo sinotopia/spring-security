@@ -37,7 +37,7 @@ public class AbstractConfigAttributeRequestMatcherRegistryTests {
 	}
 
 	@Test
-	public void testGetRequestMatcherIsTypeRegexMatcher(){
+	public void testGetRequestMatcherIsTypeRegexMatcher() {
 		List<RequestMatcher> requestMatchers = registry.regexMatchers(HttpMethod.GET, "/a.*");
 
 		for (RequestMatcher requestMatcher : requestMatchers) {
@@ -46,8 +46,8 @@ public class AbstractConfigAttributeRequestMatcherRegistryTests {
 	}
 
 	@Test
-	public void testRequestMatcherIsTypeRegexMatcher(){
-		List<RequestMatcher> requestMatchers = registry.regexMatchers( "/a.*");
+	public void testRequestMatcherIsTypeRegexMatcher() {
+		List<RequestMatcher> requestMatchers = registry.regexMatchers("/a.*");
 
 		for (RequestMatcher requestMatcher : requestMatchers) {
 			assertThat(requestMatcher).isInstanceOf(RegexRequestMatcher.class);
@@ -55,7 +55,7 @@ public class AbstractConfigAttributeRequestMatcherRegistryTests {
 	}
 
 	@Test
-	public void testGetRequestMatcherIsTypeAntPathRequestMatcher(){
+	public void testGetRequestMatcherIsTypeAntPathRequestMatcher() {
 		List<RequestMatcher> requestMatchers = registry.antMatchers(HttpMethod.GET, "/a.*");
 
 		for (RequestMatcher requestMatcher : requestMatchers) {
@@ -64,7 +64,7 @@ public class AbstractConfigAttributeRequestMatcherRegistryTests {
 	}
 
 	@Test
-	public void testRequestMatcherIsTypeAntPathRequestMatcher(){
+	public void testRequestMatcherIsTypeAntPathRequestMatcher() {
 		List<RequestMatcher> requestMatchers = registry.antMatchers("/a.*");
 
 		for (RequestMatcher requestMatcher : requestMatchers) {
@@ -77,14 +77,17 @@ public class AbstractConfigAttributeRequestMatcherRegistryTests {
 			return null;
 		}
 
+		@Override
 		protected List<RequestMatcher> chainRequestMatchersInternal(List<RequestMatcher> requestMatchers) {
 			return requestMatchers;
 		}
 
+		@Override
 		public List<RequestMatcher> mvcMatchers(String... mvcPatterns) {
 			return null;
 		}
 
+		@Override
 		public List<RequestMatcher> mvcMatchers(HttpMethod method, String... mvcPatterns) {
 			return null;
 		}

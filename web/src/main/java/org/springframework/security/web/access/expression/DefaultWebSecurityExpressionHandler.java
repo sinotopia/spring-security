@@ -34,6 +34,7 @@ public class DefaultWebSecurityExpressionHandler extends
 		SecurityExpressionHandler<FilterInvocation> {
 
 	private AuthenticationTrustResolver trustResolver = new AuthenticationTrustResolverImpl();
+
 	private String defaultRolePrefix = "ROLE_";
 
 	@Override

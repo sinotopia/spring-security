@@ -38,6 +38,7 @@ import org.springframework.util.ObjectUtils;
  */
 public final class DelegatingMethodSecurityMetadataSource extends
 		AbstractMethodSecurityMetadataSource {
+
 	private final static List<ConfigAttribute> NULL_CONFIG_ATTRIBUTE = Collections
 			.emptyList();
 
@@ -57,6 +58,7 @@ public final class DelegatingMethodSecurityMetadataSource extends
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public Collection<ConfigAttribute> getAttributes(Method method, Class<?> targetClass) {
 		DefaultCacheKey cacheKey = new DefaultCacheKey(method, targetClass);
 		synchronized (attributeCache) {

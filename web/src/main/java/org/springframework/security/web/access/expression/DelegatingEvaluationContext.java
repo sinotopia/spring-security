@@ -27,7 +27,7 @@ import java.util.List;
  * @since 4.1
  */
 class DelegatingEvaluationContext implements EvaluationContext {
-	
+
 	private final EvaluationContext delegate;
 
 	DelegatingEvaluationContext(EvaluationContext delegate) {

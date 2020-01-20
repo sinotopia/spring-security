@@ -26,6 +26,7 @@ import org.springframework.security.core.GrantedAuthority;
  */
 public final class NullRoleHierarchy implements RoleHierarchy {
 
+	@Override
 	public Collection<? extends GrantedAuthority> getReachableGrantedAuthorities(
 			Collection<? extends GrantedAuthority> authorities) {
 		return authorities;

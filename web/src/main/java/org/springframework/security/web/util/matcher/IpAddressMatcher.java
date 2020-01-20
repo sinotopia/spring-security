@@ -43,7 +43,7 @@ public final class IpAddressMatcher implements RequestMatcher {
 	 * 192.168.1.0/24 or 202.24.0.0/14).
 	 *
 	 * @param ipAddress the address or range of addresses from which the request must
-	 * come.
+	 *                  come.
 	 */
 	public IpAddressMatcher(String ipAddress) {
 
@@ -51,8 +51,7 @@ public final class IpAddressMatcher implements RequestMatcher {
 			String[] addressAndMask = StringUtils.split(ipAddress, "/");
 			ipAddress = addressAndMask[0];
 			nMaskBits = Integer.parseInt(addressAndMask[1]);
-		}
-		else {
+		} else {
 			nMaskBits = -1;
 		}
 		requiredAddress = parseAddress(ipAddress);
@@ -100,8 +99,7 @@ public final class IpAddressMatcher implements RequestMatcher {
 	private InetAddress parseAddress(String address) {
 		try {
 			return InetAddress.getByName(address);
-		}
-		catch (UnknownHostException e) {
+		} catch (UnknownHostException e) {
 			throw new IllegalArgumentException("Failed to parse address" + address, e);
 		}
 	}

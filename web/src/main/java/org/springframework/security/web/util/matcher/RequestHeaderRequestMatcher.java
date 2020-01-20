@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  * <pre>
  * RequestMatcher matcher = new RequestHeaderRequestMatcher(&quot;X-Requested-With&quot;);
  * </pre>
- *
+ * <p>
  * Alternatively, the RequestHeaderRequestMatcher can be more precise and require a
  * specific value. For example the following will match on requests with the header name
  * of X-Requested-With with the value of "XMLHttpRequest", but will not match on header
@@ -42,7 +42,7 @@ import org.springframework.util.Assert;
  * RequestMatcher matcher = new RequestHeaderRequestMatcher(&quot;X-Requested-With&quot;,
  * 		&quot;XMLHttpRequest&quot;);
  * </pre>
- *
+ * <p>
  * The value used to compare is the first header value, so in the previous example if the
  * header "X-Requested-With" contains the values "Other" and "XMLHttpRequest", then it
  * will not match.
@@ -60,7 +60,7 @@ public final class RequestHeaderRequestMatcher implements RequestMatcher {
 	 * matter.
 	 *
 	 * @param expectedHeaderName the name of the expected header that if present the
-	 * request will match. Cannot be null.
+	 *                           request will match. Cannot be null.
 	 */
 	public RequestHeaderRequestMatcher(String expectedHeaderName) {
 		this(expectedHeaderName, null);
@@ -71,12 +71,12 @@ public final class RequestHeaderRequestMatcher implements RequestMatcher {
 	 * {@link #expectedHeaderName} is present and if the {@link #expectedHeaderValue} is
 	 * non-null the first value is the same.
 	 *
-	 * @param expectedHeaderName the name of the expected header. Cannot be null
+	 * @param expectedHeaderName  the name of the expected header. Cannot be null
 	 * @param expectedHeaderValue the expected header value or null if the value does not
-	 * matter
+	 *                            matter
 	 */
 	public RequestHeaderRequestMatcher(String expectedHeaderName,
-			String expectedHeaderValue) {
+									   String expectedHeaderValue) {
 		Assert.notNull(expectedHeaderName, "headerName cannot be null");
 		this.expectedHeaderName = expectedHeaderName;
 		this.expectedHeaderValue = expectedHeaderValue;

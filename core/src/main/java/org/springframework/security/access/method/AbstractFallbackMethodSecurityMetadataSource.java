@@ -91,7 +91,7 @@ public abstract class AbstractFallbackMethodSecurityMetadataSource extends
 	 * @return the security metadata (or null if no metadata applies)
 	 */
 	protected abstract Collection<ConfigAttribute> findAttributes(Method method,
-			Class<?> targetClass);
+																  Class<?> targetClass);
 
 	/**
 	 * Obtains the security metadata registered against the specified class.

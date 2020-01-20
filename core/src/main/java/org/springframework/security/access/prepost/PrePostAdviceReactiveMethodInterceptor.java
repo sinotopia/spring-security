@@ -43,8 +43,9 @@ import java.util.Collection;
  * @since 5.0
  */
 public class PrePostAdviceReactiveMethodInterceptor implements MethodInterceptor {
+
 	private Authentication anonymous = new AnonymousAuthenticationToken("key", "anonymous",
-		AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
+			AuthorityUtils.createAuthorityList("ROLE_ANONYMOUS"));
 
 	private final MethodSecurityMetadataSource attributeSource;
 
@@ -54,8 +55,9 @@ public class PrePostAdviceReactiveMethodInterceptor implements MethodInterceptor
 
 	/**
 	 * Creates a new instance
-	 * @param attributeSource the {@link MethodSecurityMetadataSource} to use
-	 * @param preInvocationAdvice the {@link PreInvocationAuthorizationAdvice} to use
+	 *
+	 * @param attributeSource      the {@link MethodSecurityMetadataSource} to use
+	 * @param preInvocationAdvice  the {@link PreInvocationAuthorizationAdvice} to use
 	 * @param postInvocationAdvice the {@link PostInvocationAuthorizationAdvice} to use
 	 */
 	public PrePostAdviceReactiveMethodInterceptor(MethodSecurityMetadataSource attributeSource, PreInvocationAuthorizationAdvice preInvocationAdvice, PostInvocationAuthorizationAdvice postInvocationAdvice) {
@@ -77,48 +79,48 @@ public class PrePostAdviceReactiveMethodInterceptor implements MethodInterceptor
 		}
 		Class<?> targetClass = invocation.getThis().getClass();
 		Collection<ConfigAttribute> attributes = this.attributeSource
-			.getAttributes(method, targetClass);
+				.getAttributes(method, targetClass);
 
 		PreInvocationAttribute preAttr = findPreInvocationAttribute(attributes);
 		Mono<Authentication> toInvoke = ReactiveSecurityContextHolder.getContext()
-			.map(SecurityContext::getAuthentication)
-			.defaultIfEmpty(this.anonymous)
-			.filter( auth -> this.preInvocationAdvice.before(auth, invocation, preAttr))
-			.switchIfEmpty(Mono.defer(() -> Mono.error(new AccessDeniedException("Denied"))));
+				.map(SecurityContext::getAuthentication)
+				.defaultIfEmpty(this.anonymous)
+				.filter(auth -> this.preInvocationAdvice.before(auth, invocation, preAttr))
+				.switchIfEmpty(Mono.defer(() -> Mono.error(new AccessDeniedException("Denied"))));
 
 
 		PostInvocationAttribute attr = findPostInvocationAttribute(attributes);
 
 		if (Mono.class.isAssignableFrom(returnType)) {
 			return toInvoke
-				.flatMap( auth -> this.<Mono<?>>proceed(invocation)
-					.map( r -> attr == null ? r : this.postAdvice.after(auth, invocation, attr, r))
-				);
+					.flatMap(auth -> this.<Mono<?>>proceed(invocation)
+							.map(r -> attr == null ? r : this.postAdvice.after(auth, invocation, attr, r))
+					);
 		}
 
 		if (Flux.class.isAssignableFrom(returnType)) {
 			return toInvoke
-				.flatMapMany( auth -> this.<Flux<?>>proceed(invocation)
-					.map( r -> attr == null ? r : this.postAdvice.after(auth, invocation, attr, r))
-				);
+					.flatMapMany(auth -> this.<Flux<?>>proceed(invocation)
+							.map(r -> attr == null ? r : this.postAdvice.after(auth, invocation, attr, r))
+					);
 		}
 
 		return toInvoke
-			.flatMapMany( auth -> Flux.from(this.<Publisher<?>>proceed(invocation))
-				.map( r -> attr == null ? r : this.postAdvice.after(auth, invocation, attr, r))
-			);
+				.flatMapMany(auth -> Flux.from(this.<Publisher<?>>proceed(invocation))
+						.map(r -> attr == null ? r : this.postAdvice.after(auth, invocation, attr, r))
+				);
 	}
 
 	private static <T extends Publisher<?>> T proceed(final MethodInvocation invocation) {
 		try {
 			return (T) invocation.proceed();
-		} catch(Throwable throwable) {
+		} catch (Throwable throwable) {
 			throw Exceptions.propagate(throwable);
 		}
 	}
 
 	private static PostInvocationAttribute findPostInvocationAttribute(
-		Collection<ConfigAttribute> config) {
+			Collection<ConfigAttribute> config) {
 		for (ConfigAttribute attribute : config) {
 			if (attribute instanceof PostInvocationAttribute) {
 				return (PostInvocationAttribute) attribute;
@@ -129,7 +131,7 @@ public class PrePostAdviceReactiveMethodInterceptor implements MethodInterceptor
 	}
 
 	private static PreInvocationAttribute findPreInvocationAttribute(
-		Collection<ConfigAttribute> config) {
+			Collection<ConfigAttribute> config) {
 		for (ConfigAttribute attribute : config) {
 			if (attribute instanceof PreInvocationAttribute) {
 				return (PreInvocationAttribute) attribute;

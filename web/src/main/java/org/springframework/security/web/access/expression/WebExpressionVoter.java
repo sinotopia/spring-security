@@ -37,7 +37,7 @@ public class WebExpressionVoter implements AccessDecisionVoter<FilterInvocation>
 
 	@Override
 	public int vote(Authentication authentication, FilterInvocation fi,
-			Collection<ConfigAttribute> attributes) {
+					Collection<ConfigAttribute> attributes) {
 		assert authentication != null;
 		assert fi != null;
 		assert attributes != null;

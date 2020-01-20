@@ -86,8 +86,7 @@ public class DefaultFilterInvocationSecurityMetadataSource implements
 	@Override
 	public Collection<ConfigAttribute> getAttributes(Object object) {
 		final HttpServletRequest request = ((FilterInvocation) object).getRequest();
-		for (Map.Entry<RequestMatcher, Collection<ConfigAttribute>> entry : requestMap
-				.entrySet()) {
+		for (Map.Entry<RequestMatcher, Collection<ConfigAttribute>> entry : requestMap.entrySet()) {
 			if (entry.getKey().matches(request)) {
 				return entry.getValue();
 			}

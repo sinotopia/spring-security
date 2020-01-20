@@ -39,7 +39,7 @@ abstract class AbstractVariableEvaluationContextPostProcessor
 
 	@Override
 	public final EvaluationContext postProcess(EvaluationContext context,
-			FilterInvocation invocation) {
+											   FilterInvocation invocation) {
 		final HttpServletRequest request = invocation.getHttpRequest();
 		return new DelegatingEvaluationContext(context) {
 			private Map<String, String> variables;

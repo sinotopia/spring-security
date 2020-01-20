@@ -46,6 +46,7 @@ import java.lang.annotation.Target;
 @Inherited
 @Documented
 public @interface PreFilter {
+
 	/**
 	 * @return the Spring-EL expression to be evaluated before invoking the protected
 	 * method

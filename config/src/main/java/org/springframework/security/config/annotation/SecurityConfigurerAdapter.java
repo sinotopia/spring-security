@@ -27,15 +27,15 @@ import org.springframework.core.annotation.AnnotationAwareOrderComparator;
  * {@link SecurityConfigurer} and when done gaining access to the {@link SecurityBuilder}
  * that is being configured.
  *
- * @author Rob Winch
- * @author Wallace Wadge
- *
  * @param <O> The Object being built by B
  * @param <B> The Builder that is building O and is configured by
- * {@link SecurityConfigurerAdapter}
+ *            {@link SecurityConfigurerAdapter}
+ * @author Rob Winch
+ * @author Wallace Wadge
  */
 public abstract class SecurityConfigurerAdapter<O, B extends SecurityBuilder<O>>
 		implements SecurityConfigurer<O, B> {
+
 	private B securityBuilder;
 
 	private CompositeObjectPostProcessor objectPostProcessor = new CompositeObjectPostProcessor();
@@ -110,9 +110,10 @@ public abstract class SecurityConfigurerAdapter<O, B extends SecurityBuilder<O>>
 	 */
 	private static final class CompositeObjectPostProcessor implements
 			ObjectPostProcessor<Object> {
+
 		private List<ObjectPostProcessor<?>> postProcessors = new ArrayList<>();
 
-		@SuppressWarnings({ "rawtypes", "unchecked" })
+		@SuppressWarnings({"rawtypes", "unchecked"})
 		public Object postProcess(Object object) {
 			for (ObjectPostProcessor opp : postProcessors) {
 				Class<?> oppClass = opp.getClass();
@@ -127,6 +128,7 @@ public abstract class SecurityConfigurerAdapter<O, B extends SecurityBuilder<O>>
 
 		/**
 		 * Adds an {@link ObjectPostProcessor} to use
+		 *
 		 * @param objectPostProcessor the {@link ObjectPostProcessor} to add
 		 * @return true if the {@link ObjectPostProcessor} was added, else false
 		 */

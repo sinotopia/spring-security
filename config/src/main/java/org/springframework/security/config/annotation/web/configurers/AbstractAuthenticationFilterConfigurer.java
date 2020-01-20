@@ -49,14 +49,12 @@ import java.util.Collections;
  * Base class for configuring {@link AbstractAuthenticationFilterConfigurer}. This is
  * intended for internal use only.
  *
- * @see FormLoginConfigurer
- * @see OpenIDLoginConfigurer
- *
  * @param T refers to "this" for returning the current configurer
  * @param F refers to the {@link AbstractAuthenticationProcessingFilter} that is being
- * built
- *
+ *          built
  * @author Rob Winch
+ * @see FormLoginConfigurer
+ * @see OpenIDLoginConfigurer
  * @since 3.2
  */
 public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecurityBuilder<B>, T extends AbstractAuthenticationFilterConfigurer<B, T, F>, F extends AbstractAuthenticationProcessingFilter>
@@ -67,6 +65,7 @@ public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecur
 	private AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource;
 
 	private SavedRequestAwareAuthenticationSuccessHandler defaultSuccessHandler = new SavedRequestAwareAuthenticationSuccessHandler();
+	
 	private AuthenticationSuccessHandler successHandler = this.defaultSuccessHandler;
 
 	private LoginUrlAuthenticationEntryPoint authenticationEntryPoint;
@@ -90,13 +89,14 @@ public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecur
 
 	/**
 	 * Creates a new instance
-	 * @param authenticationFilter the {@link AbstractAuthenticationProcessingFilter} to
-	 * use
+	 *
+	 * @param authenticationFilter      the {@link AbstractAuthenticationProcessingFilter} to
+	 *                                  use
 	 * @param defaultLoginProcessingUrl the default URL to use for
-	 * {@link #loginProcessingUrl(String)}
+	 *                                  {@link #loginProcessingUrl(String)}
 	 */
 	protected AbstractAuthenticationFilterConfigurer(F authenticationFilter,
-			String defaultLoginProcessingUrl) {
+													 String defaultLoginProcessingUrl) {
 		this();
 		this.authFilter = authenticationFilter;
 		if (defaultLoginProcessingUrl != null) {
@@ -123,8 +123,8 @@ public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecur
 	 * {@link #successHandler(AuthenticationSuccessHandler)}.
 	 *
 	 * @param defaultSuccessUrl the default success url
-	 * @param alwaysUse true if the {@code defaultSuccesUrl} should be used after
-	 * authentication despite if a protected page had been previously visited
+	 * @param alwaysUse         true if the {@code defaultSuccesUrl} should be used after
+	 *                          authentication despite if a protected page had been previously visited
 	 * @return the {@link FormLoginConfigurer} for additional customization
 	 */
 	public final T defaultSuccessUrl(String defaultSuccessUrl, boolean alwaysUse) {
@@ -150,8 +150,9 @@ public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecur
 
 	/**
 	 * Create the {@link RequestMatcher} given a loginProcessingUrl
+	 *
 	 * @param loginProcessingUrl creates the {@link RequestMatcher} based upon the
-	 * loginProcessingUrl
+	 *                           loginProcessingUrl
 	 * @return the {@link RequestMatcher} to use based upon the loginProcessingUrl
 	 */
 	protected abstract RequestMatcher createLoginProcessingUrlMatcher(
@@ -185,6 +186,7 @@ public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecur
 
 	/**
 	 * Equivalent of invoking permitAll(true)
+	 *
 	 * @return the {@link FormLoginConfigurer} for additional customization
 	 */
 	public final T permitAll() {
@@ -209,7 +211,7 @@ public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecur
 	 * "/login?error".
 	 *
 	 * @param authenticationFailureUrl the URL to send users if authentication fails (i.e.
-	 * "/login?error").
+	 *                                 "/login?error").
 	 * @return the {@link FormLoginConfigurer} for additional customization
 	 */
 	public final T failureUrl(String authenticationFailureUrl) {
@@ -225,7 +227,7 @@ public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecur
 	 * {@link SimpleUrlAuthenticationFailureHandler}
 	 *
 	 * @param authenticationFailureHandler the {@link AuthenticationFailureHandler} to use
-	 * when authentication fails.
+	 *                                     when authentication fails.
 	 * @return the {@link FormLoginConfigurer} for additional customization
 	 */
 	public final T failureHandler(
@@ -330,7 +332,6 @@ public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecur
 	}
 
 	/**
-	 *
 	 * @return true if a custom login page has been specified, else false
 	 */
 	public final boolean isCustomLoginPage() {
@@ -423,6 +424,7 @@ public abstract class AbstractAuthenticationFilterConfigurer<B extends HttpSecur
 
 	/**
 	 * Sets the loginPage and updates the {@link AuthenticationEntryPoint}.
+	 *
 	 * @param loginPage
 	 */
 	private void setLoginPage(String loginPage) {

@@ -15,13 +15,8 @@
  */
 package org.springframework.security.config.http;
 
-import static org.springframework.security.config.http.HttpSecurityBeanDefinitionParser.ATT_REQUEST_MATCHER_REF;
-
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.w3c.dom.Element;
 import org.springframework.beans.BeanMetadataElement;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.RuntimeBeanReference;
@@ -40,6 +35,11 @@ import org.springframework.security.web.access.intercept.DefaultFilterInvocation
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.util.StringUtils;
 import org.springframework.util.xml.DomUtils;
+import org.w3c.dom.Element;
+
+import java.util.List;
+
+import static org.springframework.security.config.http.HttpSecurityBeanDefinitionParser.ATT_REQUEST_MATCHER_REF;
 
 /**
  * Allows for convenient creation of a {@link FilterInvocationSecurityMetadataSource} bean
@@ -48,20 +48,23 @@ import org.springframework.util.xml.DomUtils;
  * @author Luke Taylor
  */
 public class FilterInvocationSecurityMetadataSourceParser implements BeanDefinitionParser {
+
+	private static final Log logger = LogFactory.getLog(FilterInvocationSecurityMetadataSourceParser.class);
+
 	private static final String ATT_USE_EXPRESSIONS = "use-expressions";
 	private static final String ATT_HTTP_METHOD = "method";
 	private static final String ATT_PATTERN = "pattern";
 	private static final String ATT_ACCESS = "access";
 	private static final String ATT_SERVLET_PATH = "servlet-path";
-	private static final Log logger = LogFactory
-			.getLog(FilterInvocationSecurityMetadataSourceParser.class);
 
+	@Override
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
 		List<Element> interceptUrls = DomUtils.getChildElementsByTagName(element,
-			Elements.INTERCEPT_URL);
+				Elements.INTERCEPT_URL);
 
 		// Check for attributes that aren't allowed in this context
 		for (Element elt : interceptUrls) {
+
 			if (StringUtils.hasLength(elt
 					.getAttribute(HttpSecurityBeanDefinitionParser.ATT_REQUIRES_CHANNEL))) {
 				parserContext.getReaderContext().error(
@@ -79,8 +82,8 @@ public class FilterInvocationSecurityMetadataSourceParser implements BeanDefinit
 
 			if (StringUtils.hasLength(elt.getAttribute(ATT_SERVLET_PATH))) {
 				parserContext.getReaderContext().error(
-					"The attribute '" + ATT_SERVLET_PATH
-						+ "' isn't allowed here.", elt);
+						"The attribute '" + ATT_SERVLET_PATH
+								+ "' isn't allowed here.", elt);
 			}
 		}
 
@@ -98,12 +101,13 @@ public class FilterInvocationSecurityMetadataSourceParser implements BeanDefinit
 	}
 
 	static RootBeanDefinition createSecurityMetadataSource(List<Element> interceptUrls,
-			boolean addAllAuth, Element httpElt, ParserContext pc) {
+														   boolean addAllAuth, Element httpElt, ParserContext pc) {
 		MatcherType matcherType = MatcherType.fromElement(httpElt);
 		boolean useExpressions = isUseExpressions(httpElt);
 
 		ManagedMap<BeanMetadataElement, BeanDefinition> requestToAttributesMap = parseInterceptUrlsForFilterInvocationRequestMap(
 				matcherType, interceptUrls, useExpressions, addAllAuth, pc);
+
 		BeanDefinitionBuilder fidsBuilder;
 
 		if (useExpressions) {
@@ -115,8 +119,7 @@ public class FilterInvocationSecurityMetadataSourceParser implements BeanDefinit
 			if (StringUtils.hasText(expressionHandlerRef)) {
 				logger.info("Using bean '" + expressionHandlerRef
 						+ "' as web SecurityExpressionHandler implementation");
-			}
-			else {
+			} else {
 				expressionHandlerRef = registerDefaultExpressionHandler(pc);
 			}
 
@@ -124,8 +127,7 @@ public class FilterInvocationSecurityMetadataSourceParser implements BeanDefinit
 					.rootBeanDefinition(ExpressionBasedFilterInvocationSecurityMetadataSource.class);
 			fidsBuilder.addConstructorArgValue(requestToAttributesMap);
 			fidsBuilder.addConstructorArgReference(expressionHandlerRef);
-		}
-		else {
+		} else {
 			fidsBuilder = BeanDefinitionBuilder
 					.rootBeanDefinition(DefaultFilterInvocationSecurityMetadataSource.class);
 			fidsBuilder.addConstructorArgValue(requestToAttributesMap);
@@ -182,11 +184,12 @@ public class FilterInvocationSecurityMetadataSourceParser implements BeanDefinit
 				servletPath = null;
 			} else if (!MatcherType.mvc.equals(matcherType)) {
 				parserContext.getReaderContext().error(
-					ATT_SERVLET_PATH + " is not applicable for request-matcher: '" + matcherType.name() + "'", urlElt);
+						ATT_SERVLET_PATH + " is not applicable for request-matcher: '" + matcherType.name() + "'", urlElt);
 			}
 
 			BeanMetadataElement matcher = hasMatcherRef ? new RuntimeBeanReference(matcherRef) : matcherType.createMatcher(parserContext, path,
 					method, servletPath);
+
 			BeanDefinitionBuilder attributeBuilder = BeanDefinitionBuilder
 					.rootBeanDefinition(SecurityConfig.class);
 
@@ -195,11 +198,10 @@ public class FilterInvocationSecurityMetadataSourceParser implements BeanDefinit
 						+ "' for " + path);
 				// The single expression will be parsed later by the
 				// ExpressionBasedFilterInvocationSecurityMetadataSource
-				attributeBuilder.addConstructorArgValue(new String[] { access });
+				attributeBuilder.addConstructorArgValue(new String[]{access});
 				attributeBuilder.setFactoryMethod("createList");
 
-			}
-			else {
+			} else {
 				attributeBuilder.addConstructorArgValue(access);
 				attributeBuilder.setFactoryMethod("createListFromCommaDelimitedString");
 			}
@@ -209,8 +211,7 @@ public class FilterInvocationSecurityMetadataSourceParser implements BeanDefinit
 						+ ". The original attribute values will be overwritten");
 			}
 
-			filterInvocationDefinitionMap.put(matcher,
-					attributeBuilder.getBeanDefinition());
+			filterInvocationDefinitionMap.put(matcher, attributeBuilder.getBeanDefinition());
 		}
 
 		if (addAuthenticatedAll && filterInvocationDefinitionMap.isEmpty()) {
@@ -219,7 +220,7 @@ public class FilterInvocationSecurityMetadataSourceParser implements BeanDefinit
 					null);
 			BeanDefinitionBuilder attributeBuilder = BeanDefinitionBuilder
 					.rootBeanDefinition(SecurityConfig.class);
-			attributeBuilder.addConstructorArgValue(new String[] { "authenticated" });
+			attributeBuilder.addConstructorArgValue(new String[]{"authenticated"});
 			attributeBuilder.setFactoryMethod("createList");
 			filterInvocationDefinitionMap.put(matcher,
 					attributeBuilder.getBeanDefinition());
@@ -229,8 +230,10 @@ public class FilterInvocationSecurityMetadataSourceParser implements BeanDefinit
 	}
 
 	static class DefaultWebSecurityExpressionHandlerBeanFactory extends GrantedAuthorityDefaultsParserUtils.AbstractGrantedAuthorityDefaultsBeanFactory {
+
 		private DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
 
+		@Override
 		public DefaultWebSecurityExpressionHandler getBean() {
 			handler.setDefaultRolePrefix(this.rolePrefix);
 			return handler;

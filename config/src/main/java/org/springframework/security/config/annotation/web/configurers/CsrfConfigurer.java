@@ -54,7 +54,7 @@ import org.springframework.util.Assert;
  * {@link #requireCsrfProtectionMatcher(RequestMatcher)}.
  *
  * <h2>Security Filters</h2>
- *
+ * <p>
  * The following Filters are populated
  *
  * <ul>
@@ -62,7 +62,7 @@ import org.springframework.util.Assert;
  * </ul>
  *
  * <h2>Shared Objects Created</h2>
- *
+ * <p>
  * No shared objects are created.
  *
  * <h2>Shared Objects Used</h2>
@@ -87,6 +87,7 @@ public final class CsrfConfigurer<H extends HttpSecurityBuilder<H>>
 
 	/**
 	 * Creates a new instance
+	 *
 	 * @see HttpSecurity#csrf()
 	 */
 	public CsrfConfigurer(ApplicationContext context) {
@@ -187,11 +188,10 @@ public final class CsrfConfigurer<H extends HttpSecurityBuilder<H>>
 	 * {@link CsrfAuthenticationStrategy}.
 	 * </p>
 	 *
-	 * @author Michael Vitz
-	 * @since 5.2
-	 *
 	 * @param sessionAuthenticationStrategy the {@link SessionAuthenticationStrategy} to use
 	 * @return the {@link CsrfConfigurer} for further customizations
+	 * @author Michael Vitz
+	 * @since 5.2
 	 */
 	public CsrfConfigurer<H> sessionAuthenticationStrategy(
 			SessionAuthenticationStrategy sessionAuthenticationStrategy) {
@@ -315,10 +315,9 @@ public final class CsrfConfigurer<H extends HttpSecurityBuilder<H>>
 	 * Gets the {@link SessionAuthenticationStrategy} to use. If none was set by the user a
 	 * {@link CsrfAuthenticationStrategy} is created.
 	 *
+	 * @return the {@link SessionAuthenticationStrategy}
 	 * @author Michael Vitz
 	 * @since 5.2
-	 *
-	 * @return the {@link SessionAuthenticationStrategy}
 	 */
 	private SessionAuthenticationStrategy getSessionAuthenticationStrategy() {
 		if (sessionAuthenticationStrategy != null) {
@@ -348,7 +347,7 @@ public final class CsrfConfigurer<H extends HttpSecurityBuilder<H>>
 
 		@Override
 		public MvcMatchersIgnoreCsrfProtectionRegistry mvcMatchers(HttpMethod method,
-				String... mvcPatterns) {
+																   String... mvcPatterns) {
 			List<MvcRequestMatcher> mvcMatchers = createMvcMatchers(method, mvcPatterns);
 			CsrfConfigurer.this.ignoredCsrfProtectionMatchers.addAll(mvcMatchers);
 			return new MvcMatchersIgnoreCsrfProtectionRegistry(getApplicationContext(),
@@ -383,7 +382,7 @@ public final class CsrfConfigurer<H extends HttpSecurityBuilder<H>>
 		private final List<MvcRequestMatcher> mvcMatchers;
 
 		private MvcMatchersIgnoreCsrfProtectionRegistry(ApplicationContext context,
-				List<MvcRequestMatcher> mvcMatchers) {
+														List<MvcRequestMatcher> mvcMatchers) {
 			super(context);
 			this.mvcMatchers = mvcMatchers;
 		}

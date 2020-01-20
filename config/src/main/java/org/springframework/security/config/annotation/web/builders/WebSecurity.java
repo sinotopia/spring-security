@@ -70,10 +70,9 @@ import org.springframework.web.filter.DelegatingFilterProxy;
  * {@link WebSecurityConfigurerAdapter}.
  * </p>
  *
+ * @author Rob Winch
  * @see EnableWebSecurity
  * @see WebSecurityConfiguration
- *
- * @author Rob Winch
  * @since 3.2
  */
 public final class WebSecurity extends
@@ -104,6 +103,7 @@ public final class WebSecurity extends
 
 	/**
 	 * Creates a new instance
+	 *
 	 * @param objectPostProcessor the {@link ObjectPostProcessor} to use
 	 * @see WebSecurityConfiguration
 	 */
@@ -120,7 +120,7 @@ public final class WebSecurity extends
 	 * resources. For requests that are dynamic, consider mapping the request to allow all
 	 * users instead.
 	 * </p>
-	 *
+	 * <p>
 	 * Example Usage:
 	 *
 	 * <pre>
@@ -128,7 +128,7 @@ public final class WebSecurity extends
 	 * // ignore all URLs that start with /resources/ or /static/
 	 * 		.antMatchers(&quot;/resources/**&quot;, &quot;/static/**&quot;);
 	 * </pre>
-	 *
+	 * <p>
 	 * Alternatively this will accomplish the same result:
 	 *
 	 * <pre>
@@ -136,7 +136,7 @@ public final class WebSecurity extends
 	 * // ignore all URLs that start with /resources/ or /static/
 	 * 		.antMatchers(&quot;/resources/**&quot;).antMatchers(&quot;/static/**&quot;);
 	 * </pre>
-	 *
+	 * <p>
 	 * Multiple invocations of ignoring() are also additive, so the following is also
 	 * equivalent to the previous two examples:
 	 *
@@ -173,8 +173,7 @@ public final class WebSecurity extends
 	 * Controls debugging support for Spring Security.
 	 *
 	 * @param debugEnabled if true, enables debug support with Spring Security. Default is
-	 * false.
-	 *
+	 *                     false.
 	 * @return the {@link WebSecurity} for further customization.
 	 * @see EnableWebSecurity#debug()
 	 */
@@ -194,7 +193,7 @@ public final class WebSecurity extends
 	 * </p>
 	 *
 	 * @param securityFilterChainBuilder the builder to use to create the
-	 * {@link SecurityFilterChain} instances
+	 *                                   {@link SecurityFilterChain} instances
 	 * @return the {@link WebSecurity} for further customizations
 	 */
 	public WebSecurity addSecurityFilterChainBuilder(
@@ -233,6 +232,7 @@ public final class WebSecurity extends
 
 	/**
 	 * Gets the {@link SecurityExpressionHandler} to be used.
+	 *
 	 * @return the {@link SecurityExpressionHandler} for further customizations
 	 */
 	public SecurityExpressionHandler<FilterInvocation> getExpressionHandler() {
@@ -241,6 +241,7 @@ public final class WebSecurity extends
 
 	/**
 	 * Gets the {@link WebInvocationPrivilegeEvaluator} to be used.
+	 *
 	 * @return the {@link WebInvocationPrivilegeEvaluator} for further customizations
 	 */
 	public WebInvocationPrivilegeEvaluator getPrivilegeEvaluator() {
@@ -254,6 +255,7 @@ public final class WebSecurity extends
 	/**
 	 * Sets the {@link FilterSecurityInterceptor}. This is typically invoked by
 	 * {@link WebSecurityConfigurerAdapter}.
+	 *
 	 * @param securityInterceptor the {@link FilterSecurityInterceptor} to use
 	 * @return the {@link WebSecurity} for further customizations
 	 */
@@ -322,7 +324,7 @@ public final class WebSecurity extends
 		private final List<MvcRequestMatcher> mvcMatchers;
 
 		private MvcMatchersIgnoredRequestConfigurer(ApplicationContext context,
-				List<MvcRequestMatcher> mvcMatchers) {
+													List<MvcRequestMatcher> mvcMatchers) {
 			super(context);
 			this.mvcMatchers = mvcMatchers;
 		}
@@ -351,7 +353,7 @@ public final class WebSecurity extends
 
 		@Override
 		public MvcMatchersIgnoredRequestConfigurer mvcMatchers(HttpMethod method,
-				String... mvcPatterns) {
+															   String... mvcPatterns) {
 			List<MvcRequestMatcher> mvcMatchers = createMvcMatchers(method, mvcPatterns);
 			WebSecurity.this.ignoredRequests.addAll(mvcMatchers);
 			return new MvcMatchersIgnoredRequestConfigurer(getApplicationContext(),
@@ -386,11 +388,13 @@ public final class WebSecurity extends
 		try {
 			this.defaultWebSecurityExpressionHandler.setPermissionEvaluator(applicationContext.getBean(
 					PermissionEvaluator.class));
-		} catch(NoSuchBeanDefinitionException e) {}
+		} catch (NoSuchBeanDefinitionException e) {
+		}
 
 		this.ignoredRequestRegistry = new IgnoredRequestConfigurer(applicationContext);
 		try {
 			this.httpFirewall = applicationContext.getBean(HttpFirewall.class);
-		} catch(NoSuchBeanDefinitionException e) {}
+		} catch (NoSuchBeanDefinitionException e) {
+		}
 	}
 }

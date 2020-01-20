@@ -40,9 +40,8 @@ import org.springframework.util.ClassUtils;
  * combine annotations defined in multiple locations for a single method - they may be
  * defined on the method itself, or at interface or class level.
  *
- * @see PreInvocationAuthorizationAdviceVoter
- *
  * @author Luke Taylor
+ * @see PreInvocationAuthorizationAdviceVoter
  * @since 3.0
  */
 public class PrePostAnnotationSecurityMetadataSource extends
@@ -55,6 +54,7 @@ public class PrePostAnnotationSecurityMetadataSource extends
 		this.attributeFactory = attributeFactory;
 	}
 
+	@Override
 	public Collection<ConfigAttribute> getAttributes(Method method, Class<?> targetClass) {
 		if (method.getDeclaringClass() == Object.class) {
 			return Collections.emptyList();
@@ -117,7 +117,7 @@ public class PrePostAnnotationSecurityMetadataSource extends
 	 * consider method-specific annotations on an interface before class-level ones.
 	 */
 	private <A extends Annotation> A findAnnotation(Method method, Class<?> targetClass,
-			Class<A> annotationClass) {
+													Class<A> annotationClass) {
 		// The method may be on an interface, but we need attributes from the target
 		// class.
 		// If the target class is null, the method will be unchanged.

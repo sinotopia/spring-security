@@ -36,7 +36,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 /**
  * Allows matching {@link HttpServletRequest} based upon the {@link MediaType}'s resolved
  * from a {@link ContentNegotiationStrategy}.
- *
+ * <p>
  * By default, the matching process will perform the following:
  *
  * <ul>
@@ -49,7 +49,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * {@link MediaType} returned from the {@link ContentNegotiationStrategy}, then it returns
  * true</li>
  * </ul>
- *
+ * <p>
  * For example, consider the following example
  *
  * <pre>
@@ -60,7 +60,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * MediaTypeRequestMatcher matcher = new MediaTypeRequestMatcher(negotiationStrategy, MediaType.APPLICATION_JSON);
  * assert matcher.matches(request) == true // returns true
  * </pre>
- *
+ * <p>
  * The following will also return true
  *
  * <pre>
@@ -73,7 +73,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * </pre>
  *
  * <h3>Ignoring Media Types</h3>
- *
+ * <p>
  * Sometimes you may want to ignore certain types of media types. For example, you may
  * want to match on "application/json" but ignore "*&#47;" sent by a web browser.
  *
@@ -98,7 +98,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * </pre>
  *
  * <h3>Exact media type comparison</h3>
- *
+ * <p>
  * By default as long as the {@link MediaType} discovered by
  * {@link ContentNegotiationStrategy} returns true for
  * {@link MediaType#isCompatibleWith(MediaType)} on the matchingMediaTypes, the result of
@@ -149,6 +149,7 @@ public final class MediaTypeRequestMatcher implements RequestMatcher {
 
 	/**
 	 * Creates an instance
+	 *
 	 * @param matchingMediaTypes the {@link MediaType} that will make the http request.
 	 * @since 5.2
 	 */
@@ -158,31 +159,35 @@ public final class MediaTypeRequestMatcher implements RequestMatcher {
 
 	/**
 	 * Creates an instance
+	 *
 	 * @param matchingMediaTypes the {@link MediaType} that will make the http request.
 	 * @since 5.2
 	 */
 	public MediaTypeRequestMatcher(Collection<MediaType> matchingMediaTypes) {
 		this(new HeaderContentNegotiationStrategy(), matchingMediaTypes);
 	}
+
 	/**
 	 * Creates an instance
+	 *
 	 * @param contentNegotiationStrategy the {@link ContentNegotiationStrategy} to use
-	 * @param matchingMediaTypes the {@link MediaType} that will make the
-	 * {@link RequestMatcher} return true
+	 * @param matchingMediaTypes         the {@link MediaType} that will make the
+	 *                                   {@link RequestMatcher} return true
 	 */
 	public MediaTypeRequestMatcher(ContentNegotiationStrategy contentNegotiationStrategy,
-			MediaType... matchingMediaTypes) {
+								   MediaType... matchingMediaTypes) {
 		this(contentNegotiationStrategy, Arrays.asList(matchingMediaTypes));
 	}
 
 	/**
 	 * Creates an instance
+	 *
 	 * @param contentNegotiationStrategy the {@link ContentNegotiationStrategy} to use
-	 * @param matchingMediaTypes the {@link MediaType} that will make the
-	 * {@link RequestMatcher} return true
+	 * @param matchingMediaTypes         the {@link MediaType} that will make the
+	 *                                   {@link RequestMatcher} return true
 	 */
 	public MediaTypeRequestMatcher(ContentNegotiationStrategy contentNegotiationStrategy,
-			Collection<MediaType> matchingMediaTypes) {
+								   Collection<MediaType> matchingMediaTypes) {
 		Assert.notNull(contentNegotiationStrategy, "ContentNegotiationStrategy cannot be null");
 		Assert.notEmpty(matchingMediaTypes, "matchingMediaTypes cannot be null or empty");
 		this.contentNegotiationStrategy = contentNegotiationStrategy;
@@ -194,8 +199,7 @@ public final class MediaTypeRequestMatcher implements RequestMatcher {
 		try {
 			httpRequestMediaTypes = this.contentNegotiationStrategy
 					.resolveMediaTypes(new ServletWebRequest(request));
-		}
-		catch (HttpMediaTypeNotAcceptableException e) {
+		} catch (HttpMediaTypeNotAcceptableException e) {
 			this.logger.debug("Failed to parse MediaTypes, returning false", e);
 			return false;
 		}
@@ -257,7 +261,7 @@ public final class MediaTypeRequestMatcher implements RequestMatcher {
 	 * {@link MediaType#APPLICATION_JSON} but want to ignore {@link MediaType#ALL}.
 	 *
 	 * @param ignoredMediaTypes the {@link MediaType}'s to ignore from the
-	 * {@link ContentNegotiationStrategy}
+	 *                          {@link ContentNegotiationStrategy}
 	 */
 	public void setIgnoredMediaTypes(Set<MediaType> ignoredMediaTypes) {
 		this.ignoredMediaTypes = ignoredMediaTypes;

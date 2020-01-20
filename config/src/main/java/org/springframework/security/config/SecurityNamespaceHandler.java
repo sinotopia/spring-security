@@ -15,9 +15,6 @@
  */
 package org.springframework.security.config;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -30,11 +27,7 @@ import org.springframework.security.config.authentication.AuthenticationManagerB
 import org.springframework.security.config.authentication.AuthenticationProviderBeanDefinitionParser;
 import org.springframework.security.config.authentication.JdbcUserServiceBeanDefinitionParser;
 import org.springframework.security.config.authentication.UserServiceBeanDefinitionParser;
-import org.springframework.security.config.http.FilterChainBeanDefinitionParser;
-import org.springframework.security.config.http.FilterChainMapBeanDefinitionDecorator;
-import org.springframework.security.config.http.FilterInvocationSecurityMetadataSourceParser;
-import org.springframework.security.config.http.HttpFirewallBeanDefinitionParser;
-import org.springframework.security.config.http.HttpSecurityBeanDefinitionParser;
+import org.springframework.security.config.http.*;
 import org.springframework.security.config.ldap.LdapProviderBeanDefinitionParser;
 import org.springframework.security.config.ldap.LdapServerBeanDefinitionParser;
 import org.springframework.security.config.ldap.LdapUserServiceBeanDefinitionParser;
@@ -47,6 +40,9 @@ import org.springframework.util.ClassUtils;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Parses elements from the "security" namespace
  * (http://www.springframework.org/schema/security).
@@ -57,9 +53,13 @@ import org.w3c.dom.Node;
  * @since 2.0
  */
 public final class SecurityNamespaceHandler implements NamespaceHandler {
-	private static final String FILTER_CHAIN_PROXY_CLASSNAME = "org.springframework.security.web.FilterChainProxy";
-	private static final String MESSAGE_CLASSNAME = "org.springframework.messaging.Message";
+
 	private final Log logger = LogFactory.getLog(getClass());
+
+	private static final String FILTER_CHAIN_PROXY_CLASSNAME = "org.springframework.security.web.FilterChainProxy";
+
+	private static final String MESSAGE_CLASSNAME = "org.springframework.messaging.Message";
+
 	private final Map<String, BeanDefinitionParser> parsers = new HashMap<>();
 	private final BeanDefinitionDecorator interceptMethodsBDD = new InterceptMethodsBeanDefinitionDecorator();
 	private BeanDefinitionDecorator filterChainMapBDD;
@@ -82,11 +82,12 @@ public final class SecurityNamespaceHandler implements NamespaceHandler {
 		}
 	}
 
+	@Override
 	public BeanDefinition parse(Element element, ParserContext pc) {
 		if (!namespaceMatchesVersion(element)) {
 			pc.getReaderContext()
 					.fatal("You cannot use a spring-security-2.0.xsd or spring-security-3.0.xsd or spring-security-3.1.xsd schema or spring-security-3.2.xsd schema or spring-security-4.0.xsd schema "
-							+ "with Spring Security 5.2. Please update your schema declarations to the 5.2 schema.",
+									+ "with Spring Security 5.2. Please update your schema declarations to the 5.2 schema.",
 							element);
 		}
 		String name = pc.getDelegate().getLocalName(element);
@@ -103,8 +104,7 @@ public final class SecurityNamespaceHandler implements NamespaceHandler {
 					|| Elements.FILTER_CHAIN_MAP.equals(name)
 					|| Elements.FILTER_CHAIN.equals(name)) {
 				reportMissingWebClasses(name, pc, element);
-			}
-			else {
+			} else {
 				reportUnsupportedNodeType(name, pc, element);
 			}
 
@@ -114,8 +114,9 @@ public final class SecurityNamespaceHandler implements NamespaceHandler {
 		return parser.parse(element, pc);
 	}
 
+	@Override
 	public BeanDefinitionHolder decorate(Node node, BeanDefinitionHolder definition,
-			ParserContext pc) {
+										 ParserContext pc) {
 		String name = pc.getDelegate().getLocalName(node);
 
 		// We only handle elements
@@ -155,13 +156,13 @@ public final class SecurityNamespaceHandler implements NamespaceHandler {
 			ClassUtils.forName(FILTER_CHAIN_PROXY_CLASSNAME, getClass().getClassLoader());
 			// no details available
 			pc.getReaderContext().fatal(errorMessage, node);
-		}
-		catch (Throwable cause) {
+		} catch (Throwable cause) {
 			// provide details on why it could not be loaded
 			pc.getReaderContext().fatal(errorMessage, node, cause);
 		}
 	}
 
+	@Override
 	public void init() {
 		loadParsers();
 	}

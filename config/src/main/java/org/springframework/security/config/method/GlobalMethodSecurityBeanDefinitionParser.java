@@ -314,7 +314,7 @@ public class GlobalMethodSecurityBeanDefinitionParser implements BeanDefinitionP
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	private String registerAccessManager(ParserContext pc, boolean jsr250Enabled,
-			BeanDefinition expressionVoter) {
+										 BeanDefinition expressionVoter) {
 
 		BeanDefinitionBuilder accessMgrBuilder = BeanDefinitionBuilder
 				.rootBeanDefinition(AffirmativeBased.class);
@@ -357,8 +357,8 @@ public class GlobalMethodSecurityBeanDefinitionParser implements BeanDefinitionP
 	}
 
 	private void registerProtectPointcutPostProcessor(ParserContext parserContext,
-			Map<String, List<ConfigAttribute>> pointcutMap,
-			BeanReference mapBasedMethodSecurityMetadataSource, Object source) {
+													  Map<String, List<ConfigAttribute>> pointcutMap,
+													  BeanReference mapBasedMethodSecurityMetadataSource, Object source) {
 		RootBeanDefinition ppbp = new RootBeanDefinition(
 				ProtectPointcutPostProcessor.class);
 		ppbp.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
@@ -403,10 +403,10 @@ public class GlobalMethodSecurityBeanDefinitionParser implements BeanDefinitionP
 	}
 
 	private BeanReference registerMethodSecurityInterceptor(ParserContext pc,
-			String authMgrRef, String accessManagerId, String runAsManagerId,
-			BeanReference metadataSource,
-			List<BeanMetadataElement> afterInvocationProviders, Object source,
-			boolean useAspectJ) {
+															String authMgrRef, String accessManagerId, String runAsManagerId,
+															BeanReference metadataSource,
+															List<BeanMetadataElement> afterInvocationProviders, Object source,
+															boolean useAspectJ) {
 		BeanDefinitionBuilder bldr = BeanDefinitionBuilder
 				.rootBeanDefinition(useAspectJ ? AspectJMethodSecurityInterceptor.class
 						: MethodSecurityInterceptor.class);
@@ -439,7 +439,7 @@ public class GlobalMethodSecurityBeanDefinitionParser implements BeanDefinitionP
 	}
 
 	private void registerAdvisor(ParserContext parserContext, BeanReference interceptor,
-			BeanReference metadataSource, Object source, String adviceOrder) {
+								 BeanReference metadataSource, Object source, String adviceOrder) {
 		if (parserContext.getRegistry().containsBeanDefinition(
 				BeanIds.METHOD_SECURITY_METADATA_SOURCE_ADVISOR)) {
 			parserContext.getReaderContext().error(

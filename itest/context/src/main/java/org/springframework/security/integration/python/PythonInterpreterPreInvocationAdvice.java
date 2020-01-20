@@ -37,8 +37,9 @@ public class PythonInterpreterPreInvocationAdvice implements
 		PreInvocationAuthorizationAdvice {
 	private final ParameterNameDiscoverer parameterNameDiscoverer = new LocalVariableTableParameterNameDiscoverer();
 
+	@Override
 	public boolean before(Authentication authentication, MethodInvocation mi,
-			PreInvocationAttribute preAttr) {
+						  PreInvocationAttribute preAttr) {
 		PythonInterpreterPreInvocationAttribute pythonAttr = (PythonInterpreterPreInvocationAttribute) preAttr;
 		String script = pythonAttr.getScript();
 

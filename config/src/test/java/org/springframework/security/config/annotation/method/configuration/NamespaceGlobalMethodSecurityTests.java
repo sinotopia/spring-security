@@ -227,6 +227,7 @@ public class NamespaceGlobalMethodSecurityTests {
 		@Override
 		protected MethodSecurityMetadataSource customMethodSecurityMetadataSource() {
 			return new AbstractMethodSecurityMetadataSource() {
+				@Override
 				public Collection<ConfigAttribute> getAttributes(Method method, Class<?> targetClass) {
 					// require ROLE_NOBODY for any method on MethodSecurityService interface
 					return MethodSecurityService.class.isAssignableFrom(targetClass) ?

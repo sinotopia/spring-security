@@ -127,8 +127,7 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 		}
 
 		@Override
-		protected final AuthorizedUrl chainRequestMatchersInternal(
-				List<RequestMatcher> requestMatchers) {
+		protected final AuthorizedUrl chainRequestMatchersInternal(List<RequestMatcher> requestMatchers) {
 			return new AuthorizedUrl(requestMatchers);
 		}
 
@@ -177,8 +176,9 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 	private void interceptUrl(Iterable<? extends RequestMatcher> requestMatchers,
 							  Collection<ConfigAttribute> configAttributes) {
 		for (RequestMatcher requestMatcher : requestMatchers) {
-			REGISTRY.addMapping(new AbstractConfigAttributeRequestMatcherRegistry.UrlMapping(
-					requestMatcher, configAttributes));
+			REGISTRY.addMapping(
+					new AbstractConfigAttributeRequestMatcherRegistry.UrlMapping(
+							requestMatcher, configAttributes));
 		}
 	}
 
@@ -193,10 +193,11 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 	}
 
 	@Override
-	ExpressionBasedFilterInvocationSecurityMetadataSource createMetadataSource(
-			H http) {
+	ExpressionBasedFilterInvocationSecurityMetadataSource createMetadataSource(H http) {
+
 		LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap = REGISTRY
 				.createRequestMap();
+
 		if (requestMap.isEmpty()) {
 			throw new IllegalStateException(
 					"At least one mapping is required (i.e. authorizeRequests().anyRequest().authenticated())");
@@ -291,7 +292,9 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 	}
 
 	public class AuthorizedUrl {
+
 		private List<? extends RequestMatcher> requestMatchers;
+
 		private boolean not;
 
 		/**
@@ -366,8 +369,7 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 		 * customization
 		 */
 		public ExpressionInterceptUrlRegistry hasAnyAuthority(String... authorities) {
-			return access(ExpressionUrlAuthorizationConfigurer
-					.hasAnyAuthority(authorities));
+			return access(ExpressionUrlAuthorizationConfigurer.hasAnyAuthority(authorities));
 		}
 
 		/**
@@ -381,8 +383,7 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 		 * customization
 		 */
 		public ExpressionInterceptUrlRegistry hasIpAddress(String ipaddressExpression) {
-			return access(ExpressionUrlAuthorizationConfigurer
-					.hasIpAddress(ipaddressExpression));
+			return access(ExpressionUrlAuthorizationConfigurer.hasIpAddress(ipaddressExpression));
 		}
 
 		/**

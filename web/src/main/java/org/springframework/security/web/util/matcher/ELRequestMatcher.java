@@ -37,7 +37,6 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  * See {@link DelegatingAuthenticationEntryPoint} for an example configuration.
  * </p>
  *
- *
  * @author Mike Wiesner
  * @since 3.0.2
  */

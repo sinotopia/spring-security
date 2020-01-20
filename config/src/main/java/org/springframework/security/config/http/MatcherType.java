@@ -34,8 +34,11 @@ import org.w3c.dom.Element;
  * @since 3.1
  */
 public enum MatcherType {
-	ant(AntPathRequestMatcher.class), regex(RegexRequestMatcher.class), ciRegex(
-			RegexRequestMatcher.class), mvc(MvcRequestMatcher.class);
+
+	ant(AntPathRequestMatcher.class),
+	regex(RegexRequestMatcher.class),
+	ciRegex(RegexRequestMatcher.class),
+	mvc(MvcRequestMatcher.class);
 
 	private static final String HANDLER_MAPPING_INTROSPECTOR_BEAN_NAME = "mvcHandlerMappingIntrospector";
 
@@ -67,8 +70,7 @@ public enum MatcherType {
 		if (this == mvc) {
 			matcherBldr.addPropertyValue("method", method);
 			matcherBldr.addPropertyValue("servletPath", servletPath);
-		}
-		else {
+		} else {
 			matcherBldr.addConstructorArgValue(method);
 		}
 

@@ -28,18 +28,18 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  * A base class for registering {@link RequestMatcher}'s. For example, it might allow for
  * specifying which {@link RequestMatcher} require a certain level of authorization.
  *
- * @author Rob Winch
- * @since 3.2
- *
  * @param <C> The object that is returned or Chained after creating the RequestMatcher
- *
+ * @author Rob Winch
  * @see ChannelSecurityConfigurer
  * @see UrlAuthorizationConfigurer
  * @see ExpressionUrlAuthorizationConfigurer
+ * @since 3.2
  */
 public abstract class AbstractConfigAttributeRequestMatcherRegistry<C> extends
 		AbstractRequestMatcherRegistry<C> {
+
 	private List<UrlMapping> urlMappings = new ArrayList<>();
+
 	private List<RequestMatcher> unmappedMatchers;
 
 	/**
@@ -73,6 +73,7 @@ public abstract class AbstractConfigAttributeRequestMatcherRegistry<C> extends
 	 * @return the chained Object for the subclass which allows association of something
 	 * else to the {@link RequestMatcher}
 	 */
+	@Override
 	protected final C chainRequestMatchers(List<RequestMatcher> requestMatchers) {
 		this.unmappedMatchers = requestMatchers;
 		return chainRequestMatchersInternal(requestMatchers);
@@ -92,7 +93,7 @@ public abstract class AbstractConfigAttributeRequestMatcherRegistry<C> extends
 	 * Adds a {@link UrlMapping} added by subclasses in
 	 * {@link #chainRequestMatchers(java.util.List)} at a particular index.
 	 *
-	 * @param index the index to add a {@link UrlMapping}
+	 * @param index      the index to add a {@link UrlMapping}
 	 * @param urlMapping {@link UrlMapping} the mapping to add
 	 */
 	final void addMapping(int index, UrlMapping urlMapping) {
@@ -128,7 +129,9 @@ public abstract class AbstractConfigAttributeRequestMatcherRegistry<C> extends
 	 * {@link ConfigAttribute} instances
 	 */
 	static final class UrlMapping {
+
 		private RequestMatcher requestMatcher;
+
 		private Collection<ConfigAttribute> configAttrs;
 
 		UrlMapping(RequestMatcher requestMatcher, Collection<ConfigAttribute> configAttrs) {

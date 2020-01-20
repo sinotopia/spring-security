@@ -28,9 +28,9 @@ import org.springframework.util.StringUtils;
 /**
  * Uses a regular expression to decide whether a supplied the URL of a supplied
  * {@code HttpServletRequest}.
- *
+ * <p>
  * Can also be configured to match a specific HTTP method.
- *
+ * <p>
  * The match is performed against the {@code servletPath + pathInfo + queryString} of the
  * request and is case-sensitive by default. Case-insensitive matching can be used by
  * using the constructor which takes the {@code caseInsensitive} argument.
@@ -40,6 +40,7 @@ import org.springframework.util.StringUtils;
  * @since 3.1
  */
 public final class RegexRequestMatcher implements RequestMatcher {
+	
 	private final static Log logger = LogFactory.getLog(RegexRequestMatcher.class);
 
 	private final Pattern pattern;
@@ -48,7 +49,7 @@ public final class RegexRequestMatcher implements RequestMatcher {
 	/**
 	 * Creates a case-sensitive {@code Pattern} instance to match against the request.
 	 *
-	 * @param pattern the regular expression to compile into a pattern.
+	 * @param pattern    the regular expression to compile into a pattern.
 	 * @param httpMethod the HTTP method to match. May be null to match all methods.
 	 */
 	public RegexRequestMatcher(String pattern, String httpMethod) {
@@ -58,16 +59,15 @@ public final class RegexRequestMatcher implements RequestMatcher {
 	/**
 	 * As above, but allows setting of whether case-insensitive matching should be used.
 	 *
-	 * @param pattern the regular expression to compile into a pattern.
-	 * @param httpMethod the HTTP method to match. May be null to match all methods.
+	 * @param pattern         the regular expression to compile into a pattern.
+	 * @param httpMethod      the HTTP method to match. May be null to match all methods.
 	 * @param caseInsensitive if true, the pattern will be compiled with the
-	 * {@link Pattern#CASE_INSENSITIVE} flag set.
+	 *                        {@link Pattern#CASE_INSENSITIVE} flag set.
 	 */
 	public RegexRequestMatcher(String pattern, String httpMethod, boolean caseInsensitive) {
 		if (caseInsensitive) {
 			this.pattern = Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
-		}
-		else {
+		} else {
 			this.pattern = Pattern.compile(pattern);
 		}
 		this.httpMethod = StringUtils.hasText(httpMethod) ? HttpMethod
@@ -118,14 +118,12 @@ public final class RegexRequestMatcher implements RequestMatcher {
 	 * invalid, returns null.
 	 *
 	 * @param method the HTTP method to use.
-	 *
 	 * @return the HttpMethod or null if method is invalid.
 	 */
 	private static HttpMethod valueOf(String method) {
 		try {
 			return HttpMethod.valueOf(method);
-		}
-		catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 		}
 
 		return null;

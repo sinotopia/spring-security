@@ -130,8 +130,7 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 		}
 
 		@Override
-		public MvcMatchersAuthorizedUrl mvcMatchers(HttpMethod method,
-													String... mvcPatterns) {
+		public MvcMatchersAuthorizedUrl mvcMatchers(HttpMethod method, String... mvcPatterns) {
 			return new MvcMatchersAuthorizedUrl(createMvcMatchers(method, mvcPatterns));
 		}
 
@@ -205,8 +204,9 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 			Iterable<? extends RequestMatcher> requestMatchers,
 			Collection<ConfigAttribute> configAttributes) {
 		for (RequestMatcher requestMatcher : requestMatchers) {
-			REGISTRY.addMapping(new AbstractConfigAttributeRequestMatcherRegistry.UrlMapping(
-					requestMatcher, configAttributes));
+			REGISTRY.addMapping(
+					new AbstractConfigAttributeRequestMatcherRegistry.UrlMapping(
+							requestMatcher, configAttributes));
 		}
 		return REGISTRY;
 	}
@@ -259,6 +259,7 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 	 * @author Rob Winch
 	 */
 	public final class MvcMatchersAuthorizedUrl extends AuthorizedUrl {
+
 		/**
 		 * Creates a new instance
 		 *
@@ -285,6 +286,7 @@ public final class UrlAuthorizationConfigurer<H extends HttpSecurityBuilder<H>> 
 	 * @since 3.2
 	 */
 	public class AuthorizedUrl {
+
 		private final List<? extends RequestMatcher> requestMatchers;
 
 		/**
