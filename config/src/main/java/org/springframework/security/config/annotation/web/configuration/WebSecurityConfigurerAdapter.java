@@ -85,13 +85,13 @@ import org.springframework.web.accept.HeaderContentNegotiationStrategy;
  * org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer = sample.MyClassThatExtendsAbstractHttpConfigurer, sample.OtherThatExtendsAbstractHttpConfigurer
  * </pre>
  *
- * @see EnableWebSecurity
- *
  * @author Rob Winch
+ * @see EnableWebSecurity
  */
 @Order(100)
 public abstract class WebSecurityConfigurerAdapter implements
 		WebSecurityConfigurer<WebSecurity> {
+
 	private final Log logger = LogFactory.getLog(WebSecurityConfigurerAdapter.class);
 
 	private ApplicationContext context;
@@ -99,6 +99,7 @@ public abstract class WebSecurityConfigurerAdapter implements
 	private ContentNegotiationStrategy contentNegotiationStrategy = new HeaderContentNegotiationStrategy();
 
 	private ObjectPostProcessor<Object> objectPostProcessor = new ObjectPostProcessor<Object>() {
+		@Override
 		public <T> T postProcess(T object) {
 			throw new IllegalStateException(
 					ObjectPostProcessor.class.getName()
@@ -129,7 +130,7 @@ public abstract class WebSecurityConfigurerAdapter implements
 	 * usage as it requires more understanding of how the framework is implemented.
 	 *
 	 * @param disableDefaults true if the default configuration should be disabled, else
-	 * false
+	 *                        false
 	 */
 	protected WebSecurityConfigurerAdapter(boolean disableDefaults) {
 		this.disableDefaults = disableDefaults;
@@ -184,11 +185,12 @@ public abstract class WebSecurityConfigurerAdapter implements
 
 	/**
 	 * Creates the {@link HttpSecurity} or returns the current instance
-	 *
+	 * <p>
 	 * ] * @return the {@link HttpSecurity}
+	 *
 	 * @throws Exception
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	protected final HttpSecurity getHttp() throws Exception {
 		if (http != null) {
 			return http;
@@ -208,17 +210,17 @@ public abstract class WebSecurityConfigurerAdapter implements
 		if (!disableDefaults) {
 			// @formatter:off
 			http
-				.csrf().and()
-				.addFilter(new WebAsyncManagerIntegrationFilter())
-				.exceptionHandling().and()
-				.headers().and()
-				.sessionManagement().and()
-				.securityContext().and()
-				.requestCache().and()
-				.anonymous().and()
-				.servletApi().and()
-				.apply(new DefaultLoginPageConfigurer<>()).and()
-				.logout();
+					.csrf().and()
+					.addFilter(new WebAsyncManagerIntegrationFilter())
+					.exceptionHandling().and()
+					.headers().and()
+					.sessionManagement().and()
+					.securityContext().and()
+					.requestCache().and()
+					.anonymous().and()
+					.servletApi().and()
+					.apply(new DefaultLoginPageConfigurer<>()).and()
+					.logout();
 			// @formatter:on
 			ClassLoader classLoader = this.context.getClassLoader();
 			List<AbstractHttpConfigurer> defaultHttpConfigurers =
@@ -267,8 +269,7 @@ public abstract class WebSecurityConfigurerAdapter implements
 			if (disableLocalConfigureAuthenticationBldr) {
 				authenticationManager = authenticationConfiguration
 						.getAuthenticationManager();
-			}
-			else {
+			} else {
 				authenticationManager = localConfigureAuthenticationBldr.build();
 			}
 			authenticationManagerInitialized = true;
@@ -289,9 +290,10 @@ public abstract class WebSecurityConfigurerAdapter implements
 	 * 	return super.userDetailsServiceBean();
 	 * }
 	 * </pre>
-	 *
+	 * <p>
 	 * To change the instance returned, developers should change
 	 * {@link #userDetailsService()} instead
+	 *
 	 * @return the {@link UserDetailsService}
 	 * @throws Exception
 	 * @see #userDetailsService()
@@ -351,16 +353,17 @@ public abstract class WebSecurityConfigurerAdapter implements
 		logger.debug("Using default configure(HttpSecurity). If subclassed this will potentially override subclass configure(HttpSecurity).");
 
 		http
-			.authorizeRequests()
+				.authorizeRequests()
 				.anyRequest().authenticated()
 				.and()
-			.formLogin().and()
-			.httpBasic();
+				.formLogin().and()
+				.httpBasic();
 	}
 	// @formatter:on
 
 	/**
 	 * Gets the ApplicationContext
+	 *
 	 * @return the context
 	 */
 	protected final ApplicationContext getApplicationContext() {
@@ -546,30 +549,30 @@ public abstract class WebSecurityConfigurerAdapter implements
 		 * @param objectPostProcessor the {@link ObjectPostProcessor} instance to use.
 		 */
 		DefaultPasswordEncoderAuthenticationManagerBuilder(
-			ObjectPostProcessor<Object> objectPostProcessor, PasswordEncoder defaultPasswordEncoder) {
+				ObjectPostProcessor<Object> objectPostProcessor, PasswordEncoder defaultPasswordEncoder) {
 			super(objectPostProcessor);
 			this.defaultPasswordEncoder = defaultPasswordEncoder;
 		}
 
 		@Override
 		public InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> inMemoryAuthentication()
-			throws Exception {
+				throws Exception {
 			return super.inMemoryAuthentication()
-				.passwordEncoder(this.defaultPasswordEncoder);
+					.passwordEncoder(this.defaultPasswordEncoder);
 		}
 
 		@Override
 		public JdbcUserDetailsManagerConfigurer<AuthenticationManagerBuilder> jdbcAuthentication()
-			throws Exception {
+				throws Exception {
 			return super.jdbcAuthentication()
-				.passwordEncoder(this.defaultPasswordEncoder);
+					.passwordEncoder(this.defaultPasswordEncoder);
 		}
 
 		@Override
 		public <T extends UserDetailsService> DaoAuthenticationConfigurer<AuthenticationManagerBuilder, T> userDetailsService(
-			T userDetailsService) throws Exception {
+				T userDetailsService) throws Exception {
 			return super.userDetailsService(userDetailsService)
-				.passwordEncoder(this.defaultPasswordEncoder);
+					.passwordEncoder(this.defaultPasswordEncoder);
 		}
 	}
 
@@ -588,7 +591,7 @@ public abstract class WebSecurityConfigurerAdapter implements
 
 		@Override
 		public boolean matches(CharSequence rawPassword,
-			String encodedPassword) {
+				String encodedPassword) {
 			return getPasswordEncoder().matches(rawPassword, encodedPassword);
 		}
 
@@ -612,7 +615,7 @@ public abstract class WebSecurityConfigurerAdapter implements
 		private <T> T getBeanOrNull(Class<T> type) {
 			try {
 				return this.applicationContext.getBean(type);
-			} catch(NoSuchBeanDefinitionException notFound) {
+			} catch (NoSuchBeanDefinitionException notFound) {
 				return null;
 			}
 		}

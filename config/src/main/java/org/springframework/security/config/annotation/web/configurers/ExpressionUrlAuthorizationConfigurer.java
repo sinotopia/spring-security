@@ -174,7 +174,7 @@ public final class ExpressionUrlAuthorizationConfigurer<H extends HttpSecurityBu
 	 *                         {@link RequestMatcher} instances
 	 */
 	private void interceptUrl(Iterable<? extends RequestMatcher> requestMatchers,
-							  Collection<ConfigAttribute> configAttributes) {
+			Collection<ConfigAttribute> configAttributes) {
 		for (RequestMatcher requestMatcher : requestMatchers) {
 			REGISTRY.addMapping(
 					new AbstractConfigAttributeRequestMatcherRegistry.UrlMapping(

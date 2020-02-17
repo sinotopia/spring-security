@@ -49,7 +49,7 @@ import org.springframework.web.accept.HeaderContentNegotiationStrategy;
  * all parameters are optional.
  *
  * <h2>Security Filters</h2>
- *
+ * <p>
  * The following Filters are populated
  *
  * <ul>
@@ -66,7 +66,7 @@ import org.springframework.web.accept.HeaderContentNegotiationStrategy;
  * </ul>
  *
  * <h2>Shared Objects Used</h2>
- *
+ * <p>
  * The following shared objects are used:
  *
  * <ul>
@@ -91,6 +91,7 @@ public final class HttpBasicConfigurer<B extends HttpSecurityBuilder<B>> extends
 
 	/**
 	 * Creates a new instance
+	 *
 	 * @see HttpSecurity#httpBasic()
 	 */
 	public HttpBasicConfigurer() {
@@ -139,7 +140,7 @@ public final class HttpBasicConfigurer<B extends HttpSecurityBuilder<B>> extends
 	 * authentication. The default is {@link WebAuthenticationDetailsSource}.
 	 *
 	 * @param authenticationDetailsSource the custom {@link AuthenticationDetailsSource}
-	 * to use
+	 *                                    to use
 	 * @return {@link HttpBasicConfigurer} for additional customization
 	 */
 	public HttpBasicConfigurer<B> authenticationDetailsSource(

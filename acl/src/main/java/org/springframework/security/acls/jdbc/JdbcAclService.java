@@ -49,6 +49,7 @@ public class JdbcAclService implements AclService {
 	// =====================================================================================
 
 	protected static final Log log = LogFactory.getLog(JdbcAclService.class);
+
 	private static final String DEFAULT_SELECT_ACL_CLASS_COLUMNS = "class.class as class";
 	private static final String DEFAULT_SELECT_ACL_CLASS_COLUMNS_WITH_ID_TYPE = DEFAULT_SELECT_ACL_CLASS_COLUMNS + ", class.class_id_type as class_id_type";
 	private static final String DEFAULT_SELECT_ACL_WITH_PARENT_SQL = "select obj.object_id_identity as obj_id, " + DEFAULT_SELECT_ACL_CLASS_COLUMNS
@@ -89,8 +90,9 @@ public class JdbcAclService implements AclService {
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public List<ObjectIdentity> findChildren(ObjectIdentity parentIdentity) {
-		Object[] args = { parentIdentity.getIdentifier().toString(), parentIdentity.getType() };
+		Object[] args = {parentIdentity.getIdentifier().toString(), parentIdentity.getType()};
 		List<ObjectIdentity> objects = jdbcOperations.query(findChildrenSql, args,
 				(rs, rowNum) -> {
 					String javaType = rs.getString("class");
@@ -106,6 +108,7 @@ public class JdbcAclService implements AclService {
 		return objects;
 	}
 
+	@Override
 	public Acl readAclById(ObjectIdentity object, List<Sid> sids)
 			throws NotFoundException {
 		Map<ObjectIdentity, Acl> map = readAclsById(Arrays.asList(object), sids);
@@ -115,15 +118,18 @@ public class JdbcAclService implements AclService {
 		return map.get(object);
 	}
 
+	@Override
 	public Acl readAclById(ObjectIdentity object) throws NotFoundException {
 		return readAclById(object, null);
 	}
 
+	@Override
 	public Map<ObjectIdentity, Acl> readAclsById(List<ObjectIdentity> objects)
 			throws NotFoundException {
 		return readAclsById(objects, null);
 	}
 
+	@Override
 	public Map<ObjectIdentity, Acl> readAclsById(List<ObjectIdentity> objects,
 			List<Sid> sids) throws NotFoundException {
 		Map<ObjectIdentity, Acl> result = lookupStrategy.readAclsById(objects, sids);

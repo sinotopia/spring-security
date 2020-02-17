@@ -99,6 +99,7 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public MutableAcl createAcl(ObjectIdentity objectIdentity)
 			throws AlreadyExistsException {
 		Assert.notNull(objectIdentity, "Object Identity required");
@@ -136,10 +137,13 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 			return;
 		}
 		jdbcOperations.batchUpdate(insertEntry, new BatchPreparedStatementSetter() {
+
+			@Override
 			public int getBatchSize() {
 				return acl.getEntries().size();
 			}
 
+			@Override
 			public void setValues(PreparedStatement stmt, int i) throws SQLException {
 				AccessControlEntry entry_ = acl.getEntries().get(i);
 				Assert.isTrue(entry_ instanceof AccessControlEntryImpl,
@@ -163,8 +167,8 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 	 * non-null.
 	 *
 	 * @param object to represent an acl_object_identity for
-	 * @param owner for the SID column (will be created if there is no acl_sid entry for
-	 * this particular Sid already)
+	 * @param owner  for the SID column (will be created if there is no acl_sid entry for
+	 *               this particular Sid already)
 	 */
 	protected void createObjectIdentity(ObjectIdentity object, Sid owner) {
 		Long sidId = createOrRetrieveSidPrimaryKey(owner, true);
@@ -177,14 +181,13 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 	 * Retrieves the primary key from {@code acl_class}, creating a new row if needed and
 	 * the {@code allowCreate} property is {@code true}.
 	 *
-	 * @param type to find or create an entry for (often the fully-qualified class name)
+	 * @param type        to find or create an entry for (often the fully-qualified class name)
 	 * @param allowCreate true if creation is permitted if not found
-	 *
 	 * @return the primary key or null if not found
 	 */
 	protected Long createOrRetrieveClassPrimaryKey(String type, boolean allowCreate, Class idType) {
 		List<Long> classIds = jdbcOperations.queryForList(selectClassPrimaryKey,
-				new Object[] { type }, Long.class);
+				new Object[]{type}, Long.class);
 
 		if (!classIds.isEmpty()) {
 			return classIds.get(0);
@@ -208,13 +211,11 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 	 * Retrieves the primary key from acl_sid, creating a new row if needed and the
 	 * allowCreate property is true.
 	 *
-	 * @param sid to find or create
+	 * @param sid         to find or create
 	 * @param allowCreate true if creation is permitted if not found
-	 *
 	 * @return the primary key or null if not found
-	 *
 	 * @throws IllegalArgumentException if the <tt>Sid</tt> is not a recognized
-	 * implementation.
+	 *                                  implementation.
 	 */
 	protected Long createOrRetrieveSidPrimaryKey(Sid sid, boolean allowCreate) {
 		Assert.notNull(sid, "Sid required");
@@ -224,12 +225,10 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 
 		if (sid instanceof PrincipalSid) {
 			sidName = ((PrincipalSid) sid).getPrincipal();
-		}
-		else if (sid instanceof GrantedAuthoritySid) {
+		} else if (sid instanceof GrantedAuthoritySid) {
 			sidName = ((GrantedAuthoritySid) sid).getGrantedAuthority();
 			sidIsPrincipal = false;
-		}
-		else {
+		} else {
 			throw new IllegalArgumentException("Unsupported implementation of Sid");
 		}
 
@@ -239,16 +238,17 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 	/**
 	 * Retrieves the primary key from acl_sid, creating a new row if needed and the
 	 * allowCreate property is true.
-	 * @param sidName name of Sid to find or to create
+	 *
+	 * @param sidName        name of Sid to find or to create
 	 * @param sidIsPrincipal whether it's a user or granted authority like role
-	 * @param allowCreate true if creation is permitted if not found
+	 * @param allowCreate    true if creation is permitted if not found
 	 * @return the primary key or null if not found
 	 */
 	protected Long createOrRetrieveSidPrimaryKey(String sidName, boolean sidIsPrincipal,
 			boolean allowCreate) {
 
-		List<Long> sidIds = jdbcOperations.queryForList(selectSidPrimaryKey, new Object[] {
-				sidIsPrincipal, sidName }, Long.class);
+		List<Long> sidIds = jdbcOperations.queryForList(selectSidPrimaryKey, new Object[]{
+				sidIsPrincipal, sidName}, Long.class);
 
 		if (!sidIds.isEmpty()) {
 			return sidIds.get(0);
@@ -264,6 +264,7 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 		return null;
 	}
 
+	@Override
 	public void deleteAcl(ObjectIdentity objectIdentity, boolean deleteChildren)
 			throws ChildrenExistException {
 		Assert.notNull(objectIdentity, "Object Identity required");
@@ -277,8 +278,7 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 					deleteAcl(child, true);
 				}
 			}
-		}
-		else {
+		} else {
 			if (!foreignKeysInDatabase) {
 				// We need to perform a manual verification for what a FK would normally
 				// do
@@ -333,15 +333,13 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 	 * NOT create a row (use {@link #createObjectIdentity(ObjectIdentity, Sid)} instead).
 	 *
 	 * @param oid to find
-	 *
 	 * @return the object identity or null if not found
 	 */
 	protected Long retrieveObjectIdentityPrimaryKey(ObjectIdentity oid) {
 		try {
 			return jdbcOperations.queryForObject(selectObjectIdentityPrimaryKey, Long.class,
 					oid.getType(), oid.getIdentifier().toString());
-		}
-		catch (DataAccessException notFound) {
+		} catch (DataAccessException notFound) {
 			return null;
 		}
 	}
@@ -352,6 +350,7 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 	 * dirty state checking, or more likely use ORM capabilities for create, update and
 	 * delete operations of {@link MutableAcl}.
 	 */
+	@Override
 	public MutableAcl updateAcl(MutableAcl acl) throws NotFoundException {
 		Assert.notNull(acl.getId(), "Object Identity doesn't provide an identifier");
 
@@ -389,7 +388,6 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 	 * that owns the MutableAcl.
 	 *
 	 * @param acl to modify (a row must already exist in acl_object_identity)
-	 *
 	 * @throws NotFoundException if the ACL could not be found to update.
 	 */
 	protected void updateObjectIdentity(MutableAcl acl) {
@@ -397,7 +395,7 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 
 		if (acl.getParentAcl() != null) {
 			Assert.isInstanceOf(ObjectIdentityImpl.class, acl.getParentAcl()
-					.getObjectIdentity(),
+							.getObjectIdentity(),
 					"Implementation only supports ObjectIdentityImpl");
 
 			ObjectIdentityImpl oii = (ObjectIdentityImpl) acl.getParentAcl()
@@ -421,7 +419,7 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 	 * the <tt>acl_class</tt> table.
 	 *
 	 * @param classIdentityQuery the query, which should return the identifier. Defaults
-	 * to <tt>call identity()</tt>
+	 *                           to <tt>call identity()</tt>
 	 */
 	public void setClassIdentityQuery(String classIdentityQuery) {
 		Assert.hasText(classIdentityQuery, "New classIdentityQuery query is required");
@@ -433,7 +431,7 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 	 * the <tt>acl_sid</tt> table.
 	 *
 	 * @param sidIdentityQuery the query, which should return the identifier. Defaults to
-	 * <tt>call identity()</tt>
+	 *                         <tt>call identity()</tt>
 	 */
 	public void setSidIdentityQuery(String sidIdentityQuery) {
 		Assert.hasText(sidIdentityQuery, "New sidIdentityQuery query is required");
@@ -484,8 +482,8 @@ public class JdbcMutableAclService extends JdbcAclService implements MutableAclS
 
 	/**
 	 * @param foreignKeysInDatabase if false this class will perform additional FK
-	 * constrain checking, which may cause deadlocks (the default is true, so deadlocks
-	 * are avoided but the database is expected to enforce FKs)
+	 *                              constrain checking, which may cause deadlocks (the default is true, so deadlocks
+	 *                              are avoided but the database is expected to enforce FKs)
 	 */
 	public void setForeignKeysInDatabase(boolean foreignKeysInDatabase) {
 		this.foreignKeysInDatabase = foreignKeysInDatabase;

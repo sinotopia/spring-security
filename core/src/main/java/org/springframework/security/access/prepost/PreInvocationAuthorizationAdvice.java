@@ -39,5 +39,5 @@ public interface PreInvocationAuthorizationAdvice extends AopInfrastructureBean 
 	 * @return true if authorised, false otherwise
 	 */
 	boolean before(Authentication authentication, MethodInvocation mi,
-				   PreInvocationAttribute preInvocationAttribute);
+			PreInvocationAttribute preInvocationAttribute);
 }

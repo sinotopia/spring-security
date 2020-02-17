@@ -71,7 +71,7 @@ final class FilterComparator implements Comparator<Filter>, Serializable {
 		put(CsrfFilter.class, order.next());
 		put(LogoutFilter.class, order.next());
 		filterToOrder.put(
-			"org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter",
+				"org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter",
 				order.next());
 		filterToOrder.put(
 				"org.springframework.security.saml2.provider.service.servlet.filter.Saml2WebSsoAuthenticationRequestFilter",
@@ -81,7 +81,7 @@ final class FilterComparator implements Comparator<Filter>, Serializable {
 		filterToOrder.put("org.springframework.security.cas.web.CasAuthenticationFilter",
 				order.next());
 		filterToOrder.put(
-			"org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter",
+				"org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter",
 				order.next());
 		filterToOrder.put(
 				"org.springframework.security.saml2.provider.service.servlet.filter.Saml2WebSsoAuthenticationFilter",
@@ -103,7 +103,7 @@ final class FilterComparator implements Comparator<Filter>, Serializable {
 		put(RememberMeAuthenticationFilter.class, order.next());
 		put(AnonymousAuthenticationFilter.class, order.next());
 		filterToOrder.put(
-			"org.springframework.security.oauth2.client.web.OAuth2AuthorizationCodeGrantFilter",
+				"org.springframework.security.oauth2.client.web.OAuth2AuthorizationCodeGrantFilter",
 				order.next());
 		put(SessionManagementFilter.class, order.next());
 		put(ExceptionTranslationFilter.class, order.next());
@@ -111,6 +111,7 @@ final class FilterComparator implements Comparator<Filter>, Serializable {
 		put(SwitchUserFilter.class, order.next());
 	}
 
+	@Override
 	public int compare(Filter lhs, Filter rhs) {
 		Integer left = getOrder(lhs.getClass());
 		Integer right = getOrder(rhs.getClass());
@@ -130,9 +131,10 @@ final class FilterComparator implements Comparator<Filter>, Serializable {
 	/**
 	 * Registers a {@link Filter} to exist after a particular {@link Filter} that is
 	 * already registered.
-	 * @param filter the {@link Filter} to register
+	 *
+	 * @param filter      the {@link Filter} to register
 	 * @param afterFilter the {@link Filter} that is already registered and that
-	 * {@code filter} should be placed after.
+	 *                    {@code filter} should be placed after.
 	 */
 	public void registerAfter(Class<? extends Filter> filter,
 			Class<? extends Filter> afterFilter) {
@@ -147,9 +149,10 @@ final class FilterComparator implements Comparator<Filter>, Serializable {
 
 	/**
 	 * Registers a {@link Filter} to exist at a particular {@link Filter} position
-	 * @param filter the {@link Filter} to register
+	 *
+	 * @param filter   the {@link Filter} to register
 	 * @param atFilter the {@link Filter} that is already registered and that
-	 * {@code filter} should be placed at.
+	 *                 {@code filter} should be placed at.
 	 */
 	public void registerAt(Class<? extends Filter> filter,
 			Class<? extends Filter> atFilter) {
@@ -165,9 +168,10 @@ final class FilterComparator implements Comparator<Filter>, Serializable {
 	/**
 	 * Registers a {@link Filter} to exist before a particular {@link Filter} that is
 	 * already registered.
-	 * @param filter the {@link Filter} to register
+	 *
+	 * @param filter       the {@link Filter} to register
 	 * @param beforeFilter the {@link Filter} that is already registered and that
-	 * {@code filter} should be placed before.
+	 *                     {@code filter} should be placed before.
 	 */
 	public void registerBefore(Class<? extends Filter> filter,
 			Class<? extends Filter> beforeFilter) {

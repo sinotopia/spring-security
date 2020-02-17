@@ -46,7 +46,7 @@ public class PostInvocationAdviceProvider implements AfterInvocationProvider {
 
 	@Override
 	public Object decide(Authentication authentication, Object object,
-						 Collection<ConfigAttribute> config, Object returnedObject)
+			Collection<ConfigAttribute> config, Object returnedObject)
 			throws AccessDeniedException {
 
 		PostInvocationAttribute pia = findPostInvocationAttribute(config);

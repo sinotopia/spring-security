@@ -55,11 +55,10 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
  * {@link WebSecurityConfigurer} and exposing it as a {@link Configuration}. This
  * configuration is imported when using {@link EnableWebSecurity}.
  *
- * @see EnableWebSecurity
- * @see WebSecurity
- *
  * @author Rob Winch
  * @author Keesun Baik
+ * @see EnableWebSecurity
+ * @see WebSecurity
  * @since 3.2
  */
 @Configuration(proxyBeanMethods = false)
@@ -88,6 +87,7 @@ public class WebSecurityConfiguration implements ImportAware, BeanClassLoaderAwa
 
 	/**
 	 * Creates the Spring Security Filter Chain
+	 *
 	 * @return the {@link Filter} that represents the security filter chain
 	 * @throws Exception
 	 */
@@ -107,6 +107,7 @@ public class WebSecurityConfiguration implements ImportAware, BeanClassLoaderAwa
 	/**
 	 * Creates the {@link WebInvocationPrivilegeEvaluator} that is necessary for the JSP
 	 * tag support.
+	 *
 	 * @return the {@link WebInvocationPrivilegeEvaluator}
 	 */
 	@Bean
@@ -119,11 +120,11 @@ public class WebSecurityConfiguration implements ImportAware, BeanClassLoaderAwa
 	 * Sets the {@code <SecurityConfigurer<FilterChainProxy, WebSecurityBuilder>}
 	 * instances used to create the web configuration.
 	 *
-	 * @param objectPostProcessor the {@link ObjectPostProcessor} used to create a
-	 * {@link WebSecurity} instance
+	 * @param objectPostProcessor    the {@link ObjectPostProcessor} used to create a
+	 *                               {@link WebSecurity} instance
 	 * @param webSecurityConfigurers the
-	 * {@code <SecurityConfigurer<FilterChainProxy, WebSecurityBuilder>} instances used to
-	 * create the web configuration
+	 *                               {@code <SecurityConfigurer<FilterChainProxy, WebSecurityBuilder>} instances used to
+	 *                               create the web configuration
 	 * @throws Exception
 	 */
 	@Autowired(required = false)
@@ -170,7 +171,7 @@ public class WebSecurityConfiguration implements ImportAware, BeanClassLoaderAwa
 	}
 
 	/**
-	 * A custom verision of the Spring provided AnnotationAwareOrderComparator that uses
+	 * A custom version of the Spring provided AnnotationAwareOrderComparator that uses
 	 * {@link AnnotationUtils#findAnnotation(Class, Class)} to look on super class
 	 * instances for the {@link Order} annotation.
 	 *

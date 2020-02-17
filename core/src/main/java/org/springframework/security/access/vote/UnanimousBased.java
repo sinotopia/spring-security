@@ -29,6 +29,8 @@ import java.util.List;
  * Simple concrete implementation of
  * {@link org.springframework.security.access.AccessDecisionManager} that requires all
  * voters to abstain or grant access.
+ *
+ * @author Ben Alex
  */
 public class UnanimousBased extends AbstractAccessDecisionManager {
 

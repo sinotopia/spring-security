@@ -38,6 +38,7 @@ import java.io.IOException;
  */
 public class FilterSecurityInterceptor extends AbstractSecurityInterceptor implements
 		Filter {
+
 	// ~ Static fields/initializers
 	// =====================================================================================
 
@@ -81,7 +82,7 @@ public class FilterSecurityInterceptor extends AbstractSecurityInterceptor imple
 	 */
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
-						 FilterChain chain) throws IOException, ServletException {
+			FilterChain chain) throws IOException, ServletException {
 		FilterInvocation fi = new FilterInvocation(request, response, chain);
 		invoke(fi);
 	}

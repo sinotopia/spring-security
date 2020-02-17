@@ -30,6 +30,8 @@ import org.springframework.security.core.Authentication;
 public interface SecurityExpressionHandler<T> extends AopInfrastructureBean {
 
 	/**
+	 * getExpressionParser
+	 *
 	 * @return an expression parser for the expressions used by the implementation.
 	 */
 	ExpressionParser getExpressionParser();
@@ -37,6 +39,11 @@ public interface SecurityExpressionHandler<T> extends AopInfrastructureBean {
 	/**
 	 * Provides an evaluation context in which to evaluate security expressions for the
 	 * invocation type.
+	 *
+	 * @param authentication the current authentication object
+	 * @param invocation     the invocation (filter, method, channel)
+	 * @return the context object for use in evaluating the expression, populated with a
+	 * suitable root object.
 	 */
 	EvaluationContext createEvaluationContext(Authentication authentication, T invocation);
 }

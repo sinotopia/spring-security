@@ -149,6 +149,7 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 		}
 
 		if (this.validateConfigAttributes) {
+			// 验证是否只是所有的ConfigAttribute
 			Collection<ConfigAttribute> attributeDefs = this
 					.obtainSecurityMetadataSource().getAllConfigAttributes();
 
@@ -163,8 +164,8 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 			for (ConfigAttribute attr : attributeDefs) {
 				if (!this.runAsManager.supports(attr)
 						&& !this.accessDecisionManager.supports(attr)
-						&& ((this.afterInvocationManager == null) || !this.afterInvocationManager
-						.supports(attr))) {
+						&& ((this.afterInvocationManager == null) ||
+						!this.afterInvocationManager.supports(attr))) {
 					unsupportedAttrs.add(attr);
 				}
 			}
@@ -208,8 +209,8 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 			}
 
 			publishEvent(new PublicInvocationEvent(object));
-
-			return null; // no further work post-invocation
+			// no further work post-invocation
+			return null;
 		}
 
 		if (debug) {
@@ -369,7 +370,7 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 	 * @param configAttribs that were defined for the secureObject
 	 */
 	private void credentialsNotFound(String reason, Object secureObject,
-									 Collection<ConfigAttribute> configAttribs) {
+			Collection<ConfigAttribute> configAttribs) {
 		AuthenticationCredentialsNotFoundException exception = new AuthenticationCredentialsNotFoundException(
 				reason);
 
@@ -384,16 +385,32 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 		return accessDecisionManager;
 	}
 
+	public void setAccessDecisionManager(AccessDecisionManager accessDecisionManager) {
+		this.accessDecisionManager = accessDecisionManager;
+	}
+
 	public AfterInvocationManager getAfterInvocationManager() {
 		return afterInvocationManager;
+	}
+
+	public void setAfterInvocationManager(AfterInvocationManager afterInvocationManager) {
+		this.afterInvocationManager = afterInvocationManager;
 	}
 
 	public AuthenticationManager getAuthenticationManager() {
 		return this.authenticationManager;
 	}
 
+	public void setAuthenticationManager(AuthenticationManager newManager) {
+		this.authenticationManager = newManager;
+	}
+
 	public RunAsManager getRunAsManager() {
 		return runAsManager;
+	}
+
+	public void setRunAsManager(RunAsManager runAsManager) {
+		this.runAsManager = runAsManager;
 	}
 
 	/**
@@ -405,27 +422,11 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 	 */
 	public abstract Class<?> getSecureObjectClass();
 
-	public boolean isAlwaysReauthenticate() {
-		return alwaysReauthenticate;
-	}
-
-	public boolean isRejectPublicInvocations() {
-		return rejectPublicInvocations;
-	}
-
 	public boolean isValidateConfigAttributes() {
 		return validateConfigAttributes;
 	}
 
 	public abstract SecurityMetadataSource obtainSecurityMetadataSource();
-
-	public void setAccessDecisionManager(AccessDecisionManager accessDecisionManager) {
-		this.accessDecisionManager = accessDecisionManager;
-	}
-
-	public void setAfterInvocationManager(AfterInvocationManager afterInvocationManager) {
-		this.afterInvocationManager = afterInvocationManager;
-	}
 
 	/**
 	 * Indicates whether the <code>AbstractSecurityInterceptor</code> should ignore the
@@ -449,10 +450,6 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 		this.eventPublisher = applicationEventPublisher;
 	}
 
-	public void setAuthenticationManager(AuthenticationManager newManager) {
-		this.authenticationManager = newManager;
-	}
-
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		this.messages = new MessageSourceAccessor(messageSource);
@@ -466,6 +463,14 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 	 */
 	public void setPublishAuthorizationSuccess(boolean publishAuthorizationSuccess) {
 		this.publishAuthorizationSuccess = publishAuthorizationSuccess;
+	}
+
+	public boolean isAlwaysReauthenticate() {
+		return alwaysReauthenticate;
+	}
+
+	public boolean isRejectPublicInvocations() {
+		return rejectPublicInvocations;
 	}
 
 	/**
@@ -485,10 +490,6 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 	 */
 	public void setRejectPublicInvocations(boolean rejectPublicInvocations) {
 		this.rejectPublicInvocations = rejectPublicInvocations;
-	}
-
-	public void setRunAsManager(RunAsManager runAsManager) {
-		this.runAsManager = runAsManager;
 	}
 
 	public void setValidateConfigAttributes(boolean validateConfigAttributes) {

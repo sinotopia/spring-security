@@ -61,7 +61,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Ben Alex
  * @author Andrei Stefan
  */
-@ContextConfiguration(locations = { "/jdbcMutableAclServiceTests-context.xml" })
+@ContextConfiguration(locations = {"/jdbcMutableAclServiceTests-context.xml"})
 public class JdbcMutableAclServiceTests extends
 		AbstractTransactionalJUnit4SpringContextTests {
 	// ~ Constant fields
@@ -124,8 +124,7 @@ public class JdbcMutableAclServiceTests extends
 			new DatabaseSeeder(dataSource, new ClassPathResource(getSqlClassPathResource()));
 			// new DatabaseSeeder(dataSource, new
 			// ClassPathResource("createAclSchemaPostgres.sql"));
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
@@ -167,7 +166,7 @@ public class JdbcMutableAclServiceTests extends
 
 		// Let's check if we can read them back correctly
 		Map<ObjectIdentity, Acl> map = jdbcMutableAclService.readAclsById(Arrays.asList(
-			getTopParentOid(), getMiddleParentOid(), getChildOid()));
+				getTopParentOid(), getMiddleParentOid(), getChildOid()));
 		assertThat(map).hasSize(3);
 
 		// Replace our current objects with their retrieved versions
@@ -204,8 +203,7 @@ public class JdbcMutableAclServiceTests extends
 		try {
 			child.isGranted(Arrays.asList(BasePermission.ADMINISTRATION), pSid, false);
 			fail("Should have thrown NotFoundException");
-		}
-		catch (NotFoundException expected) {
+		} catch (NotFoundException expected) {
 
 		}
 
@@ -226,16 +224,14 @@ public class JdbcMutableAclServiceTests extends
 		try {
 			child.isGranted(read, pSid, true);
 			fail("Should have thrown NotFoundException");
-		}
-		catch (NotFoundException expected) {
+		} catch (NotFoundException expected) {
 
 		}
 
 		try {
 			child.isGranted(write, pSid, true);
 			fail("Should have thrown NotFoundException");
-		}
-		catch (NotFoundException expected) {
+		} catch (NotFoundException expected) {
 
 		}
 
@@ -258,7 +254,7 @@ public class JdbcMutableAclServiceTests extends
 
 		// Check the permissions are as they should be
 		assertThat(child.isGranted(delete, pSid, true)).isFalse(); // as earlier permission
-															// overrode
+		// overrode
 		assertThat(child.isGranted(Arrays.asList(BasePermission.CREATE), pSid, true)).isTrue();
 
 		// Now check the first ACE (index 0) really is DELETE for our Sid and is
@@ -305,15 +301,13 @@ public class JdbcMutableAclServiceTests extends
 		try {
 			jdbcMutableAclService.readAclById(getMiddleParentOid());
 			fail("It should have thrown NotFoundException");
-		}
-		catch (NotFoundException expected) {
+		} catch (NotFoundException expected) {
 
 		}
 		try {
 			jdbcMutableAclService.readAclById(getChildOid());
 			fail("It should have thrown NotFoundException");
-		}
-		catch (NotFoundException expected) {
+		} catch (NotFoundException expected) {
 
 		}
 
@@ -327,22 +321,19 @@ public class JdbcMutableAclServiceTests extends
 		try {
 			new JdbcMutableAclService(null, lookupStrategy, aclCache);
 			fail("It should have thrown IllegalArgumentException");
-		}
-		catch (IllegalArgumentException expected) {
+		} catch (IllegalArgumentException expected) {
 		}
 
 		try {
 			new JdbcMutableAclService(dataSource, null, aclCache);
 			fail("It should have thrown IllegalArgumentException");
-		}
-		catch (IllegalArgumentException expected) {
+		} catch (IllegalArgumentException expected) {
 		}
 
 		try {
 			new JdbcMutableAclService(dataSource, lookupStrategy, null);
 			fail("It should have thrown IllegalArgumentException");
-		}
-		catch (IllegalArgumentException expected) {
+		} catch (IllegalArgumentException expected) {
 		}
 	}
 
@@ -351,8 +342,7 @@ public class JdbcMutableAclServiceTests extends
 		try {
 			jdbcMutableAclService.createAcl(null);
 			fail("It should have thrown IllegalArgumentException");
-		}
-		catch (IllegalArgumentException expected) {
+		} catch (IllegalArgumentException expected) {
 		}
 	}
 
@@ -367,8 +357,7 @@ public class JdbcMutableAclServiceTests extends
 		try {
 			jdbcMutableAclService.createAcl(duplicateOid);
 			fail("It should have thrown AlreadyExistsException");
-		}
-		catch (AlreadyExistsException expected) {
+		} catch (AlreadyExistsException expected) {
 		}
 	}
 
@@ -378,8 +367,7 @@ public class JdbcMutableAclServiceTests extends
 		try {
 			jdbcMutableAclService.deleteAcl(null, true);
 			fail("It should have thrown IllegalArgumentException");
-		}
-		catch (IllegalArgumentException expected) {
+		} catch (IllegalArgumentException expected) {
 		}
 	}
 
@@ -396,16 +384,14 @@ public class JdbcMutableAclServiceTests extends
 
 		try {
 			jdbcMutableAclService.setForeignKeysInDatabase(false); // switch on FK
-																	// checking in the
-																	// class, not database
+			// checking in the
+			// class, not database
 			jdbcMutableAclService.deleteAcl(getTopParentOid(), false);
 			fail("It should have thrown ChildrenExistException");
-		}
-		catch (ChildrenExistException expected) {
-		}
-		finally {
+		} catch (ChildrenExistException expected) {
+		} finally {
 			jdbcMutableAclService.setForeignKeysInDatabase(true); // restore to the
-																	// default
+			// default
 		}
 	}
 
@@ -421,9 +407,9 @@ public class JdbcMutableAclServiceTests extends
 		jdbcMutableAclService.deleteAcl(getChildOid(), false);
 		assertThat(
 				jdbcTemplate.queryForList(SELECT_ALL_CLASSES,
-						new Object[] { getTargetClass() })).hasSize(1);
+						new Object[]{getTargetClass()})).hasSize(1);
 		assertThat(jdbcTemplate.queryForList("select * from acl_object_identity")
-				).isEmpty();
+		).isEmpty();
 		assertThat(jdbcTemplate.queryForList("select * from acl_entry")).isEmpty();
 
 		// Check the cache
@@ -431,7 +417,9 @@ public class JdbcMutableAclServiceTests extends
 		assertThat(aclCache.getFromCache(102L)).isNull();
 	}
 
-	/** SEC-1107 */
+	/**
+	 * SEC-1107
+	 */
 	@Test
 	@Transactional
 	public void identityWithIntegerIdIsSupportedByCreateAcl() {
@@ -581,11 +569,9 @@ public class JdbcMutableAclServiceTests extends
 			boolean isPrincipal = false;
 			if (sid instanceof CustomSid) {
 				sidName = ((CustomSid) sid).getSid();
-			}
-			else if (sid instanceof GrantedAuthoritySid) {
+			} else if (sid instanceof GrantedAuthoritySid) {
 				sidName = ((GrantedAuthoritySid) sid).getGrantedAuthority();
-			}
-			else {
+			} else {
 				sidName = ((PrincipalSid) sid).getPrincipal();
 				isPrincipal = true;
 			}

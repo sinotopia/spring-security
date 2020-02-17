@@ -107,7 +107,7 @@ public interface SecurityExpressionOperations {
 	boolean isAnonymous();
 
 	/**
-	 * Determines ifthe {@link #getAuthentication()} is authenticated
+	 * Determines if the {@link #getAuthentication()} is authenticated
 	 *
 	 * @return true if the {@link #getAuthentication()} is authenticated, else false
 	 */
@@ -148,7 +148,7 @@ public interface SecurityExpressionOperations {
 	 *
 	 * @param targetId   the identifier of the domain object to determine access
 	 * @param targetType the type (i.e. com.example.domain.Message)
-	 * @param permission the perission to check on the domain object (i.e. "read",
+	 * @param permission the permission to check on the domain object (i.e. "read",
 	 *                   "write", etc)
 	 * @return true if permission is granted to the {@link #getAuthentication()}, else
 	 * false

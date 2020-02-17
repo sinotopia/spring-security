@@ -51,7 +51,7 @@ public class PrePostAdviceReactiveMethodInterceptor implements MethodInterceptor
 
 	private final PreInvocationAuthorizationAdvice preInvocationAdvice;
 
-	private final PostInvocationAuthorizationAdvice postAdvice;
+	private final PostInvocationAuthorizationAdvice postInvocationAdvice;
 
 	/**
 	 * Creates a new instance
@@ -67,7 +67,7 @@ public class PrePostAdviceReactiveMethodInterceptor implements MethodInterceptor
 
 		this.attributeSource = attributeSource;
 		this.preInvocationAdvice = preInvocationAdvice;
-		this.postAdvice = postInvocationAdvice;
+		this.postInvocationAdvice = postInvocationAdvice;
 	}
 
 	@Override
@@ -88,26 +88,25 @@ public class PrePostAdviceReactiveMethodInterceptor implements MethodInterceptor
 				.filter(auth -> this.preInvocationAdvice.before(auth, invocation, preAttr))
 				.switchIfEmpty(Mono.defer(() -> Mono.error(new AccessDeniedException("Denied"))));
 
-
-		PostInvocationAttribute attr = findPostInvocationAttribute(attributes);
+		PostInvocationAttribute postAttr = findPostInvocationAttribute(attributes);
 
 		if (Mono.class.isAssignableFrom(returnType)) {
 			return toInvoke
 					.flatMap(auth -> this.<Mono<?>>proceed(invocation)
-							.map(r -> attr == null ? r : this.postAdvice.after(auth, invocation, attr, r))
+							.map(r -> postAttr == null ? r : this.postInvocationAdvice.after(auth, invocation, postAttr, r))
 					);
 		}
 
 		if (Flux.class.isAssignableFrom(returnType)) {
 			return toInvoke
 					.flatMapMany(auth -> this.<Flux<?>>proceed(invocation)
-							.map(r -> attr == null ? r : this.postAdvice.after(auth, invocation, attr, r))
+							.map(r -> postAttr == null ? r : this.postInvocationAdvice.after(auth, invocation, postAttr, r))
 					);
 		}
 
 		return toInvoke
 				.flatMapMany(auth -> Flux.from(this.<Publisher<?>>proceed(invocation))
-						.map(r -> attr == null ? r : this.postAdvice.after(auth, invocation, attr, r))
+						.map(r -> postAttr == null ? r : this.postInvocationAdvice.after(auth, invocation, postAttr, r))
 				);
 	}
 
@@ -117,6 +116,17 @@ public class PrePostAdviceReactiveMethodInterceptor implements MethodInterceptor
 		} catch (Throwable throwable) {
 			throw Exceptions.propagate(throwable);
 		}
+	}
+
+	private static PreInvocationAttribute findPreInvocationAttribute(
+			Collection<ConfigAttribute> config) {
+		for (ConfigAttribute attribute : config) {
+			if (attribute instanceof PreInvocationAttribute) {
+				return (PreInvocationAttribute) attribute;
+			}
+		}
+
+		return null;
 	}
 
 	private static PostInvocationAttribute findPostInvocationAttribute(
@@ -130,14 +140,4 @@ public class PrePostAdviceReactiveMethodInterceptor implements MethodInterceptor
 		return null;
 	}
 
-	private static PreInvocationAttribute findPreInvocationAttribute(
-			Collection<ConfigAttribute> config) {
-		for (ConfigAttribute attribute : config) {
-			if (attribute instanceof PreInvocationAttribute) {
-				return (PreInvocationAttribute) attribute;
-			}
-		}
-
-		return null;
-	}
 }

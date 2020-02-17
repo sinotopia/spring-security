@@ -79,7 +79,8 @@ public class UsernamePasswordAuthenticationToken extends AbstractAuthenticationT
 	// ~ Methods
 	// ========================================================================================================
 
-	public Object getCredentials() {
+	@Override
+    public Object getCredentials() {
 		return this.credentials;
 	}
 

@@ -391,7 +391,7 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @return the {@link TokenBasedRememberMeServices}
 	 */
 	private AbstractRememberMeServices createTokenBasedRememberMeServices(H http,
-																		  String key) {
+			String key) {
 		UserDetailsService userDetailsService = getUserDetailsService(http);
 		return new TokenBasedRememberMeServices(key, userDetailsService);
 	}
@@ -404,7 +404,7 @@ public final class RememberMeConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @return the {@link PersistentTokenBasedRememberMeServices}
 	 */
 	private AbstractRememberMeServices createPersistentRememberMeServices(H http,
-																		  String key) {
+			String key) {
 		UserDetailsService userDetailsService = getUserDetailsService(http);
 		return new PersistentTokenBasedRememberMeServices(key, userDetailsService,
 				this.tokenRepository);

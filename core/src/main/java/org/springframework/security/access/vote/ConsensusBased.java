@@ -32,6 +32,8 @@ import java.util.List;
  * "Consensus" here means majority-rule (ignoring abstains) rather than unanimous
  * agreement (ignoring abstains). If you require unanimity, please see
  * {@link UnanimousBased}.
+ *
+ * @author Ben Alex
  */
 public class ConsensusBased extends AbstractAccessDecisionManager {
 

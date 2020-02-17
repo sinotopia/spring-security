@@ -32,7 +32,7 @@ public abstract class AuthenticationException extends RuntimeException {
 	 * cause.
 	 *
 	 * @param msg the detail message
-	 * @param t the root cause
+	 * @param t   the root cause
 	 */
 	public AuthenticationException(String msg, Throwable t) {
 		super(msg, t);

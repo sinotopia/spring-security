@@ -37,7 +37,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  * {@link org.springframework.security.config.annotation.SecurityConfigurer}.
  *
  * <h2>Security Filters</h2>
- *
+ * <p>
  * The following Filters are populated
  *
  * <ul>
@@ -45,11 +45,11 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  * </ul>
  *
  * <h2>Shared Objects Created</h2>
- *
+ * <p>
  * No shared objects are created.
  *
  * <h2>Shared Objects Used</h2>
- *
+ * <p>
  * The following shared objects are used:
  *
  * <ul>
@@ -75,6 +75,7 @@ public final class ExceptionHandlingConfigurer<H extends HttpSecurityBuilder<H>>
 
 	/**
 	 * Creates a new instance
+	 *
 	 * @see HttpSecurity#exceptionHandling()
 	 */
 	public ExceptionHandlingConfigurer() {
@@ -101,8 +102,7 @@ public final class ExceptionHandlingConfigurer<H extends HttpSecurityBuilder<H>>
 	 * @param accessDeniedHandler the {@link AccessDeniedHandler} to be used
 	 * @return the {@link ExceptionHandlingConfigurer} for further customization
 	 */
-	public ExceptionHandlingConfigurer<H> accessDeniedHandler(
-			AccessDeniedHandler accessDeniedHandler) {
+	public ExceptionHandlingConfigurer<H> accessDeniedHandler(AccessDeniedHandler accessDeniedHandler) {
 		this.accessDeniedHandler = accessDeniedHandler;
 		return this;
 	}
@@ -115,9 +115,9 @@ public final class ExceptionHandlingConfigurer<H extends HttpSecurityBuilder<H>>
 	 * {@link AccessDeniedHandler} instances are configured, then a
 	 * {@link RequestMatcherDelegatingAccessDeniedHandler} will be used.
 	 *
-	 * @param deniedHandler the {@link AccessDeniedHandler} to use
+	 * @param deniedHandler    the {@link AccessDeniedHandler} to use
 	 * @param preferredMatcher the {@link RequestMatcher} for this default
-	 * {@link AccessDeniedHandler}
+	 *                         {@link AccessDeniedHandler}
 	 * @return the {@link ExceptionHandlingConfigurer} for further customizations
 	 * @since 5.1
 	 */
@@ -159,9 +159,9 @@ public final class ExceptionHandlingConfigurer<H extends HttpSecurityBuilder<H>>
 	 * {@link AuthenticationEntryPoint} instances are configured, then a
 	 * {@link DelegatingAuthenticationEntryPoint} will be used.
 	 *
-	 * @param entryPoint the {@link AuthenticationEntryPoint} to use
+	 * @param entryPoint       the {@link AuthenticationEntryPoint} to use
 	 * @param preferredMatcher the {@link RequestMatcher} for this default
-	 * {@link AuthenticationEntryPoint}
+	 *                         {@link AuthenticationEntryPoint}
 	 * @return the {@link ExceptionHandlingConfigurer} for further customizations
 	 */
 	public ExceptionHandlingConfigurer<H> defaultAuthenticationEntryPointFor(
@@ -172,6 +172,7 @@ public final class ExceptionHandlingConfigurer<H extends HttpSecurityBuilder<H>>
 
 	/**
 	 * Gets any explicitly configured {@link AuthenticationEntryPoint}
+	 *
 	 * @return
 	 */
 	AuthenticationEntryPoint getAuthenticationEntryPoint() {
@@ -201,8 +202,9 @@ public final class ExceptionHandlingConfigurer<H extends HttpSecurityBuilder<H>>
 	/**
 	 * Gets the {@link AccessDeniedHandler} according to the rules specified by
 	 * {@link #accessDeniedHandler(AccessDeniedHandler)}
+	 *
 	 * @param http the {@link HttpSecurity} used to look up shared
-	 * {@link AccessDeniedHandler}
+	 *             {@link AccessDeniedHandler}
 	 * @return the {@link AccessDeniedHandler} to use
 	 */
 	AccessDeniedHandler getAccessDeniedHandler(H http) {
@@ -216,8 +218,9 @@ public final class ExceptionHandlingConfigurer<H extends HttpSecurityBuilder<H>>
 	/**
 	 * Gets the {@link AuthenticationEntryPoint} according to the rules specified by
 	 * {@link #authenticationEntryPoint(AuthenticationEntryPoint)}
+	 *
 	 * @param http the {@link HttpSecurity} used to look up shared
-	 * {@link AuthenticationEntryPoint}
+	 *             {@link AuthenticationEntryPoint}
 	 * @return the {@link AuthenticationEntryPoint} to use
 	 */
 	AuthenticationEntryPoint getAuthenticationEntryPoint(H http) {

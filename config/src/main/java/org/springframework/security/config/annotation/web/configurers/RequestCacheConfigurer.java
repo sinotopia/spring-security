@@ -45,7 +45,7 @@ import org.springframework.web.accept.HeaderContentNegotiationStrategy;
  * .
  *
  * <h2>Security Filters</h2>
- *
+ * <p>
  * The following Filters are populated
  *
  * <ul>
@@ -53,11 +53,11 @@ import org.springframework.web.accept.HeaderContentNegotiationStrategy;
  * </ul>
  *
  * <h2>Shared Objects Created</h2>
- *
+ * <p>
  * No shared objects are created.
  *
  * <h2>Shared Objects Used</h2>
- *
+ * <p>
  * The following shared objects are used:
  *
  * <ul>
@@ -66,8 +66,8 @@ import org.springframework.web.accept.HeaderContentNegotiationStrategy;
  * </ul>
  *
  * @author Rob Winch
- * @since 3.2
  * @see RequestCache
+ * @since 3.2
  */
 public final class RequestCacheConfigurer<H extends HttpSecurityBuilder<H>> extends
 		AbstractHttpConfigurer<RequestCacheConfigurer<H>, H> {

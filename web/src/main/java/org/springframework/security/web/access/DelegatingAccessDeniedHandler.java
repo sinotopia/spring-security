@@ -34,7 +34,7 @@ import java.util.Map.Entry;
  * @since 3.2
  */
 public final class DelegatingAccessDeniedHandler implements AccessDeniedHandler {
-	
+
 	private final LinkedHashMap<Class<? extends AccessDeniedException>, AccessDeniedHandler> handlers;
 
 	private final AccessDeniedHandler defaultHandler;

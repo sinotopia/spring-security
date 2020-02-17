@@ -82,7 +82,8 @@ public class OpenIDAuthenticationToken extends AbstractAuthenticationToken {
 	 *
 	 * @see org.springframework.security.core.Authentication#getCredentials()
 	 */
-	public Object getCredentials() {
+	@Override
+    public Object getCredentials() {
 		return null;
 	}
 

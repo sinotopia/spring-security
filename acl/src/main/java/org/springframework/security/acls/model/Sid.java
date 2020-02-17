@@ -31,6 +31,7 @@ import java.io.Serializable;
  * @author Ben Alex
  */
 public interface Sid extends Serializable {
+
 	// ~ Methods
 	// ========================================================================================================
 
@@ -39,7 +40,6 @@ public interface Sid extends Serializable {
 	 * contract.
 	 *
 	 * @param obj to be compared
-	 *
 	 * @return <code>true</code> if the objects are equal, <code>false</code> otherwise
 	 */
 	boolean equals(Object obj);

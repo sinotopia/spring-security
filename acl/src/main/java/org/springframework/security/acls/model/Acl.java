@@ -159,21 +159,19 @@ public interface Acl extends Serializable {
 	 * .
 	 * </p>
 	 *
-	 * @param permission the permission or permissions required (at least one entry
-	 * required)
-	 * @param sids the security identities held by the principal (at least one entry
-	 * required)
+	 * @param permission         the permission or permissions required (at least one entry
+	 *                           required)
+	 * @param sids               the security identities held by the principal (at least one entry
+	 *                           required)
 	 * @param administrativeMode if <tt>true</tt> denotes the query is for administrative
-	 * purposes and no logging or auditing (if supported by the implementation) should be
-	 * undertaken
-	 *
+	 *                           purposes and no logging or auditing (if supported by the implementation) should be
+	 *                           undertaken
 	 * @return <tt>true</tt> if authorization is granted
-	 *
-	 * @throws NotFoundException MUST be thrown if an implementation cannot make an
-	 * authoritative authorization decision, usually because there is no ACL information
-	 * for this particular permission and/or SID
+	 * @throws NotFoundException    MUST be thrown if an implementation cannot make an
+	 *                              authoritative authorization decision, usually because there is no ACL information
+	 *                              for this particular permission and/or SID
 	 * @throws UnloadedSidException thrown if the <tt>Acl</tt> does not have details for
-	 * one or more of the <tt>Sid</tt>s passed as arguments
+	 *                              one or more of the <tt>Sid</tt>s passed as arguments
 	 */
 	boolean isGranted(List<Permission> permission, List<Sid> sids,
 			boolean administrativeMode) throws NotFoundException, UnloadedSidException;
@@ -193,8 +191,7 @@ public interface Acl extends Serializable {
 	 * </p>
 	 *
 	 * @param sids one or more security identities the caller is interest in knowing
-	 * whether this <tt>Sid</tt> supports
-	 *
+	 *             whether this <tt>Sid</tt> supports
 	 * @return <tt>true</tt> if every passed <tt>Sid</tt> is represented by this
 	 * <tt>Acl</tt> instance
 	 */

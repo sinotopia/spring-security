@@ -31,14 +31,16 @@ public interface RequestCache {
 	 * Caches the current request for later retrieval, once authentication has taken
 	 * place. Used by <tt>ExceptionTranslationFilter</tt>.
 	 *
-	 * @param request the request to be stored
+	 * @param request  the request to be stored
+	 * @param response the response
 	 */
 	void saveRequest(HttpServletRequest request, HttpServletResponse response);
 
 	/**
 	 * Returns the saved request, leaving it cached.
 	 *
-	 * @param request the current request
+	 * @param request  the current request
+	 * @param response the response
 	 * @return the saved request which was previously cached, or null if there is none.
 	 */
 	SavedRequest getRequest(HttpServletRequest request, HttpServletResponse response);
@@ -58,7 +60,8 @@ public interface RequestCache {
 	/**
 	 * Removes the cached request.
 	 *
-	 * @param request the current request, allowing access to the cache.
+	 * @param request  the current request, allowing access to the cache.
+	 * @param response the response
 	 */
 	void removeRequest(HttpServletRequest request, HttpServletResponse response);
 

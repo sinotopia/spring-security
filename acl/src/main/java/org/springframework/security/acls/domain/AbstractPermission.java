@@ -33,6 +33,7 @@ public abstract class AbstractPermission implements Permission {
 
 	// ~ Constructors
 	// ===================================================================================================
+
 	/**
 	 * Sets the permission mask and uses the '*' character to represent active bits when
 	 * represented as a bit pattern string.
@@ -49,7 +50,7 @@ public abstract class AbstractPermission implements Permission {
 	 *
 	 * @param mask the integer bit mask for the permission
 	 * @param code the character to print for each active bit in the mask (see
-	 * {@link Permission#getPattern()})
+	 *             {@link Permission#getPattern()})
 	 */
 	protected AbstractPermission(int mask, char code) {
 		this.mask = mask;
@@ -59,6 +60,17 @@ public abstract class AbstractPermission implements Permission {
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
+	public final int getMask() {
+		return mask;
+	}
+
+	@Override
+	public String getPattern() {
+		return AclFormattingUtils.printBinary(mask, code);
+	}
+
+	@Override
 	public final boolean equals(Object arg0) {
 		if (arg0 == null) {
 			return false;
@@ -73,18 +85,12 @@ public abstract class AbstractPermission implements Permission {
 		return (this.mask == rhs.getMask());
 	}
 
-	public final int getMask() {
-		return mask;
-	}
-
-	public String getPattern() {
-		return AclFormattingUtils.printBinary(mask, code);
-	}
-
+	@Override
 	public final String toString() {
 		return this.getClass().getSimpleName() + "[" + getPattern() + "=" + mask + "]";
 	}
 
+	@Override
 	public final int hashCode() {
 		return this.mask;
 	}

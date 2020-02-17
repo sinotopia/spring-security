@@ -41,7 +41,8 @@ public class ProviderManagerTests {
 	@Test(expected = ProviderNotFoundException.class)
 	public void authenticationFailsWithUnsupportedToken() throws Exception {
 		Authentication token = new AbstractAuthenticationToken(null) {
-			public Object getCredentials() {
+			@Override
+            public Object getCredentials() {
 				return "";
 			}
 

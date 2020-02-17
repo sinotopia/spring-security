@@ -90,8 +90,7 @@ public class DefaultPermissionFactory implements PermissionFactory {
 
 					registerPermission(perm, permissionName);
 				}
-			}
-			catch (Exception ignore) {
+			} catch (Exception ignore) {
 			}
 		}
 	}
@@ -113,6 +112,7 @@ public class DefaultPermissionFactory implements PermissionFactory {
 		registeredPermissionsByName.put(permissionName, perm);
 	}
 
+	@Override
 	public Permission buildFromMask(int mask) {
 		if (registeredPermissionsByInteger.containsKey(mask)) {
 			// The requested mask has an exact match against a statically-defined
@@ -140,6 +140,7 @@ public class DefaultPermissionFactory implements PermissionFactory {
 		return permission;
 	}
 
+	@Override
 	public Permission buildFromName(String name) {
 		Permission p = registeredPermissionsByName.get(name);
 
@@ -150,6 +151,7 @@ public class DefaultPermissionFactory implements PermissionFactory {
 		return p;
 	}
 
+	@Override
 	public List<Permission> buildFromNames(List<String> names) {
 		if ((names == null) || (names.size() == 0)) {
 			return Collections.emptyList();

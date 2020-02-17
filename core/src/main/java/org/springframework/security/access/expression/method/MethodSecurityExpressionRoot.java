@@ -36,13 +36,13 @@ class MethodSecurityExpressionRoot extends SecurityExpressionRoot implements
 	}
 
 	@Override
-	public void setFilterObject(Object filterObject) {
-		this.filterObject = filterObject;
+	public Object getFilterObject() {
+		return filterObject;
 	}
 
 	@Override
-	public Object getFilterObject() {
-		return filterObject;
+	public void setFilterObject(Object filterObject) {
+		this.filterObject = filterObject;
 	}
 
 	@Override

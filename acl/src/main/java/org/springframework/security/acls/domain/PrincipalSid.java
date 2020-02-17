@@ -51,8 +51,7 @@ public class PrincipalSid implements Sid {
 
 		if (authentication.getPrincipal() instanceof UserDetails) {
 			this.principal = ((UserDetails) authentication.getPrincipal()).getUsername();
-		}
-		else {
+		} else {
 			this.principal = authentication.getPrincipal().toString();
 		}
 	}

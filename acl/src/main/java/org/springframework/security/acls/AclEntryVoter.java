@@ -171,8 +171,9 @@ public class AclEntryVoter extends AbstractAclVoter {
 				&& attribute.getAttribute().equals(getProcessConfigAttribute());
 	}
 
-	public int vote(Authentication authentication, MethodInvocation object,
-			Collection<ConfigAttribute> attributes) {
+	@Override
+    public int vote(Authentication authentication, MethodInvocation object,
+                    Collection<ConfigAttribute> attributes) {
 
 		for (ConfigAttribute attr : attributes) {
 

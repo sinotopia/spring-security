@@ -47,9 +47,11 @@ public class AclImpl implements Acl, MutableAcl, AuditableAcl, OwnershipAcl {
 	private final List<AccessControlEntry> aces = new ArrayList<>();
 	private ObjectIdentity objectIdentity;
 	private Serializable id;
-	private Sid owner; // OwnershipAcl
-	private List<Sid> loadedSids = null; // includes all SIDs the WHERE clause covered,
-											// even if there was no ACE for a SID
+	// OwnershipAcl
+	private Sid owner;
+	// includes all SIDs the WHERE clause covered,
+	private List<Sid> loadedSids = null;
+	// even if there was no ACE for a SID
 	private boolean entriesInheriting = true;
 
 	// ~ Constructors
@@ -60,10 +62,10 @@ public class AclImpl implements Acl, MutableAcl, AuditableAcl, OwnershipAcl {
 	 * {@link org.springframework.security.acls.model.MutableAclService#createAcl(ObjectIdentity)}
 	 * .
 	 *
-	 * @param objectIdentity the object identity this ACL relates to (required)
-	 * @param id the primary key assigned to this ACL (required)
+	 * @param objectIdentity           the object identity this ACL relates to (required)
+	 * @param id                       the primary key assigned to this ACL (required)
 	 * @param aclAuthorizationStrategy authorization strategy (required)
-	 * @param auditLogger audit logger (required)
+	 * @param auditLogger              audit logger (required)
 	 */
 	public AclImpl(ObjectIdentity objectIdentity, Serializable id,
 			AclAuthorizationStrategy aclAuthorizationStrategy, AuditLogger auditLogger) {
@@ -82,16 +84,16 @@ public class AclImpl implements Acl, MutableAcl, AuditableAcl, OwnershipAcl {
 	 * Full constructor, which should be used by persistence tools that do not provide
 	 * field-level access features.
 	 *
-	 * @param objectIdentity the object identity this ACL relates to
-	 * @param id the primary key assigned to this ACL
+	 * @param objectIdentity           the object identity this ACL relates to
+	 * @param id                       the primary key assigned to this ACL
 	 * @param aclAuthorizationStrategy authorization strategy
-	 * @param grantingStrategy the {@code PermissionGrantingStrategy} which will be used
-	 * by the {@code isGranted()} method
-	 * @param parentAcl the parent (may be may be {@code null})
-	 * @param loadedSids the loaded SIDs if only a subset were loaded (may be {@code null}
-	 * )
-	 * @param entriesInheriting if ACEs from the parent should inherit into this ACL
-	 * @param owner the owner (required)
+	 * @param grantingStrategy         the {@code PermissionGrantingStrategy} which will be used
+	 *                                 by the {@code isGranted()} method
+	 * @param parentAcl                the parent (may be may be {@code null})
+	 * @param loadedSids               the loaded SIDs if only a subset were loaded (may be {@code null}
+	 *                                 )
+	 * @param entriesInheriting        if ACEs from the parent should inherit into this ACL
+	 * @param owner                    the owner (required)
 	 */
 	public AclImpl(ObjectIdentity objectIdentity, Serializable id,
 			AclAuthorizationStrategy aclAuthorizationStrategy,
@@ -195,7 +197,7 @@ public class AclImpl implements Acl, MutableAcl, AuditableAcl, OwnershipAcl {
 	 * Delegates to the {@link PermissionGrantingStrategy}.
 	 *
 	 * @throws UnloadedSidException if the passed SIDs are unknown to this ACL because the
-	 * ACL was only loaded for a subset of SIDs
+	 *                              ACL was only loaded for a subset of SIDs
 	 * @see DefaultPermissionGrantingStrategy
 	 */
 	@Override
@@ -307,22 +309,22 @@ public class AclImpl implements Acl, MutableAcl, AuditableAcl, OwnershipAcl {
 			if (this.aces.equals(rhs.aces)) {
 				if ((this.parentAcl == null && rhs.parentAcl == null)
 						|| (this.parentAcl != null && this.parentAcl
-								.equals(rhs.parentAcl))) {
+						.equals(rhs.parentAcl))) {
 					if ((this.objectIdentity == null && rhs.objectIdentity == null)
 							|| (this.objectIdentity != null && this.objectIdentity
-									.equals(rhs.objectIdentity))) {
+							.equals(rhs.objectIdentity))) {
 						if ((this.id == null && rhs.id == null)
 								|| (this.id != null && this.id.equals(rhs.id))) {
 							if ((this.owner == null && rhs.owner == null)
 									|| (this.owner != null && this.owner
-											.equals(rhs.owner))) {
+									.equals(rhs.owner))) {
 								if (this.entriesInheriting == rhs.entriesInheriting) {
 									if ((this.loadedSids == null && rhs.loadedSids == null)) {
 										return true;
 									}
 									if (this.loadedSids != null
 											&& (this.loadedSids.size() == rhs.loadedSids
-													.size())) {
+											.size())) {
 										for (int i = 0; i < this.loadedSids.size(); i++) {
 											if (!this.loadedSids.get(i).equals(
 													rhs.loadedSids.get(i))) {
@@ -346,8 +348,8 @@ public class AclImpl implements Acl, MutableAcl, AuditableAcl, OwnershipAcl {
 		int result = this.parentAcl != null ? this.parentAcl.hashCode() : 0;
 		result = 31 * result + this.aclAuthorizationStrategy.hashCode();
 		result = 31 * result + (this.permissionGrantingStrategy != null ?
-			this.permissionGrantingStrategy.hashCode() :
-			0);
+				this.permissionGrantingStrategy.hashCode() :
+				0);
 		result = 31 * result + (this.aces != null ? this.aces.hashCode() : 0);
 		result = 31 * result + this.objectIdentity.hashCode();
 		result = 31 * result + this.id.hashCode();

@@ -60,9 +60,9 @@ public class PreInvocationAuthorizationAdviceVoter implements
 
 	@Override
 	public int vote(Authentication authentication, MethodInvocation method,
-					Collection<ConfigAttribute> attributes) {
+			Collection<ConfigAttribute> attributes) {
 
-		// Find prefilter and preauth (or combined) attributes
+		// Find pre-filter and pre-auth (or combined) attributes
 		// if both null, abstain
 		// else call advice with them
 

@@ -28,6 +28,8 @@ import java.util.List;
  * Simple concrete implementation of
  * {@link org.springframework.security.access.AccessDecisionManager} that grants access if
  * any <code>AccessDecisionVoter</code> returns an affirmative response.
+ *
+ * @author Ben Alex
  */
 public class AffirmativeBased extends AbstractAccessDecisionManager {
 

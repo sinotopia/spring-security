@@ -36,14 +36,6 @@ public interface ObjectIdentity extends Serializable {
 	// ========================================================================================================
 
 	/**
-	 * @param obj to be compared
-	 *
-	 * @return <tt>true</tt> if the objects are equal, <tt>false</tt> otherwise
-	 * @see Object#equals(Object)
-	 */
-	boolean equals(Object obj);
-
-	/**
 	 * Obtains the actual identifier. This identifier must not be reused to represent
 	 * other domain objects with the same <tt>javaType</tt>.
 	 *
@@ -66,6 +58,13 @@ public interface ObjectIdentity extends Serializable {
 	 * @return the "type" of the domain object (never <tt>null</tt>).
 	 */
 	String getType();
+
+	/**
+	 * @param obj to be compared
+	 * @return <tt>true</tt> if the objects are equal, <tt>false</tt> otherwise
+	 * @see Object#equals(Object)
+	 */
+	boolean equals(Object obj);
 
 	/**
 	 * @return a hash code representation of the <tt>ObjectIdentity</tt>

@@ -32,7 +32,7 @@ import org.springframework.security.web.context.SecurityContextRepository;
  * {@link org.springframework.security.config.annotation.SecurityConfigurer}.
  *
  * <h2>Security Filters</h2>
- *
+ * <p>
  * The following Filters are populated
  *
  * <ul>
@@ -40,11 +40,11 @@ import org.springframework.security.web.context.SecurityContextRepository;
  * </ul>
  *
  * <h2>Shared Objects Created</h2>
- *
+ * <p>
  * No shared objects are created.
  *
  * <h2>Shared Objects Used</h2>
- *
+ * <p>
  * The following shared objects are used:
  *
  * <ul>
@@ -63,6 +63,7 @@ public final class SecurityContextConfigurer<H extends HttpSecurityBuilder<H>> e
 
 	/**
 	 * Creates a new instance
+	 *
 	 * @see HttpSecurity#securityContext()
 	 */
 	public SecurityContextConfigurer() {
@@ -70,6 +71,7 @@ public final class SecurityContextConfigurer<H extends HttpSecurityBuilder<H>> e
 
 	/**
 	 * Specifies the shared {@link SecurityContextRepository} that is to be used
+	 *
 	 * @param securityContextRepository the {@link SecurityContextRepository} to use
 	 * @return the {@link HttpSecurity} for further customizations
 	 */

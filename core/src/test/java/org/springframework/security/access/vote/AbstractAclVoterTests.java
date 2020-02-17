@@ -35,8 +35,9 @@ public class AbstractAclVoterTests {
 			return false;
 		}
 
-		public int vote(Authentication authentication, MethodInvocation object,
-				Collection<ConfigAttribute> attributes) {
+		@Override
+        public int vote(Authentication authentication, MethodInvocation object,
+                        Collection<ConfigAttribute> attributes) {
 			return 0;
 		}
 	};

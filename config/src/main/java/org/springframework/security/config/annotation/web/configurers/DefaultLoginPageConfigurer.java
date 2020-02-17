@@ -39,7 +39,7 @@ import java.util.function.Function;
  * </p>
  *
  * <h2>Security Filters</h2>
- *
+ * <p>
  * The following Filters are conditionally populated
  *
  * <ul>
@@ -48,9 +48,9 @@ import java.util.function.Function;
  * </ul>
  *
  * <h2>Shared Objects Created</h2>
- *
+ * <p>
  * No shared objects are created. isLogoutRequest <h2>Shared Objects Used</h2>
- *
+ * <p>
  * The following shared objects are used:
  *
  * <ul>
@@ -60,9 +60,8 @@ import java.util.function.Function;
  * {@link DefaultLoginPageConfigurer} should be added and how to configure it.</li>
  * </ul>
  *
- * @see WebSecurityConfigurerAdapter
- *
  * @author Rob Winch
+ * @see WebSecurityConfigurerAdapter
  * @since 3.2
  */
 public final class DefaultLoginPageConfigurer<H extends HttpSecurityBuilder<H>> extends

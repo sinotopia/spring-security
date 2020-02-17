@@ -22,11 +22,13 @@ import org.springframework.security.core.Authentication;
 
 public class TestPermissionEvaluator implements PermissionEvaluator {
 
+	@Override
 	public boolean hasPermission(Authentication authentication,
 			Object targetDomainObject, Object permission) {
 		return false;
 	}
 
+	@Override
 	public boolean hasPermission(Authentication authentication, Serializable targetId,
 			String targetType, Object permission) {
 		return false;

@@ -117,7 +117,7 @@ public class PrePostAnnotationSecurityMetadataSource extends
 	 * consider method-specific annotations on an interface before class-level ones.
 	 */
 	private <A extends Annotation> A findAnnotation(Method method, Class<?> targetClass,
-													Class<A> annotationClass) {
+			Class<A> annotationClass) {
 		// The method may be on an interface, but we need attributes from the target
 		// class.
 		// If the target class is null, the method will be unchanged.

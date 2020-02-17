@@ -141,6 +141,7 @@ public class AbstractAccessDecisionManagerTests {
 			super(decisionVoters);
 		}
 
+		@Override
 		public void decide(Authentication authentication, Object object,
 				Collection<ConfigAttribute> configAttributes) {
 		}
@@ -156,8 +157,9 @@ public class AbstractAccessDecisionManagerTests {
 			throw new UnsupportedOperationException("mock method not implemented");
 		}
 
-		public int vote(Authentication authentication, Object object,
-				Collection<ConfigAttribute> attributes) {
+		@Override
+        public int vote(Authentication authentication, Object object,
+                        Collection<ConfigAttribute> attributes) {
 			throw new UnsupportedOperationException("mock method not implemented");
 		}
 	}

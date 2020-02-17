@@ -62,17 +62,16 @@ public class DefaultPermissionGrantingStrategy implements PermissionGrantingStra
 	 * presented to the method were not loaded by the ACL,
 	 * <code>UnloadedSidException</code> will be thrown.
 	 *
-	 * @param permission the exact permissions to scan for (order is important)
-	 * @param sids the exact SIDs to scan for (order is important)
+	 * @param permission         the exact permissions to scan for (order is important)
+	 * @param sids               the exact SIDs to scan for (order is important)
 	 * @param administrativeMode if <code>true</code> denotes the query is for
-	 * administrative purposes and no auditing will be undertaken
-	 *
+	 *                           administrative purposes and no auditing will be undertaken
 	 * @return <code>true</code> if one of the permissions has been granted,
 	 * <code>false</code> if one of the permissions has been specifically revoked
-	 *
 	 * @throws NotFoundException if an exact ACE for one of the permission bit masks and
-	 * SID combination could not be found
+	 *                           SID combination could not be found
 	 */
+	@Override
 	public boolean isGranted(Acl acl, List<Permission> permission, List<Sid> sids,
 			boolean administrativeMode) throws NotFoundException {
 
@@ -134,8 +133,7 @@ public class DefaultPermissionGrantingStrategy implements PermissionGrantingStra
 		if (acl.isEntriesInheriting() && (acl.getParentAcl() != null)) {
 			// We have a parent, so let them try to find a matching ACE
 			return acl.getParentAcl().isGranted(permission, sids, false);
-		}
-		else {
+		} else {
 			// We either have no parent, or we're the uppermost parent
 			throw new NotFoundException(
 					"Unable to locate a matching ACE for passed permissions and SIDs");
@@ -156,7 +154,7 @@ public class DefaultPermissionGrantingStrategy implements PermissionGrantingStra
 	 * }</pre>
 	 *
 	 * @param ace the ACE from the Acl holding the mask.
-	 * @param p the Permission we are checking against.
+	 * @param p   the Permission we are checking against.
 	 * @return true, if the respective masks are considered to be equal.
 	 */
 	protected boolean isGranted(AccessControlEntry ace, Permission p) {

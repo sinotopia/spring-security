@@ -34,11 +34,13 @@ public class JpaPermissionEvaluator implements PermissionEvaluator {
 		System.out.println("initializing " + this);
 	}
 
+	@Override
 	public boolean hasPermission(Authentication authentication,
 			Object targetDomainObject, Object permission) {
 		return true;
 	}
 
+	@Override
 	public boolean hasPermission(Authentication authentication, Serializable targetId,
 			String targetType, Object permission) {
 		return true;

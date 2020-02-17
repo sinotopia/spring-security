@@ -61,11 +61,11 @@ public class AclAuthorizationStrategyImpl implements AclAuthorizationStrategy {
 	 * {@link GrantedAuthority} instances that can be held to always permit ACL changes.
 	 *
 	 * @param auths the <code>GrantedAuthority</code>s that have special permissions
-	 * (index 0 is the authority needed to change ownership, index 1 is the authority
-	 * needed to modify auditing details, index 2 is the authority needed to change other
-	 * ACL and ACE details) (required)
-	 * <p>
-	 * Alternatively, a single value can be supplied for all three permissions.
+	 *              (index 0 is the authority needed to change ownership, index 1 is the authority
+	 *              needed to modify auditing details, index 2 is the authority needed to change other
+	 *              ACL and ACE details) (required)
+	 *              <p>
+	 *              Alternatively, a single value can be supplied for all three permissions.
 	 */
 	public AclAuthorizationStrategyImpl(GrantedAuthority... auths) {
 		Assert.isTrue(auths != null && (auths.length == 3 || auths.length == 1),
@@ -74,8 +74,7 @@ public class AclAuthorizationStrategyImpl implements AclAuthorizationStrategy {
 			gaTakeOwnership = auths[0];
 			gaModifyAuditing = auths[1];
 			gaGeneralChanges = auths[2];
-		}
-		else {
+		} else {
 			gaTakeOwnership = gaModifyAuditing = gaGeneralChanges = auths[0];
 		}
 	}
@@ -83,11 +82,12 @@ public class AclAuthorizationStrategyImpl implements AclAuthorizationStrategy {
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
 	public void securityCheck(Acl acl, int changeType) {
 		if ((SecurityContextHolder.getContext() == null)
 				|| (SecurityContextHolder.getContext().getAuthentication() == null)
 				|| !SecurityContextHolder.getContext().getAuthentication()
-						.isAuthenticated()) {
+				.isAuthenticated()) {
 			throw new AccessDeniedException(
 					"Authenticated principal required to operate with ACLs");
 		}
@@ -108,14 +108,11 @@ public class AclAuthorizationStrategyImpl implements AclAuthorizationStrategy {
 
 		if (changeType == CHANGE_AUDITING) {
 			requiredAuthority = this.gaModifyAuditing;
-		}
-		else if (changeType == CHANGE_GENERAL) {
+		} else if (changeType == CHANGE_GENERAL) {
 			requiredAuthority = this.gaGeneralChanges;
-		}
-		else if (changeType == CHANGE_OWNERSHIP) {
+		} else if (changeType == CHANGE_OWNERSHIP) {
 			requiredAuthority = this.gaTakeOwnership;
-		}
-		else {
+		} else {
 			throw new IllegalArgumentException("Unknown change type");
 		}
 
@@ -140,7 +137,7 @@ public class AclAuthorizationStrategyImpl implements AclAuthorizationStrategy {
 	 * Creates a principal-like sid from the authentication information.
 	 *
 	 * @param authentication the authentication information that can provide principal and
-	 * thus the sid's id will be dependant on the value inside
+	 *                       thus the sid's id will be dependant on the value inside
 	 * @return a sid with the ID taken from the authentication information
 	 */
 	protected Sid createCurrentUser(Authentication authentication) {

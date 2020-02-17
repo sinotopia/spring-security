@@ -95,7 +95,8 @@ public class NamespaceGlobalMethodSecurityTests {
 
 		public static class DenyAllAccessDecisionManager implements AccessDecisionManager {
 
-			public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) {
+			@Override
+            public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) {
 				throw new AccessDeniedException("Always Denied");
 			}
 

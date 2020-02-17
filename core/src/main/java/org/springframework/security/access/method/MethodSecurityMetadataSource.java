@@ -30,5 +30,10 @@ import org.springframework.security.access.SecurityMetadataSource;
  */
 public interface MethodSecurityMetadataSource extends SecurityMetadataSource {
 
+	/**
+	 * @param method
+	 * @param targetClass
+	 * @return
+	 */
 	Collection<ConfigAttribute> getAttributes(Method method, Class<?> targetClass);
 }

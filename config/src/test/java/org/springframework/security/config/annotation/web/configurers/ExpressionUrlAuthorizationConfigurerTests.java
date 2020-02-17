@@ -95,7 +95,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().hasRole("ROLE_USER");
 			// @formatter:on
 		}
@@ -117,7 +117,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().hasRole("USER");
 			// @formatter:on
 		}
@@ -140,7 +140,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests();
+					.authorizeRequests();
 			// @formatter:on
 		}
 	}
@@ -158,7 +158,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
+					.authorizeRequests()
 					.antMatchers("/a").authenticated()
 					.anyRequest();
 			// @formatter:on
@@ -200,9 +200,9 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
+					.httpBasic()
 					.and()
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().hasAnyAuthority("ROLE_USER");
 			// @formatter:on
 		}
@@ -243,9 +243,9 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
+					.httpBasic()
 					.and()
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().hasAuthority("ROLE_USER");
 			// @formatter:on
 		}
@@ -296,9 +296,9 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
+					.httpBasic()
 					.and()
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().hasAnyAuthority("ROLE_USER", "ROLE_ADMIN");
 			// @formatter:on
 		}
@@ -328,7 +328,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().hasAnyRole("USER");
 			// @formatter:on
 		}
@@ -367,7 +367,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().hasAnyRole("USER", "ADMIN");
 			// @formatter:on
 		}
@@ -403,9 +403,9 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
+					.httpBasic()
 					.and()
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().hasIpAddress("192.168.1.0");
 			// @formatter:on
 		}
@@ -434,9 +434,9 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
+					.httpBasic()
 					.and()
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().anonymous();
 			// @formatter:on
 		}
@@ -465,11 +465,11 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.rememberMe()
+					.rememberMe()
 					.and()
-				.httpBasic()
+					.httpBasic()
 					.and()
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().rememberMe();
 			// @formatter:on
 		}
@@ -478,7 +478,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.inMemoryAuthentication()
+					.inMemoryAuthentication()
 					.withUser("user").password("password").roles("USER");
 			// @formatter:on
 		}
@@ -507,9 +507,9 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
+					.httpBasic()
 					.and()
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().denyAll();
 			// @formatter:on
 		}
@@ -538,9 +538,9 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
+					.httpBasic()
 					.and()
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().not().denyAll();
 			// @formatter:on
 		}
@@ -570,11 +570,11 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.rememberMe()
+					.rememberMe()
 					.and()
-				.httpBasic()
+					.httpBasic()
 					.and()
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().fullyAuthenticated();
 			// @formatter:on
 		}
@@ -613,11 +613,11 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.rememberMe()
+					.rememberMe()
 					.and()
-				.httpBasic()
+					.httpBasic()
 					.and()
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().access("hasRole('ROLE_USER') or request.method == 'GET'");
 			// @formatter:on
 		}
@@ -638,12 +638,12 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.httpBasic()
+					.httpBasic()
 					.and()
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().authenticated()
 					.and()
-				.authorizeRequests();
+					.authorizeRequests();
 			// @formatter:on
 		}
 	}
@@ -662,14 +662,14 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 			AffirmativeBased adm = new AffirmativeBased(Collections.singletonList(expressionVoter));
 			// @formatter:off
 			http
-				.authorizeRequests()
+					.authorizeRequests()
 					.expressionHandler(handler)
 					.accessDecisionManager(adm)
 					.filterSecurityInterceptorOncePerRequest(true)
 					.antMatchers("/a", "/b").hasRole("ADMIN")
 					.anyRequest().permitAll()
 					.and()
-				.formLogin();
+					.formLogin();
 			// @formatter:on
 		}
 	}
@@ -692,7 +692,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
+					.authorizeRequests()
 					.anyRequest().permitAll()
 					.withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
 						public <O extends FilterSecurityInterceptor> O postProcess(
@@ -752,7 +752,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
+					.authorizeRequests()
 					.antMatchers("/admin").hasRole("ADMIN")
 					.antMatchers("/user").hasRole("USER")
 					.antMatchers("/allow").access("@permission.check(authentication,'user')")
@@ -818,7 +818,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
+					.authorizeRequests()
 					.expressionHandler(expressionHandler())
 					.antMatchers("/admin").hasRole("ADMIN")
 					.antMatchers("/user").hasRole("USER")
@@ -874,8 +874,8 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
-				http
-				.authorizeRequests()
+			http
+					.authorizeRequests()
 					.anyRequest().authenticated();
 			// @formatter:on
 		}
@@ -884,7 +884,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 			// @formatter:off
 			auth
-				.inMemoryAuthentication();
+					.inMemoryAuthentication();
 			// @formatter:on
 		}
 
@@ -936,7 +936,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
+					.authorizeRequests()
 					.antMatchers("/allow").access("hasPermission('ID', 'TYPE', 'PERMISSION')")
 					.antMatchers("/allowObject").access("hasPermission('TESTOBJ', 'PERMISSION')")
 					.antMatchers("/deny").access("hasPermission('ID', 'TYPE', 'NO PERMISSION')")
@@ -986,7 +986,7 @@ public class ExpressionUrlAuthorizationConfigurerTests {
 		protected void configure(HttpSecurity http) throws Exception {
 			// @formatter:off
 			http
-				.authorizeRequests()
+					.authorizeRequests()
 					.antMatchers("/allow").access("hasRole('MEMBER')")
 					.antMatchers("/deny").access("hasRole('ADMIN')")
 					.anyRequest().permitAll();

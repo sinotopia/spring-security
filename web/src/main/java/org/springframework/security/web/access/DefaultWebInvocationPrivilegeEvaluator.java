@@ -72,6 +72,7 @@ public class DefaultWebInvocationPrivilegeEvaluator implements
 	 * @param uri the URI excluding the context path (a default context path setting will
 	 *            be used)
 	 */
+	@Override
 	public boolean isAllowed(String uri, Authentication authentication) {
 		return isAllowed(null, uri, null, authentication);
 	}

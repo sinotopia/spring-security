@@ -36,7 +36,7 @@ import org.springframework.security.web.servletapi.SecurityContextHolderAwareReq
  * {@link SecurityContext} from the {@link SecurityContextHolder}.
  *
  * <h2>Security Filters</h2>
- *
+ * <p>
  * The following Filters are populated
  *
  * <ul>
@@ -44,7 +44,7 @@ import org.springframework.security.web.servletapi.SecurityContextHolderAwareReq
  * </ul>
  *
  * <h2>Shared Objects Created</h2>
- *
+ * <p>
  * No shared objects are created.
  *
  * <h2>Shared Objects Used</h2>
@@ -59,10 +59,12 @@ import org.springframework.security.web.servletapi.SecurityContextHolderAwareReq
  */
 public final class ServletApiConfigurer<H extends HttpSecurityBuilder<H>> extends
 		AbstractHttpConfigurer<ServletApiConfigurer<H>, H> {
+	
 	private SecurityContextHolderAwareRequestFilter securityContextRequestFilter = new SecurityContextHolderAwareRequestFilter();
 
 	/**
 	 * Creates a new instance
+	 *
 	 * @see HttpSecurity#servletApi()
 	 */
 	public ServletApiConfigurer() {

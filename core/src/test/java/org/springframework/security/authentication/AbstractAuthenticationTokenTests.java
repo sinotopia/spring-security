@@ -162,7 +162,8 @@ public class AbstractAuthenticationTokenTests {
 			this.credentials = credentials;
 		}
 
-		public Object getCredentials() {
+		@Override
+        public Object getCredentials() {
 			return this.credentials;
 		}
 

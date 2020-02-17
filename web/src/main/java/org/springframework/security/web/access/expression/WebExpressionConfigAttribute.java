@@ -28,7 +28,9 @@ import org.springframework.security.web.FilterInvocation;
  */
 class WebExpressionConfigAttribute implements ConfigAttribute,
 		EvaluationContextPostProcessor<FilterInvocation> {
+
 	private final Expression authorizeExpression;
+
 	private final EvaluationContextPostProcessor<FilterInvocation> postProcessor;
 
 	WebExpressionConfigAttribute(Expression authorizeExpression,

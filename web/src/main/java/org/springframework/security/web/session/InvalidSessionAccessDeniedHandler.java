@@ -43,8 +43,9 @@ public final class InvalidSessionAccessDeniedHandler implements AccessDeniedHand
 		this.invalidSessionStrategy = invalidSessionStrategy;
 	}
 
-	public void handle(HttpServletRequest request, HttpServletResponse response,
-			AccessDeniedException accessDeniedException) throws IOException,
+	@Override
+    public void handle(HttpServletRequest request, HttpServletResponse response,
+                       AccessDeniedException accessDeniedException) throws IOException,
 			ServletException {
 		invalidSessionStrategy.onInvalidSessionDetected(request, response);
 	}

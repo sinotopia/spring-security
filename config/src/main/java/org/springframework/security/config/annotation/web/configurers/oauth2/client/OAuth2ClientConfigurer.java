@@ -52,7 +52,7 @@ import org.springframework.util.Assert;
  * Alternatively, a {@link ClientRegistrationRepository} {@code @Bean} may be registered instead.
  *
  * <h2>Security Filters</h2>
- *
+ * <p>
  * The following {@code Filter}'s are populated for {@link #authorizationCodeGrant()}:
  *
  * <ul>
@@ -61,7 +61,7 @@ import org.springframework.util.Assert;
  * </ul>
  *
  * <h2>Shared Objects Created</h2>
- *
+ * <p>
  * The following shared objects are populated:
  *
  * <ul>
@@ -70,7 +70,7 @@ import org.springframework.util.Assert;
  * </ul>
  *
  * <h2>Shared Objects Used</h2>
- *
+ * <p>
  * The following shared objects are used:
  *
  * <ul>
@@ -79,15 +79,15 @@ import org.springframework.util.Assert;
  * </ul>
  *
  * @author Joe Grandja
- * @since 5.1
  * @see OAuth2AuthorizationRequestRedirectFilter
  * @see OAuth2AuthorizationCodeGrantFilter
  * @see ClientRegistrationRepository
  * @see OAuth2AuthorizedClientRepository
  * @see AbstractHttpConfigurer
+ * @since 5.1
  */
 public final class OAuth2ClientConfigurer<B extends HttpSecurityBuilder<B>> extends
-	AbstractHttpConfigurer<OAuth2ClientConfigurer<B>, B> {
+		AbstractHttpConfigurer<OAuth2ClientConfigurer<B>, B> {
 
 	private AuthorizationCodeGrantConfigurer authorizationCodeGrantConfigurer = new AuthorizationCodeGrantConfigurer();
 
@@ -140,7 +140,7 @@ public final class OAuth2ClientConfigurer<B extends HttpSecurityBuilder<B>> exte
 	 * Configures the OAuth 2.0 Authorization Code Grant.
 	 *
 	 * @param authorizationCodeGrantCustomizer the {@link Customizer} to provide more options for
-	 * the {@link AuthorizationCodeGrantConfigurer}
+	 *                                         the {@link AuthorizationCodeGrantConfigurer}
 	 * @return the {@link OAuth2ClientConfigurer} for further customizations
 	 */
 	public OAuth2ClientConfigurer<B> authorizationCodeGrant(Customizer<AuthorizationCodeGrantConfigurer> authorizationCodeGrantCustomizer) {

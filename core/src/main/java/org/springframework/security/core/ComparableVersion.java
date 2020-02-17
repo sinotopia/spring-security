@@ -46,7 +46,7 @@ import java.util.Stack;
 
 /**
  * Generic implementation of version comparison.
- *
+ * <p>
  * NOTE: This is a copy from
  * https://svn.apache.org/repos/asf/maven/maven-3/tags/maven-3.1.0
  * /maven-artifact/src/main/
@@ -78,11 +78,11 @@ import java.util.Stack;
  * </ul>
  * </p>
  *
+ * @author <a href="mailto:kenney@apache.org">Kenney Westerhof</a>
+ * @author <a href="mailto:hboutemy@apache.org">HervÃ© Boutemy</a>
  * @see <a
  * href="https://cwiki.apache.org/confluence/display/MAVENOLD/Versioning">"Versioning" on
  * Maven Wiki</a>
- * @author <a href="mailto:kenney@apache.org">Kenney Westerhof</a>
- * @author <a href="mailto:hboutemy@apache.org">HervÃ© Boutemy</a>
  */
 class ComparableVersion implements Comparable<ComparableVersion> {
 	private String value;
@@ -138,17 +138,17 @@ class ComparableVersion implements Comparable<ComparableVersion> {
 			}
 
 			switch (item.getType()) {
-			case INTEGER_ITEM:
-				return value.compareTo(((IntegerItem) item).value);
+				case INTEGER_ITEM:
+					return value.compareTo(((IntegerItem) item).value);
 
-			case STRING_ITEM:
-				return 1; // 1.1 > 1-sp
+				case STRING_ITEM:
+					return 1; // 1.1 > 1-sp
 
-			case LIST_ITEM:
-				return 1; // 1.1 > 1-1
+				case LIST_ITEM:
+					return 1; // 1.1 > 1-1
 
-			default:
-				throw new RuntimeException("invalid item: " + item.getClass());
+				default:
+					throw new RuntimeException("invalid item: " + item.getClass());
 			}
 		}
 
@@ -162,12 +162,13 @@ class ComparableVersion implements Comparable<ComparableVersion> {
 	 * Represents a string in the version item list, usually a qualifier.
 	 */
 	private static class StringItem implements Item {
-		private static final String[] QUALIFIERS = { "alpha", "beta", "milestone", "rc",
-				"snapshot", "", "sp" };
+		private static final String[] QUALIFIERS = {"alpha", "beta", "milestone", "rc",
+				"snapshot", "", "sp"};
 
 		private static final List<String> _QUALIFIERS = Arrays.asList(QUALIFIERS);
 
 		private static final Properties ALIASES = new Properties();
+
 		static {
 			ALIASES.put("ga", "");
 			ALIASES.put("final", "");
@@ -188,15 +189,15 @@ class ComparableVersion implements Comparable<ComparableVersion> {
 			if (followedByDigit && value.length() == 1) {
 				// a1 = alpha-1, b1 = beta-1, m1 = milestone-1
 				switch (value.charAt(0)) {
-				case 'a':
-					value = "alpha";
-					break;
-				case 'b':
-					value = "beta";
-					break;
-				case 'm':
-					value = "milestone";
-					break;
+					case 'a':
+						value = "alpha";
+						break;
+					case 'b':
+						value = "beta";
+						break;
+					case 'm':
+						value = "milestone";
+						break;
 				}
 			}
 			this.value = ALIASES.getProperty(value, value);
@@ -214,10 +215,10 @@ class ComparableVersion implements Comparable<ComparableVersion> {
 
 		/**
 		 * Returns a comparable value for a qualifier.
-		 *
+		 * <p>
 		 * This method takes into account the ordering of known qualifiers then unknown
 		 * qualifiers with lexical ordering.
-		 *
+		 * <p>
 		 * just returning an Integer with the index here is faster, but requires a lot of
 		 * if/then/else to check for -1 or QUALIFIERS.size and then resort to lexical
 		 * ordering. Most comparisons are decided by the first character, so this is still
@@ -239,18 +240,18 @@ class ComparableVersion implements Comparable<ComparableVersion> {
 				return comparableQualifier(value).compareTo(RELEASE_VERSION_INDEX);
 			}
 			switch (item.getType()) {
-			case INTEGER_ITEM:
-				return -1; // 1.any < 1.1 ?
+				case INTEGER_ITEM:
+					return -1; // 1.any < 1.1 ?
 
-			case STRING_ITEM:
-				return comparableQualifier(value).compareTo(
-						comparableQualifier(((StringItem) item).value));
+				case STRING_ITEM:
+					return comparableQualifier(value).compareTo(
+							comparableQualifier(((StringItem) item).value));
 
-			case LIST_ITEM:
-				return -1; // 1.any < 1-1
+				case LIST_ITEM:
+					return -1; // 1.any < 1-1
 
-			default:
-				throw new RuntimeException("invalid item: " + item.getClass());
+				default:
+					throw new RuntimeException("invalid item: " + item.getClass());
 			}
 		}
 
@@ -277,12 +278,11 @@ class ComparableVersion implements Comparable<ComparableVersion> {
 
 		void normalize() {
 			for (ListIterator<Item> iterator = listIterator(size()); iterator
-					.hasPrevious();) {
+					.hasPrevious(); ) {
 				Item item = iterator.previous();
 				if (item.isNull()) {
 					iterator.remove(); // remove null trailing items: 0, "", empty list
-				}
-				else {
+				} else {
 					break;
 				}
 			}
@@ -298,39 +298,39 @@ class ComparableVersion implements Comparable<ComparableVersion> {
 				return first.compareTo(null);
 			}
 			switch (item.getType()) {
-			case INTEGER_ITEM:
-				return -1; // 1-1 < 1.0.x
+				case INTEGER_ITEM:
+					return -1; // 1-1 < 1.0.x
 
-			case STRING_ITEM:
-				return 1; // 1-1 > 1-sp
+				case STRING_ITEM:
+					return 1; // 1-1 > 1-sp
 
-			case LIST_ITEM:
-				Iterator<Item> left = iterator();
-				Iterator<Item> right = ((ListItem) item).iterator();
+				case LIST_ITEM:
+					Iterator<Item> left = iterator();
+					Iterator<Item> right = ((ListItem) item).iterator();
 
-				while (left.hasNext() || right.hasNext()) {
-					Item l = left.hasNext() ? left.next() : null;
-					Item r = right.hasNext() ? right.next() : null;
+					while (left.hasNext() || right.hasNext()) {
+						Item l = left.hasNext() ? left.next() : null;
+						Item r = right.hasNext() ? right.next() : null;
 
-					// if this is shorter, then invert the compare and mul with -1
-					int result = l == null ? -1 * r.compareTo(l) : l.compareTo(r);
+						// if this is shorter, then invert the compare and mul with -1
+						int result = l == null ? -1 * r.compareTo(l) : l.compareTo(r);
 
-					if (result != 0) {
-						return result;
+						if (result != 0) {
+							return result;
+						}
 					}
-				}
 
-				return 0;
+					return 0;
 
-			default:
-				throw new RuntimeException("invalid item: " + item.getClass());
+				default:
+					throw new RuntimeException("invalid item: " + item.getClass());
 			}
 		}
 
 		@Override
 		public String toString() {
 			StringBuilder buffer = new StringBuilder("(");
-			for (Iterator<Item> iter = iterator(); iter.hasNext();) {
+			for (Iterator<Item> iter = iterator(); iter.hasNext(); ) {
 				buffer.append(iter.next());
 				if (iter.hasNext()) {
 					buffer.append(',');
@@ -367,17 +367,14 @@ class ComparableVersion implements Comparable<ComparableVersion> {
 			if (c == '.') {
 				if (i == startIndex) {
 					list.add(IntegerItem.ZERO);
-				}
-				else {
+				} else {
 					list.add(parseItem(isDigit, version.substring(startIndex, i)));
 				}
 				startIndex = i + 1;
-			}
-			else if (c == '-') {
+			} else if (c == '-') {
 				if (i == startIndex) {
 					list.add(IntegerItem.ZERO);
-				}
-				else {
+				} else {
 					list.add(parseItem(isDigit, version.substring(startIndex, i)));
 				}
 				startIndex = i + 1;
@@ -395,16 +392,14 @@ class ComparableVersion implements Comparable<ComparableVersion> {
 						stack.push(list);
 					}
 				}
-			}
-			else if (Character.isDigit(c)) {
+			} else if (Character.isDigit(c)) {
 				if (!isDigit && i > startIndex) {
 					list.add(new StringItem(version.substring(startIndex, i), true));
 					startIndex = i;
 				}
 
 				isDigit = true;
-			}
-			else {
+			} else {
 				if (isDigit && i > startIndex) {
 					list.add(parseItem(true, version.substring(startIndex, i)));
 					startIndex = i;

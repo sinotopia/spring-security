@@ -82,7 +82,7 @@ public final class ChannelSecurityInterceptor extends AbstractSecurityIntercepto
 
 	@Override
 	public void afterSendCompletion(Message<?> message, MessageChannel channel,
-									boolean sent, Exception ex) {
+			boolean sent, Exception ex) {
 		InterceptorStatusToken token = clearToken();
 		finallyInvocation(token);
 	}

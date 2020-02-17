@@ -29,7 +29,7 @@ import java.lang.annotation.*;
 @Inherited
 @Documented
 public @interface PostFilter {
-	
+
 	/**
 	 * @return the Spring-EL expression to be evaluated after invoking the protected
 	 * method

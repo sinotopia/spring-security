@@ -54,7 +54,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author Rob Winch
  * @since 3.2
- *
  */
 @Configuration(proxyBeanMethods = false)
 @Import(ObjectPostProcessorConfiguration.class)
@@ -192,7 +191,7 @@ public class AuthenticationConfiguration {
 	private static <T> T getBeanOrNull(ApplicationContext applicationContext, Class<T> type) {
 		try {
 			return applicationContext.getBean(type);
-		} catch(NoSuchBeanDefinitionException notFound) {
+		} catch (NoSuchBeanDefinitionException notFound) {
 			return null;
 		}
 	}
@@ -266,30 +265,30 @@ public class AuthenticationConfiguration {
 		 * @param objectPostProcessor the {@link ObjectPostProcessor} instance to use.
 		 */
 		DefaultPasswordEncoderAuthenticationManagerBuilder(
-			ObjectPostProcessor<Object> objectPostProcessor, PasswordEncoder defaultPasswordEncoder) {
+				ObjectPostProcessor<Object> objectPostProcessor, PasswordEncoder defaultPasswordEncoder) {
 			super(objectPostProcessor);
 			this.defaultPasswordEncoder = defaultPasswordEncoder;
 		}
 
 		@Override
 		public InMemoryUserDetailsManagerConfigurer<AuthenticationManagerBuilder> inMemoryAuthentication()
-			throws Exception {
+				throws Exception {
 			return super.inMemoryAuthentication()
-				.passwordEncoder(this.defaultPasswordEncoder);
+					.passwordEncoder(this.defaultPasswordEncoder);
 		}
 
 		@Override
 		public JdbcUserDetailsManagerConfigurer<AuthenticationManagerBuilder> jdbcAuthentication()
-			throws Exception {
+				throws Exception {
 			return super.jdbcAuthentication()
-				.passwordEncoder(this.defaultPasswordEncoder);
+					.passwordEncoder(this.defaultPasswordEncoder);
 		}
 
 		@Override
 		public <T extends UserDetailsService> DaoAuthenticationConfigurer<AuthenticationManagerBuilder, T> userDetailsService(
-			T userDetailsService) throws Exception {
+				T userDetailsService) throws Exception {
 			return super.userDetailsService(userDetailsService)
-				.passwordEncoder(this.defaultPasswordEncoder);
+					.passwordEncoder(this.defaultPasswordEncoder);
 		}
 	}
 
@@ -308,7 +307,7 @@ public class AuthenticationConfiguration {
 
 		@Override
 		public boolean matches(CharSequence rawPassword,
-			String encodedPassword) {
+				String encodedPassword) {
 			return getPasswordEncoder().matches(rawPassword, encodedPassword);
 		}
 

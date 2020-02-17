@@ -68,7 +68,6 @@ public class ObjectIdentityImpl implements ObjectIdentity {
 	 * more control is required, a different constructor should be used.
 	 *
 	 * @param object the domain object instance to create an identity for.
-	 *
 	 * @throws IdentityUnavailableException if identity could not be extracted
 	 */
 	public ObjectIdentityImpl(Object object) throws IdentityUnavailableException {
@@ -80,10 +79,9 @@ public class ObjectIdentityImpl implements ObjectIdentity {
 		Object result;
 
 		try {
-			Method method = typeClass.getMethod("getId", new Class[] {});
+			Method method = typeClass.getMethod("getId", new Class[]{});
 			result = method.invoke(object);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			throw new IdentityUnavailableException(
 					"Could not extract identity from object " + object, e);
 		}
@@ -97,6 +95,16 @@ public class ObjectIdentityImpl implements ObjectIdentity {
 	// ~ Methods
 	// ========================================================================================================
 
+	@Override
+	public Serializable getIdentifier() {
+		return identifier;
+	}
+
+	@Override
+	public String getType() {
+		return type;
+	}
+
 	/**
 	 * Important so caching operates properly.
 	 * <p>
@@ -107,7 +115,6 @@ public class ObjectIdentityImpl implements ObjectIdentity {
 	 * numerically equal. Other serializable types are evaluated using a simple equality.
 	 *
 	 * @param arg0 object to compare
-	 *
 	 * @return <code>true</code> if the presented object matches this object
 	 */
 	@Override
@@ -124,8 +131,7 @@ public class ObjectIdentityImpl implements ObjectIdentity {
 					.longValue()) {
 				return false;
 			}
-		}
-		else {
+		} else {
 			// Use plain equality for other serializable types
 			if (!identifier.equals(other.identifier)) {
 				return false;
@@ -133,16 +139,6 @@ public class ObjectIdentityImpl implements ObjectIdentity {
 		}
 
 		return type.equals(other.type);
-	}
-
-	@Override
-	public Serializable getIdentifier() {
-		return identifier;
-	}
-
-	@Override
-	public String getType() {
-		return type;
 	}
 
 	/**

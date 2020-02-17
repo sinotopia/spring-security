@@ -38,87 +38,91 @@ import java.util.List;
  * Handles configuration of a bean context defined list of {@link AccessDecisionVoter}s
  * and the access control behaviour if all voters abstain from voting (defaults to deny
  * access).
+ *
+ * @author Ben Alex
  */
 public abstract class AbstractAccessDecisionManager implements AccessDecisionManager,
-        InitializingBean, MessageSourceAware {
+		InitializingBean, MessageSourceAware {
 
-    // ~ Instance fields
-    // ================================================================================================
-    protected final Log logger = LogFactory.getLog(getClass());
+	// ~ Instance fields
+	// ================================================================================================
 
-    private List<AccessDecisionVoter<?>> decisionVoters;
+	protected final Log logger = LogFactory.getLog(getClass());
 
-    protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
+	private List<AccessDecisionVoter<?>> decisionVoters;
 
-    private boolean allowIfAllAbstainDecisions = false;
+	protected MessageSourceAccessor messages = SpringSecurityMessageSource.getAccessor();
 
-    protected AbstractAccessDecisionManager(
-            List<AccessDecisionVoter<?>> decisionVoters) {
-        Assert.notEmpty(decisionVoters, "A list of AccessDecisionVoters is required");
-        this.decisionVoters = decisionVoters;
-    }
+	private boolean allowIfAllAbstainDecisions = false;
 
-    // ~ Methods
-    // ========================================================================================================
-    @Override
-    public void afterPropertiesSet() {
-        Assert.notEmpty(this.decisionVoters, "A list of AccessDecisionVoters is required");
-        Assert.notNull(this.messages, "A message source must be set");
-    }
+	protected AbstractAccessDecisionManager(
+			List<AccessDecisionVoter<?>> decisionVoters) {
+		Assert.notEmpty(decisionVoters, "A list of AccessDecisionVoters is required");
+		this.decisionVoters = decisionVoters;
+	}
 
-    protected final void checkAllowIfAllAbstainDecisions() {
-        if (!this.isAllowIfAllAbstainDecisions()) {
-            throw new AccessDeniedException(messages.getMessage(
-                    "AbstractAccessDecisionManager.accessDenied", "Access is denied"));
-        }
-    }
+	// ~ Methods
+	// ========================================================================================================
 
-    public List<AccessDecisionVoter<?>> getDecisionVoters() {
-        return this.decisionVoters;
-    }
+	@Override
+	public void afterPropertiesSet() {
+		Assert.notEmpty(this.decisionVoters, "A list of AccessDecisionVoters is required");
+		Assert.notNull(this.messages, "A message source must be set");
+	}
 
-    public boolean isAllowIfAllAbstainDecisions() {
-        return allowIfAllAbstainDecisions;
-    }
+	protected final void checkAllowIfAllAbstainDecisions() {
+		if (!this.isAllowIfAllAbstainDecisions()) {
+			throw new AccessDeniedException(messages.getMessage(
+					"AbstractAccessDecisionManager.accessDenied", "Access is denied"));
+		}
+	}
 
-    public void setAllowIfAllAbstainDecisions(boolean allowIfAllAbstainDecisions) {
-        this.allowIfAllAbstainDecisions = allowIfAllAbstainDecisions;
-    }
+	public List<AccessDecisionVoter<?>> getDecisionVoters() {
+		return this.decisionVoters;
+	}
 
-    @Override
-    public void setMessageSource(MessageSource messageSource) {
-        this.messages = new MessageSourceAccessor(messageSource);
-    }
+	public boolean isAllowIfAllAbstainDecisions() {
+		return allowIfAllAbstainDecisions;
+	}
 
-    @Override
-    public boolean supports(ConfigAttribute attribute) {
-        for (AccessDecisionVoter voter : this.decisionVoters) {
-            if (voter.supports(attribute)) {
-                return true;
-            }
-        }
+	public void setAllowIfAllAbstainDecisions(boolean allowIfAllAbstainDecisions) {
+		this.allowIfAllAbstainDecisions = allowIfAllAbstainDecisions;
+	}
 
-        return false;
-    }
+	@Override
+	public void setMessageSource(MessageSource messageSource) {
+		this.messages = new MessageSourceAccessor(messageSource);
+	}
 
-    /**
-     * Iterates through all <code>AccessDecisionVoter</code>s and ensures each can support
-     * the presented class.
-     * <p>
-     * If one or more voters cannot support the presented class, <code>false</code> is
-     * returned.
-     *
-     * @param clazz the type of secured object being presented
-     * @return true if this type is supported
-     */
-    @Override
-    public boolean supports(Class<?> clazz) {
-        for (AccessDecisionVoter voter : this.decisionVoters) {
-            if (!voter.supports(clazz)) {
-                return false;
-            }
-        }
+	@Override
+	public boolean supports(ConfigAttribute attribute) {
+		for (AccessDecisionVoter voter : this.decisionVoters) {
+			if (voter.supports(attribute)) {
+				return true;
+			}
+		}
 
-        return true;
-    }
+		return false;
+	}
+
+	/**
+	 * Iterates through all <code>AccessDecisionVoter</code>s and ensures each can support
+	 * the presented class.
+	 * <p>
+	 * If one or more voters cannot support the presented class, <code>false</code> is
+	 * returned.
+	 *
+	 * @param clazz the type of secured object being presented
+	 * @return true if this type is supported
+	 */
+	@Override
+	public boolean supports(Class<?> clazz) {
+		for (AccessDecisionVoter voter : this.decisionVoters) {
+			if (!voter.supports(clazz)) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 }

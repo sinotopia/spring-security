@@ -347,7 +347,7 @@ public final class CsrfConfigurer<H extends HttpSecurityBuilder<H>>
 
 		@Override
 		public MvcMatchersIgnoreCsrfProtectionRegistry mvcMatchers(HttpMethod method,
-																   String... mvcPatterns) {
+				String... mvcPatterns) {
 			List<MvcRequestMatcher> mvcMatchers = createMvcMatchers(method, mvcPatterns);
 			CsrfConfigurer.this.ignoredCsrfProtectionMatchers.addAll(mvcMatchers);
 			return new MvcMatchersIgnoreCsrfProtectionRegistry(getApplicationContext(),
@@ -382,7 +382,7 @@ public final class CsrfConfigurer<H extends HttpSecurityBuilder<H>>
 		private final List<MvcRequestMatcher> mvcMatchers;
 
 		private MvcMatchersIgnoreCsrfProtectionRegistry(ApplicationContext context,
-														List<MvcRequestMatcher> mvcMatchers) {
+				List<MvcRequestMatcher> mvcMatchers) {
 			super(context);
 			this.mvcMatchers = mvcMatchers;
 		}

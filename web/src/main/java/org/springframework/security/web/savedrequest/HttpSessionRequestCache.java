@@ -37,8 +37,10 @@ import javax.servlet.http.HttpSession;
  * @since 3.0
  */
 public class HttpSessionRequestCache implements RequestCache {
-	static final String SAVED_REQUEST = "SPRING_SECURITY_SAVED_REQUEST";
+
 	protected final Log logger = LogFactory.getLog(this.getClass());
+
+	static final String SAVED_REQUEST = "SPRING_SECURITY_SAVED_REQUEST";
 
 	private PortResolver portResolver = new PortResolverImpl();
 	private boolean createSessionAllowed = true;
@@ -48,10 +50,10 @@ public class HttpSessionRequestCache implements RequestCache {
 	/**
 	 * Stores the current request, provided the configuration properties allow it.
 	 */
+	@Override
 	public void saveRequest(HttpServletRequest request, HttpServletResponse response) {
 		if (requestMatcher.matches(request)) {
-			DefaultSavedRequest savedRequest = new DefaultSavedRequest(request,
-					portResolver);
+			DefaultSavedRequest savedRequest = new DefaultSavedRequest(request, portResolver);
 
 			if (createSessionAllowed || request.getSession(false) != null) {
 				// Store the HTTP request itself. Used by
@@ -65,6 +67,7 @@ public class HttpSessionRequestCache implements RequestCache {
 		}
 	}
 
+	@Override
 	public SavedRequest getRequest(HttpServletRequest currentRequest,
 			HttpServletResponse response) {
 		HttpSession session = currentRequest.getSession(false);
@@ -76,6 +79,7 @@ public class HttpSessionRequestCache implements RequestCache {
 		return null;
 	}
 
+	@Override
 	public void removeRequest(HttpServletRequest currentRequest,
 			HttpServletResponse response) {
 		HttpSession session = currentRequest.getSession(false);
@@ -86,6 +90,7 @@ public class HttpSessionRequestCache implements RequestCache {
 		}
 	}
 
+	@Override
 	public HttpServletRequest getMatchingRequest(HttpServletRequest request,
 			HttpServletResponse response) {
 		SavedRequest saved = getRequest(request, response);

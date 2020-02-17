@@ -39,7 +39,7 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
  * 		web.ignoring()
  * 		// Spring Security should completely ignore URLs starting with /resources/
  * 				.antMatchers(&quot;/resources/**&quot;);
- * 	}
+ *    }
  *
  * 	&#064;Override
  * 	protected void configure(HttpSecurity http) throws Exception {
@@ -49,7 +49,7 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
  * 				.formLogin() // enable form based log in
  * 				// set permitAll for all URLs associated with Form Login
  * 				.permitAll();
- * 	}
+ *    }
  *
  * 	&#064;Override
  * 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -57,30 +57,30 @@ import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
  * 		// enable in memory based authentication with a user named &quot;user&quot; and &quot;admin&quot;
  * 		.inMemoryAuthentication().withUser(&quot;user&quot;).password(&quot;password&quot;).roles(&quot;USER&quot;)
  * 				.and().withUser(&quot;admin&quot;).password(&quot;password&quot;).roles(&quot;USER&quot;, &quot;ADMIN&quot;);
- * 	}
+ *    }
  *
  * 	// Possibly more overridden methods ...
  * }
  * </pre>
  *
+ * @author Rob Winch
  * @see WebSecurityConfigurer
  * @see WebSecurityConfigurerAdapter
- *
- * @author Rob Winch
  * @since 3.2
  */
 @Retention(value = java.lang.annotation.RetentionPolicy.RUNTIME)
-@Target(value = { java.lang.annotation.ElementType.TYPE })
+@Target(value = {java.lang.annotation.ElementType.TYPE})
 @Documented
-@Import({ WebSecurityConfiguration.class,
+@Import({WebSecurityConfiguration.class,
 		SpringWebMvcImportSelector.class,
-		OAuth2ImportSelector.class })
+		OAuth2ImportSelector.class})
 @EnableGlobalAuthentication
 @Configuration
 public @interface EnableWebSecurity {
 
 	/**
 	 * Controls debugging support for Spring Security. Default is false.
+	 *
 	 * @return if true, enables debug support with Spring Security
 	 */
 	boolean debug() default false;
