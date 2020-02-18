@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework.security.web.AuthenticationEntryPoint</OriginalElement>
+  <nodes>
+    <node x="1086.0" y="102.0">org.springframework.security.cas.web.CasAuthenticationEntryPoint</node>
+    <node x="712.0" y="102.0">org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint</node>
+    <node x="1397.0" y="102.0">org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationEntryPoint</node>
+    <node x="302.0" y="102.0">samples.gae.security.GoogleAccountsAuthenticationEntryPoint</node>
+    <node x="2109.0" y="102.0">org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint</node>
+    <node x="1780.0" y="102.0">org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint</node>
+    <node x="1446.5" y="0.0">org.springframework.security.web.AuthenticationEntryPoint</node>
+    <node x="0.0" y="102.0">org.springframework.security.web.authentication.Http403ForbiddenEntryPoint</node>
+    <node x="2695.0" y="102.0">org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint</node>
+    <node x="2447.0" y="102.0">org.springframework.security.web.authentication.HttpStatusEntryPoint</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="samples.gae.security.GoogleAccountsAuthenticationEntryPoint" target="org.springframework.security.web.AuthenticationEntryPoint">
+      <point x="0.0" y="-16.0" />
+      <point x="497.0" y="62.0" />
+      <point x="1490.5" y="62.0" />
+      <point x="-88.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationEntryPoint" target="org.springframework.security.web.AuthenticationEntryPoint">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.cas.web.CasAuthenticationEntryPoint" target="org.springframework.security.web.AuthenticationEntryPoint">
+      <point x="0.0" y="-16.0" />
+      <point x="1231.5" y="82.0" />
+      <point x="1549.1666666666667" y="82.0" />
+      <point x="-29.333333333333258" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.authentication.www.DigestAuthenticationEntryPoint" target="org.springframework.security.web.AuthenticationEntryPoint">
+      <point x="0.0" y="-16.0" />
+      <point x="2268.0" y="72.0" />
+      <point x="1637.1666666666665" y="72.0" />
+      <point x="58.666666666666515" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint" target="org.springframework.security.web.AuthenticationEntryPoint">
+      <point x="0.0" y="-16.0" />
+      <point x="1934.5" y="82.0" />
+      <point x="1607.8333333333333" y="82.0" />
+      <point x="29.333333333333258" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.authentication.HttpStatusEntryPoint" target="org.springframework.security.web.AuthenticationEntryPoint">
+      <point x="0.0" y="-16.0" />
+      <point x="2561.0" y="62.0" />
+      <point x="1666.5" y="62.0" />
+      <point x="88.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint" target="org.springframework.security.web.AuthenticationEntryPoint">
+      <point x="0.0" y="-16.0" />
+      <point x="2863.0" y="52.0" />
+      <point x="1695.8333333333333" y="52.0" />
+      <point x="117.33333333333326" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint" target="org.springframework.security.web.AuthenticationEntryPoint">
+      <point x="0.0" y="-16.0" />
+      <point x="141.0" y="52.0" />
+      <point x="1461.1666666666667" y="52.0" />
+      <point x="-117.33333333333326" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint" target="org.springframework.security.web.AuthenticationEntryPoint">
+      <point x="0.0" y="-16.0" />
+      <point x="889.0" y="72.0" />
+      <point x="1519.8333333333333" y="72.0" />
+      <point x="-58.66666666666674" y="16.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="1572.5" y="16.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

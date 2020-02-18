@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework.security.web.access.AccessDeniedHandler</OriginalElement>
+  <nodes>
+    <node x="1244.0" y="92.0">org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler</node>
+    <node x="640.0" y="92.0">org.springframework.security.web.access.DelegatingAccessDeniedHandler</node>
+    <node x="0.0" y="92.0">org.springframework.security.web.session.InvalidSessionAccessDeniedHandler</node>
+    <node x="1582.0" y="92.0">org.springframework.security.web.access.RequestMatcherDelegatingAccessDeniedHandler</node>
+    <node x="836.0" y="0.0">org.springframework.security.web.access.AccessDeniedHandler</node>
+    <node x="365.0" y="92.0">org.springframework.security.config.http.AccessDeniedConfigTests.GoneAccessDeniedHandler</node>
+    <node x="969.0" y="92.0">org.springframework.security.web.access.AccessDeniedHandlerImpl</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.security.config.http.AccessDeniedConfigTests.GoneAccessDeniedHandler" target="org.springframework.security.web.access.AccessDeniedHandler">
+      <point x="0.0" y="-16.0" />
+      <point x="492.5" y="62.0" />
+      <point x="890.75" y="62.0" />
+      <point x="-54.75" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler" target="org.springframework.security.web.access.AccessDeniedHandler">
+      <point x="0.0" y="-16.0" />
+      <point x="1403.0" y="62.0" />
+      <point x="1000.25" y="62.0" />
+      <point x="54.75" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.access.DelegatingAccessDeniedHandler" target="org.springframework.security.web.access.AccessDeniedHandler">
+      <point x="0.0" y="-16.0" />
+      <point x="794.5" y="72.0" />
+      <point x="927.25" y="72.0" />
+      <point x="-18.25" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.access.AccessDeniedHandlerImpl" target="org.springframework.security.web.access.AccessDeniedHandler">
+      <point x="0.0" y="-16.0" />
+      <point x="1096.5" y="72.0" />
+      <point x="963.75" y="72.0" />
+      <point x="18.25" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.session.InvalidSessionAccessDeniedHandler" target="org.springframework.security.web.access.AccessDeniedHandler">
+      <point x="0.0" y="-16.0" />
+      <point x="172.5" y="52.0" />
+      <point x="854.25" y="52.0" />
+      <point x="-91.25" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.access.RequestMatcherDelegatingAccessDeniedHandler" target="org.springframework.security.web.access.AccessDeniedHandler">
+      <point x="0.0" y="-16.0" />
+      <point x="1799.5" y="52.0" />
+      <point x="1036.75" y="52.0" />
+      <point x="91.25" y="16.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="853.0" y="16.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

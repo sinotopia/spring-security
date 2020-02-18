@@ -149,7 +149,7 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 		}
 
 		if (this.validateConfigAttributes) {
-			// 验证是否只是所有的ConfigAttribute
+			// 验证是否支持所有的ConfigAttribute
 			Collection<ConfigAttribute> attributeDefs = this
 					.obtainSecurityMetadataSource().getAllConfigAttributes();
 
@@ -310,8 +310,8 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 		if (afterInvocationManager != null) {
 			// Attempt after invocation handling
 			try {
-				returnedObject = afterInvocationManager.decide(token.getSecurityContext()
-								.getAuthentication(), token.getSecureObject(),
+				returnedObject = afterInvocationManager.decide(
+						token.getSecurityContext().getAuthentication(), token.getSecureObject(),
 						token.getAttributes(), returnedObject);
 			} catch (AccessDeniedException accessDeniedException) {
 				AuthorizationFailureEvent event = new AuthorizationFailureEvent(
@@ -369,8 +369,7 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 	 * @param secureObject  that was being called
 	 * @param configAttribs that were defined for the secureObject
 	 */
-	private void credentialsNotFound(String reason, Object secureObject,
-			Collection<ConfigAttribute> configAttribs) {
+	private void credentialsNotFound(String reason, Object secureObject, Collection<ConfigAttribute> configAttribs) {
 		AuthenticationCredentialsNotFoundException exception = new AuthenticationCredentialsNotFoundException(
 				reason);
 
@@ -422,11 +421,11 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 	 */
 	public abstract Class<?> getSecureObjectClass();
 
-	public boolean isValidateConfigAttributes() {
-		return validateConfigAttributes;
-	}
-
 	public abstract SecurityMetadataSource obtainSecurityMetadataSource();
+
+	public boolean isAlwaysReauthenticate() {
+		return alwaysReauthenticate;
+	}
 
 	/**
 	 * Indicates whether the <code>AbstractSecurityInterceptor</code> should ignore the
@@ -465,10 +464,6 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 		this.publishAuthorizationSuccess = publishAuthorizationSuccess;
 	}
 
-	public boolean isAlwaysReauthenticate() {
-		return alwaysReauthenticate;
-	}
-
 	public boolean isRejectPublicInvocations() {
 		return rejectPublicInvocations;
 	}
@@ -490,6 +485,10 @@ public abstract class AbstractSecurityInterceptor implements InitializingBean,
 	 */
 	public void setRejectPublicInvocations(boolean rejectPublicInvocations) {
 		this.rejectPublicInvocations = rejectPublicInvocations;
+	}
+
+	public boolean isValidateConfigAttributes() {
+		return validateConfigAttributes;
 	}
 
 	public void setValidateConfigAttributes(boolean validateConfigAttributes) {

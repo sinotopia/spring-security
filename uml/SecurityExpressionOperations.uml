@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework.security.access.expression.SecurityExpressionOperations</OriginalElement>
+  <nodes>
+    <node x="102.0" y="164.0">org.springframework.security.access.expression.method.MethodSecurityExpressionRoot</node>
+    <node x="0.0" y="82.0">org.springframework.security.access.expression.method.MethodSecurityExpressionOperations</node>
+    <node x="422.0" y="164.0">org.springframework.security.messaging.access.expression.MessageSecurityExpressionRoot</node>
+    <node x="474.29166666666663" y="82.0">org.springframework.security.access.expression.SecurityExpressionRoot</node>
+    <node x="226.75" y="0.0">org.springframework.security.access.expression.SecurityExpressionOperations</node>
+    <node x="751.0" y="164.0">org.springframework.security.web.access.expression.WebSecurityExpressionRoot</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.security.messaging.access.expression.MessageSecurityExpressionRoot" target="org.springframework.security.access.expression.SecurityExpressionRoot">
+      <point x="0.0" y="-16.0" />
+      <point x="576.5" y="139.0" />
+      <point x="597.2916666666666" y="139.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.expression.SecurityExpressionRoot" target="org.springframework.security.access.expression.SecurityExpressionOperations">
+      <point x="0.0" y="-16.0" />
+      <point x="597.2916666666666" y="57.0" />
+      <point x="451.75" y="57.0" />
+      <point x="75.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.access.expression.WebSecurityExpressionRoot" target="org.springframework.security.access.expression.SecurityExpressionRoot">
+      <point x="0.0" y="-16.0" />
+      <point x="887.5" y="139.0" />
+      <point x="679.2916666666666" y="139.0" />
+      <point x="82.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.expression.method.MethodSecurityExpressionRoot" target="org.springframework.security.access.expression.method.MethodSecurityExpressionOperations">
+      <point x="-75.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.expression.method.MethodSecurityExpressionRoot" target="org.springframework.security.access.expression.SecurityExpressionRoot">
+      <point x="75.0" y="-16.0" />
+      <point x="327.0" y="139.0" />
+      <point x="515.2916666666666" y="139.0" />
+      <point x="-82.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.expression.method.MethodSecurityExpressionOperations" target="org.springframework.security.access.expression.SecurityExpressionOperations">
+      <point x="0.0" y="-16.0" />
+      <point x="177.0" y="57.0" />
+      <point x="301.75" y="57.0" />
+      <point x="-75.0" y="16.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="512.0" y="98.0" />
+  <SelectedNodes>
+    <node>org.springframework.security.web.access.expression.WebSecurityExpressionRoot</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
