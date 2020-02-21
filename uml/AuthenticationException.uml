@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework.security.core.AuthenticationException</OriginalElement>
+  <nodes>
+    <node x="2618.5" y="82.0">java.lang.Throwable</node>
+    <node x="3285.5" y="460.0">org.springframework.security.authentication.BadCredentialsException</node>
+    <node x="4993.5" y="460.0">org.springframework.security.core.userdetails.UsernameNotFoundException</node>
+    <node x="4362.5" y="460.0">org.springframework.security.authentication.ProviderNotFoundException</node>
+    <node x="1430.5000000000002" y="542.0">org.springframework.security.authentication.LockedException</node>
+    <node x="3988.5" y="542.0">org.springframework.security.authentication.InternalAuthenticationServiceException</node>
+    <node x="2129.5" y="542.0">org.springframework.security.authentication.CredentialsExpiredException</node>
+    <node x="649.0000000000002" y="460.0">org.springframework.security.web.authentication.www.NonceExpiredException</node>
+    <node x="1633.5000000000002" y="542.0">org.springframework.security.authentication.DisabledException</node>
+    <node x="2555.5" y="328.0">org.springframework.security.core.AuthenticationException</node>
+    <node x="1289.0000000000002" y="460.0">org.springframework.security.authentication.AuthenticationCredentialsNotFoundException</node>
+    <node x="2510.5" y="460.0">org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationException</node>
+    <node x="1854.5000000000002" y="542.0">org.springframework.security.authentication.AccountExpiredException</node>
+    <node x="2440.5" y="542.0">org.springframework.security.web.authentication.rememberme.CookieTheftException</node>
+    <node x="4655.5" y="460.0">org.springframework.security.web.authentication.session.SessionAuthenticationException</node>
+    <node x="2875.5" y="460.0">org.springframework.security.ldap.authentication.ad.ActiveDirectoryAuthenticationException</node>
+    <node x="4024.5" y="460.0">org.springframework.security.authentication.AuthenticationServiceException</node>
+    <node x="320.0" y="460.0">org.springframework.security.oauth2.core.OAuth2AuthenticationException</node>
+    <node x="2587.0" y="246.0">java.lang.RuntimeException</node>
+    <node x="2688.5" y="542.0">org.springframework.security.web.authentication.rememberme.InvalidCookieException</node>
+    <node x="2052.25" y="460.0">org.springframework.security.openid.AuthenticationCancelledException</node>
+    <node x="2618.5" y="164.0">java.lang.Exception</node>
+    <node x="1735.0000000000002" y="460.0">org.springframework.security.authentication.AccountStatusException</node>
+    <node x="2605.0" y="0.0">java.io.Serializable</node>
+    <node x="906.0000000000002" y="460.0">org.springframework.security.authentication.InsufficientAuthenticationException</node>
+    <node x="3560.5" y="460.0">org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException</node>
+    <node x="0.0" y="460.0">org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticationException</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.security.oauth2.core.OAuth2AuthenticationException" target="org.springframework.security.core.AuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="474.5" y="390.0" />
+      <point x="2581.0" y="390.0" />
+      <point x="-102.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.AuthenticationCredentialsNotFoundException" target="org.springframework.security.core.AuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="1502.0000000000002" y="420.0" />
+      <point x="2632.0" y="420.0" />
+      <point x="-51.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.ProviderNotFoundException" target="org.springframework.security.core.AuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="4499.0" y="400.0" />
+      <point x="2768.0" y="400.0" />
+      <point x="85.0" y="16.0" />
+    </edge>
+    <edge source="java.lang.Throwable" target="java.io.Serializable">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.authentication.session.SessionAuthenticationException" target="org.springframework.security.core.AuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="4814.5" y="390.0" />
+      <point x="2785.0" y="390.0" />
+      <point x="102.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.authentication.rememberme.CookieTheftException" target="org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="2554.5" y="522.0" />
+      <point x="2596.75" y="522.0" />
+      <point x="-86.25" y="16.0" />
+    </edge>
+    <edge source="java.lang.RuntimeException" target="java.lang.Exception">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="java.lang.Exception" target="java.lang.Throwable">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.BadCredentialsException" target="org.springframework.security.core.AuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="3413.0" y="430.0" />
+      <point x="2717.0" y="430.0" />
+      <point x="34.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException" target="org.springframework.security.core.AuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="3782.5" y="420.0" />
+      <point x="2734.0" y="420.0" />
+      <point x="51.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.openid.AuthenticationCancelledException" target="org.springframework.security.core.AuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="2220.25" y="440.0" />
+      <point x="2666.0" y="440.0" />
+      <point x="-17.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationException" target="org.springframework.security.core.AuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.DisabledException" target="org.springframework.security.authentication.AccountStatusException">
+      <point x="0.0" y="-16.0" />
+      <point x="1734.0000000000002" y="522.0" />
+      <point x="1827.2500000000002" y="522.0" />
+      <point x="-30.75" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.AccountExpiredException" target="org.springframework.security.authentication.AccountStatusException">
+      <point x="0.0" y="-16.0" />
+      <point x="1982.0000000000002" y="522.0" />
+      <point x="1888.7500000000002" y="522.0" />
+      <point x="30.75" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.ldap.authentication.ad.ActiveDirectoryAuthenticationException" target="org.springframework.security.core.AuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="3070.5" y="440.0" />
+      <point x="2700.0" y="440.0" />
+      <point x="17.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.authentication.rememberme.InvalidCookieException" target="org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="2811.5" y="522.0" />
+      <point x="2769.25" y="522.0" />
+      <point x="86.25" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.authentication.www.NonceExpiredException" target="org.springframework.security.core.AuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="767.5000000000002" y="400.0" />
+      <point x="2598.0" y="400.0" />
+      <point x="-85.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.AuthenticationServiceException" target="org.springframework.security.core.AuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="4183.5" y="410.0" />
+      <point x="2751.0" y="410.0" />
+      <point x="68.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.core.AuthenticationException" target="java.lang.RuntimeException">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.LockedException" target="org.springframework.security.authentication.AccountStatusException">
+      <point x="0.0" y="-16.0" />
+      <point x="1522.0000000000002" y="512.0" />
+      <point x="1765.7500000000002" y="512.0" />
+      <point x="-92.25" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.InternalAuthenticationServiceException" target="org.springframework.security.authentication.AuthenticationServiceException">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.InsufficientAuthenticationException" target="org.springframework.security.core.AuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="1087.5000000000002" y="410.0" />
+      <point x="2615.0" y="410.0" />
+      <point x="-68.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.AccountStatusException" target="org.springframework.security.core.AuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="1858.0000000000002" y="430.0" />
+      <point x="2649.0" y="430.0" />
+      <point x="-34.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.CredentialsExpiredException" target="org.springframework.security.authentication.AccountStatusException">
+      <point x="0.0" y="-16.0" />
+      <point x="2275.0" y="512.0" />
+      <point x="1950.2500000000002" y="512.0" />
+      <point x="92.25" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticationException" target="org.springframework.security.core.AuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="150.0" y="380.0" />
+      <point x="2564.0" y="380.0" />
+      <point x="-119.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.core.userdetails.UsernameNotFoundException" target="org.springframework.security.core.AuthenticationException">
+      <point x="0.0" y="-16.0" />
+      <point x="5130.0" y="380.0" />
+      <point x="2802.0" y="380.0" />
+      <point x="119.0" y="16.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="2537.5" y="194.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

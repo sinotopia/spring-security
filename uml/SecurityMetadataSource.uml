@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework.security.access.SecurityMetadataSource</OriginalElement>
+  <nodes>
+    <node x="698.5000000000001" y="410.0">org.springframework.security.access.annotation.SecuredAnnotationSecurityMetadataSource</node>
+    <node x="2266.25" y="246.0">org.springframework.security.web.access.channel.ChannelProcessingFilterTests.MockFilterInvocationDefinitionMap</node>
+    <node x="2662.75" y="164.0">org.springframework.security.messaging.access.intercept.MessageSecurityMetadataSource</node>
+    <node x="2631.25" y="246.0">org.springframework.security.messaging.access.intercept.DefaultMessageSecurityMetadataSource</node>
+    <node x="2054.5" y="410.0">org.springframework.security.web.access.expression.ExpressionBasedFilterInvocationSecurityMetadataSource.AntPathMatcherEvaluationContextPostProcessor</node>
+    <node x="306.5" y="410.0">org.springframework.security.access.method.MapBasedMethodSecurityMetadataSource</node>
+    <node x="1793.25" y="246.0">org.springframework.security.web.access.intercept.DefaultFilterInvocationSecurityMetadataSource</node>
+    <node x="396.5" y="492.0">org.springframework.security.access.method.MapBasedMethodSecurityMetadataSource.RegisteredMethod</node>
+    <node x="747.9999999999998" y="164.0">org.springframework.security.access.method.MethodSecurityMetadataSource</node>
+    <node x="2106.25" y="82.0">org.springframework.security.access.SecurityMetadataSource</node>
+    <node x="103.5" y="410.0">org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource.DefaultCacheKey</node>
+    <node x="2120.4940476190477" y="164.0">org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource</node>
+    <node x="0.0" y="328.0">org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource</node>
+    <node x="1757.25" y="328.0">org.springframework.security.web.access.expression.ExpressionBasedFilterInvocationSecurityMetadataSource</node>
+    <node x="711.9999999999999" y="246.0">org.springframework.security.access.method.AbstractMethodSecurityMetadataSource</node>
+    <node x="1261.9880952380954" y="328.0">org.springframework.security.access.prepost.PrePostAnnotationSecurityMetadataSource</node>
+    <node x="735.6547619047619" y="328.0">org.springframework.security.access.method.AbstractFallbackMethodSecurityMetadataSource</node>
+    <node x="2250.5" y="0.0">org.springframework.aop.framework.AopInfrastructureBean</node>
+    <node x="1117.5" y="410.0">org.springframework.security.access.annotation.Jsr250MethodSecurityMetadataSource</node>
+    <node x="2372.25" y="82.0">org.springframework.security.access.expression.SecurityExpressionHandler</node>
+    <node x="1491.5" y="410.0">org.springframework.security.web.access.expression.ExpressionBasedFilterInvocationSecurityMetadataSource.RequestVariablesExtractorEvaluationContextPostProcessor</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.security.access.method.AbstractFallbackMethodSecurityMetadataSource" target="org.springframework.security.access.method.AbstractMethodSecurityMetadataSource">
+      <point x="-1.1368683772161603E-13" y="-16.0" />
+      <point x="957.6547619047618" y="303.0" />
+      <point x="897.9999999999999" y="303.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.annotation.Jsr250MethodSecurityMetadataSource" target="org.springframework.security.access.method.AbstractFallbackMethodSecurityMetadataSource">
+      <point x="0.0" y="-16.0" />
+      <point x="1294.5" y="385.0" />
+      <point x="1105.654761904762" y="385.0" />
+      <point x="147.9999999999999" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.access.expression.ExpressionBasedFilterInvocationSecurityMetadataSource.AntPathMatcherEvaluationContextPostProcessor" target="org.springframework.security.web.access.expression.ExpressionBasedFilterInvocationSecurityMetadataSource">
+      <point x="0.0" y="-16.0" />
+      <point x="2276.5" y="385.0" />
+      <point x="2151.0" y="385.0" />
+      <point x="131.25" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource" target="org.springframework.security.access.SecurityMetadataSource">
+      <point x="0.0" y="-16.0" />
+      <point x="2315.4940476190477" y="144.0" />
+      <point x="2229.25" y="144.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.prepost.PrePostAnnotationSecurityMetadataSource" target="org.springframework.security.access.method.AbstractMethodSecurityMetadataSource">
+      <point x="0.0" y="-16.0" />
+      <point x="1461.4880952380954" y="303.0" />
+      <point x="1021.9999999999999" y="303.0" />
+      <point x="124.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.access.channel.ChannelProcessingFilterTests.MockFilterInvocationDefinitionMap" target="org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource">
+      <point x="0.0" y="-16.0" />
+      <point x="2438.75" y="221.0" />
+      <point x="2412.9940476190477" y="221.0" />
+      <point x="97.5" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.method.MapBasedMethodSecurityMetadataSource" target="org.springframework.security.access.method.AbstractFallbackMethodSecurityMetadataSource">
+      <point x="0.0" y="-16.0" />
+      <point x="492.5" y="385.0" />
+      <point x="809.6547619047619" y="385.0" />
+      <point x="-148.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.annotation.SecuredAnnotationSecurityMetadataSource" target="org.springframework.security.access.method.AbstractFallbackMethodSecurityMetadataSource">
+      <point x="-1.1368683772161603E-13" y="-16.0" />
+      <point x="898.0" y="385.0" />
+      <point x="957.6547619047619" y="385.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.access.expression.ExpressionBasedFilterInvocationSecurityMetadataSource.RequestVariablesExtractorEvaluationContextPostProcessor" target="org.springframework.security.web.access.expression.ExpressionBasedFilterInvocationSecurityMetadataSource">
+      <point x="0.0" y="-16.0" />
+      <point x="1763.0" y="385.0" />
+      <point x="1888.5" y="385.0" />
+      <point x="-131.25" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource" target="org.springframework.security.access.method.AbstractMethodSecurityMetadataSource">
+      <point x="0.0" y="-16.0" />
+      <point x="195.0" y="303.0" />
+      <point x="773.9999999999999" y="303.0" />
+      <point x="-124.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.expression.SecurityExpressionHandler" target="org.springframework.aop.framework.AopInfrastructureBean">
+      <point x="0.0" y="-16.0" />
+      <point x="2508.75" y="57.0" />
+      <point x="2428.25" y="57.0" />
+      <point x="59.25" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.access.intercept.DefaultFilterInvocationSecurityMetadataSource" target="org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource">
+      <point x="0.0" y="-16.0" />
+      <point x="2019.75" y="221.0" />
+      <point x="2217.9940476190477" y="221.0" />
+      <point x="-97.5" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.access.expression.ExpressionBasedFilterInvocationSecurityMetadataSource" target="org.springframework.security.web.access.intercept.DefaultFilterInvocationSecurityMetadataSource">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.messaging.access.intercept.DefaultMessageSecurityMetadataSource" target="org.springframework.security.messaging.access.intercept.MessageSecurityMetadataSource">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.method.MapBasedMethodSecurityMetadataSource.RegisteredMethod" target="org.springframework.security.access.method.MapBasedMethodSecurityMetadataSource">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.method.AbstractMethodSecurityMetadataSource" target="org.springframework.security.access.method.MethodSecurityMetadataSource">
+      <point x="-1.1368683772161603E-13" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.method.MethodSecurityMetadataSource" target="org.springframework.security.access.SecurityMetadataSource">
+      <point x="-1.1368683772161603E-13" y="-16.0" />
+      <point x="897.9999999999997" y="144.0" />
+      <point x="2147.25" y="144.0" />
+      <point x="-82.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.SecurityMetadataSource" target="org.springframework.aop.framework.AopInfrastructureBean">
+      <point x="0.0" y="-16.0" />
+      <point x="2229.25" y="57.0" />
+      <point x="2309.75" y="57.0" />
+      <point x="-59.25" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource.DefaultCacheKey" target="org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.messaging.access.intercept.MessageSecurityMetadataSource" target="org.springframework.security.access.SecurityMetadataSource">
+      <point x="0.0" y="-16.0" />
+      <point x="2817.25" y="134.0" />
+      <point x="2311.25" y="134.0" />
+      <point x="82.0" y="16.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="2161.0" y="65.5" />
+  <SelectedNodes>
+    <node>org.springframework.security.access.SecurityMetadataSource</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

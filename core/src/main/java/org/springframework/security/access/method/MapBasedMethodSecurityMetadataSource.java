@@ -47,6 +47,7 @@ public class MapBasedMethodSecurityMetadataSource extends
 
 	// ~ Instance fields
 	// ================================================================================================
+
 	private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
 
 	/**
@@ -70,8 +71,7 @@ public class MapBasedMethodSecurityMetadataSource extends
 	 *
 	 * @param methodMap map of method names to <tt>ConfigAttribute</tt>s.
 	 */
-	public MapBasedMethodSecurityMetadataSource(
-			Map<String, List<ConfigAttribute>> methodMap) {
+	public MapBasedMethodSecurityMetadataSource(Map<String, List<ConfigAttribute>> methodMap) {
 		for (Map.Entry<String, List<ConfigAttribute>> entry : methodMap.entrySet()) {
 			addSecureMethod(entry.getKey(), entry.getValue());
 		}
@@ -258,10 +258,8 @@ public class MapBasedMethodSecurityMetadataSource extends
 	 * @return if the names match
 	 */
 	private boolean isMatch(String methodName, String mappedName) {
-		return (mappedName.endsWith("*") && methodName.startsWith(mappedName.substring(0,
-				mappedName.length() - 1)))
-				|| (mappedName.startsWith("*") && methodName.endsWith(mappedName
-				.substring(1, mappedName.length())));
+		return (mappedName.endsWith("*") && methodName.startsWith(mappedName.substring(0, mappedName.length() - 1)))
+				|| (mappedName.startsWith("*") && methodName.endsWith(mappedName.substring(1, mappedName.length())));
 	}
 
 	@Override

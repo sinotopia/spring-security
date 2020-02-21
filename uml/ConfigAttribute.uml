@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework.security.access.ConfigAttribute</OriginalElement>
+  <nodes>
+    <node x="262.25" y="256.0">org.springframework.security.access.expression.method.PostInvocationExpressionAttribute</node>
+    <node x="221.0" y="174.0">org.springframework.security.access.prepost.PostInvocationAttribute</node>
+    <node x="1860.0000000000002" y="256.0">org.springframework.security.integration.python.PythonInterpreterPreInvocationAttribute</node>
+    <node x="1875.0" y="174.0">org.springframework.security.access.prepost.PreInvocationAttribute</node>
+    <node x="816.0000000000001" y="174.0">org.springframework.security.access.expression.method.AbstractExpressionBasedMethodConfigAttribute</node>
+    <node x="960.0000000000001" y="0.0">java.io.Serializable</node>
+    <node x="1636.0" y="174.0">org.springframework.security.access.SecurityConfigTests.MockConfigAttribute</node>
+    <node x="1065.0" y="256.0">org.springframework.security.access.expression.method.PreInvocationExpressionAttribute</node>
+    <node x="0.0" y="256.0">org.springframework.security.access.annotation.Jsr250SecurityConfig</node>
+    <node x="496.0" y="174.0">org.springframework.security.web.access.expression.WebExpressionConfigAttribute</node>
+    <node x="27.0" y="174.0">org.springframework.security.access.SecurityConfig</node>
+    <node x="1280.0" y="174.0">org.springframework.security.messaging.access.expression.MessageExpressionConfigAttribute</node>
+    <node x="946.5000000000001" y="82.0">org.springframework.security.access.ConfigAttribute</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.security.messaging.access.expression.MessageExpressionConfigAttribute" target="org.springframework.security.access.ConfigAttribute">
+      <point x="0.0" y="-16.0" />
+      <point x="1448.0" y="154.0" />
+      <point x="1064.1428571428573" y="154.0" />
+      <point x="26.14285714285711" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.SecurityConfigTests.MockConfigAttribute" target="org.springframework.security.access.ConfigAttribute">
+      <point x="0.0" y="-16.0" />
+      <point x="1745.5" y="144.0" />
+      <point x="1090.2857142857142" y="144.0" />
+      <point x="52.28571428571422" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.expression.method.PostInvocationExpressionAttribute" target="org.springframework.security.access.expression.method.AbstractExpressionBasedMethodConfigAttribute">
+      <point x="86.25" y="-16.0" />
+      <point x="521.0" y="231.0" />
+      <point x="927.0000000000001" y="231.0" />
+      <point x="-111.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.expression.method.PreInvocationExpressionAttribute" target="org.springframework.security.access.prepost.PreInvocationAttribute">
+      <point x="84.00000000000011" y="-16.0" />
+      <point x="1317.0" y="231.0" />
+      <point x="1936.5" y="231.0" />
+      <point x="-61.5" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.expression.method.PostInvocationExpressionAttribute" target="org.springframework.security.access.prepost.PostInvocationAttribute">
+      <point x="-86.25" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.prepost.PostInvocationAttribute" target="org.springframework.security.access.ConfigAttribute">
+      <point x="0.0" y="-16.0" />
+      <point x="348.5" y="144.0" />
+      <point x="985.7142857142859" y="144.0" />
+      <point x="-52.28571428571422" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.SecurityConfig" target="org.springframework.security.access.ConfigAttribute">
+      <point x="0.0" y="-16.0" />
+      <point x="114.0" y="134.0" />
+      <point x="959.5714285714288" y="134.0" />
+      <point x="-78.42857142857133" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.prepost.PreInvocationAttribute" target="org.springframework.security.access.ConfigAttribute">
+      <point x="0.0" y="-16.0" />
+      <point x="1998.0" y="134.0" />
+      <point x="1116.4285714285716" y="134.0" />
+      <point x="78.42857142857156" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.ConfigAttribute" target="java.io.Serializable">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.expression.method.AbstractExpressionBasedMethodConfigAttribute" target="org.springframework.security.access.ConfigAttribute">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.access.expression.WebExpressionConfigAttribute" target="org.springframework.security.access.ConfigAttribute">
+      <point x="0.0" y="-16.0" />
+      <point x="646.0" y="154.0" />
+      <point x="1011.857142857143" y="154.0" />
+      <point x="-26.14285714285711" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.integration.python.PythonInterpreterPreInvocationAttribute" target="org.springframework.security.access.prepost.PreInvocationAttribute">
+      <point x="0.0" y="-16.0" />
+      <point x="61.5" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.annotation.Jsr250SecurityConfig" target="org.springframework.security.access.SecurityConfig">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.expression.method.PreInvocationExpressionAttribute" target="org.springframework.security.access.expression.method.AbstractExpressionBasedMethodConfigAttribute">
+      <point x="-83.99999999999989" y="-16.0" />
+      <point x="111.0" y="16.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="707.0" y="57.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

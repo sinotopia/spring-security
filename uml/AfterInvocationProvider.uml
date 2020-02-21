@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework.security.access.AfterInvocationProvider</OriginalElement>
+  <nodes>
+    <node x="0.0" y="164.0">org.springframework.security.acls.afterinvocation.AclEntryAfterInvocationProvider</node>
+    <node x="507.0" y="82.0">org.springframework.security.access.prepost.PostInvocationAdviceProvider</node>
+    <node x="827.0" y="82.0">org.springframework.security.access.intercept.AfterInvocationProviderManagerTests.MockAfterInvocationProvider</node>
+    <node x="689.5" y="0.0">org.springframework.security.access.AfterInvocationProvider</node>
+    <node x="268.0" y="82.0">org.springframework.security.acls.afterinvocation.AbstractAclProvider</node>
+    <node x="347.0" y="164.0">org.springframework.security.acls.afterinvocation.AclEntryAfterInvocationCollectionFilteringProvider</node>
+    <node x="1138.0" y="82.0">org.springframework.security.config.MockAfterInvocationProvider</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.security.config.MockAfterInvocationProvider" target="org.springframework.security.access.AfterInvocationProvider">
+      <point x="0.0" y="-16.0" />
+      <point x="1283.5" y="52.0" />
+      <point x="912.625" y="52.0" />
+      <point x="95.625" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.acls.afterinvocation.AbstractAclProvider" target="org.springframework.security.access.AfterInvocationProvider">
+      <point x="0.0" y="-16.0" />
+      <point x="377.5" y="52.0" />
+      <point x="721.375" y="52.0" />
+      <point x="-95.625" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.acls.afterinvocation.AclEntryAfterInvocationProvider" target="org.springframework.security.acls.afterinvocation.AbstractAclProvider">
+      <point x="0.0" y="-16.0" />
+      <point x="163.5" y="139.0" />
+      <point x="322.75" y="139.0" />
+      <point x="-54.75" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.intercept.AfterInvocationProviderManagerTests.MockAfterInvocationProvider" target="org.springframework.security.access.AfterInvocationProvider">
+      <point x="0.0" y="-16.0" />
+      <point x="972.5" y="62.0" />
+      <point x="848.875" y="62.0" />
+      <point x="31.875" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.acls.afterinvocation.AclEntryAfterInvocationCollectionFilteringProvider" target="org.springframework.security.acls.afterinvocation.AbstractAclProvider">
+      <point x="0.0" y="-16.0" />
+      <point x="596.0" y="139.0" />
+      <point x="432.25" y="139.0" />
+      <point x="54.75" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.prepost.PostInvocationAdviceProvider" target="org.springframework.security.access.AfterInvocationProvider">
+      <point x="0.0" y="-16.0" />
+      <point x="657.0" y="62.0" />
+      <point x="785.125" y="62.0" />
+      <point x="-31.875" y="16.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="661.5" y="16.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

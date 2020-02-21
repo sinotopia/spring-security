@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework.security.core.Authentication</OriginalElement>
+  <nodes>
+    <node x="3709.0" y="296.0">org.springframework.security.authentication.RememberMeAuthenticationToken</node>
+    <node x="2095.75" y="378.0">org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken</node>
+    <node x="4232.0" y="296.0">org.springframework.security.saml2.provider.service.authentication.Saml2Authentication</node>
+    <node x="4471.0" y="296.0">org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticationToken</node>
+    <node x="1802.75" y="378.0">org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication</node>
+    <node x="1262.0" y="296.0">org.springframework.security.authentication.jaas.JaasAuthenticationToken</node>
+    <node x="2875.5" y="164.0">org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.PrincipalNameAuthentication</node>
+    <node x="2618.5" y="164.0">samples.gae.security.GaeUserAuthentication</node>
+    <node x="4038.0" y="296.0">org.springframework.security.access.intercept.RunAsUserToken</node>
+    <node x="2632.0" y="296.0">org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken</node>
+    <node x="1884.0" y="296.0">org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken</node>
+    <node x="586.0" y="296.0">org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken</node>
+    <node x="263.0" y="0.0">java.io.Serializable</node>
+    <node x="2925.0" y="296.0">org.springframework.security.oauth2.client.authentication.OAuth2AuthorizationCodeAuthenticationToken</node>
+    <node x="2716.0" y="0.0">java.security.Principal</node>
+    <node x="2307.5" y="164.0">org.springframework.security.authentication.AbstractAuthenticationToken</node>
+    <node x="1537.0" y="296.0">org.springframework.security.cas.authentication.CasAssertionAuthenticationToken</node>
+    <node x="0.0" y="296.0">org.springframework.security.cas.authentication.CasAuthenticationToken</node>
+    <node x="266.0" y="296.0">org.springframework.security.authentication.AnonymousAuthenticationToken</node>
+    <node x="2294.0" y="296.0">org.springframework.security.oauth2.server.resource.BearerTokenAuthenticationToken</node>
+    <node x="2650.0" y="82.0">org.springframework.security.core.Authentication</node>
+    <node x="969.0" y="296.0">org.springframework.security.openid.OpenIDAuthenticationToken</node>
+    <node x="3371.0" y="296.0">org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationToken</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.security.saml2.provider.service.authentication.Saml2AuthenticationToken" target="org.springframework.security.authentication.AbstractAuthenticationToken">
+      <point x="0.0" y="-16.0" />
+      <point x="4603.0" y="216.0" />
+      <point x="2588.8" y="216.0" />
+      <point x="135.80000000000018" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.openid.OpenIDAuthenticationToken" target="org.springframework.security.authentication.AbstractAuthenticationToken">
+      <point x="0.0" y="-16.0" />
+      <point x="1105.5" y="246.0" />
+      <point x="2375.4" y="246.0" />
+      <point x="-77.59999999999991" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.client.authentication.OAuth2AuthorizationCodeAuthenticationToken" target="org.springframework.security.authentication.AbstractAuthenticationToken">
+      <point x="0.0" y="-16.0" />
+      <point x="3138.0" y="266.0" />
+      <point x="2491.8" y="266.0" />
+      <point x="38.80000000000018" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.server.resource.BearerTokenAuthenticationToken" target="org.springframework.security.authentication.AbstractAuthenticationToken">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.core.Authentication" target="java.io.Serializable">
+      <point x="-43.5" y="-16.0" />
+      <point x="2693.5" y="57.0" />
+      <point x="393.0" y="57.0" />
+      <point x="52.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthentication" target="org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken">
+      <point x="0.0" y="-16.0" />
+      <point x="1939.25" y="353.0" />
+      <point x="1981.5" y="353.0" />
+      <point x="-97.5" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.cas.authentication.CasAuthenticationToken" target="org.springframework.security.authentication.AbstractAuthenticationToken">
+      <point x="61.5" y="-16.0" />
+      <point x="184.5" y="216.0" />
+      <point x="2317.2" y="216.0" />
+      <point x="-135.80000000000018" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken" target="org.springframework.security.authentication.AbstractAuthenticationToken">
+      <point x="0.0" y="-16.0" />
+      <point x="767.5" y="236.0" />
+      <point x="2356.0" y="236.0" />
+      <point x="-97.0" y="16.0" />
+    </edge>
+    <edge source="samples.gae.security.GaeUserAuthentication" target="org.springframework.security.core.Authentication">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.core.Authentication" target="java.security.Principal">
+      <point x="43.5" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.cas.authentication.CasAuthenticationToken" target="java.io.Serializable">
+      <point x="-61.5" y="-16.0" />
+      <point x="61.5" y="57.0" />
+      <point x="289.0" y="57.0" />
+      <point x="-52.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.AnonymousAuthenticationToken" target="org.springframework.security.authentication.AbstractAuthenticationToken">
+      <point x="75.0" y="-16.0" />
+      <point x="491.0" y="226.0" />
+      <point x="2336.6" y="226.0" />
+      <point x="-116.40000000000009" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.client.authentication.OAuth2LoginAuthenticationToken" target="org.springframework.security.authentication.AbstractAuthenticationToken">
+      <point x="0.0" y="-16.0" />
+      <point x="3530.0" y="256.0" />
+      <point x="2511.2" y="256.0" />
+      <point x="58.19999999999982" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.jaas.JaasAuthenticationToken" target="org.springframework.security.authentication.AbstractAuthenticationToken">
+      <point x="0.0" y="-16.0" />
+      <point x="1389.5" y="256.0" />
+      <point x="2394.8" y="256.0" />
+      <point x="-58.19999999999982" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.AnonymousAuthenticationToken" target="java.io.Serializable">
+      <point x="-75.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken" target="org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken">
+      <point x="0.0" y="-16.0" />
+      <point x="2218.75" y="353.0" />
+      <point x="2176.5" y="353.0" />
+      <point x="97.5" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.saml2.provider.service.authentication.Saml2Authentication" target="org.springframework.security.authentication.AbstractAuthenticationToken">
+      <point x="0.0" y="-16.0" />
+      <point x="4341.5" y="226.0" />
+      <point x="2569.4" y="226.0" />
+      <point x="116.40000000000009" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction.PrincipalNameAuthentication" target="org.springframework.security.core.Authentication">
+      <point x="0.0" y="-16.0" />
+      <point x="3021.0" y="139.0" />
+      <point x="2795.0" y="139.0" />
+      <point x="58.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.RememberMeAuthenticationToken" target="org.springframework.security.authentication.AbstractAuthenticationToken">
+      <point x="0.0" y="-16.0" />
+      <point x="3863.5" y="246.0" />
+      <point x="2530.6" y="246.0" />
+      <point x="77.59999999999991" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.authentication.AbstractAuthenticationToken" target="org.springframework.security.core.Authentication">
+      <point x="0.0" y="-16.0" />
+      <point x="2453.0" y="139.0" />
+      <point x="2679.0" y="139.0" />
+      <point x="-58.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.server.resource.authentication.AbstractOAuth2TokenAuthenticationToken" target="org.springframework.security.authentication.AbstractAuthenticationToken">
+      <point x="0.0" y="-16.0" />
+      <point x="2079.0" y="276.0" />
+      <point x="2433.6" y="276.0" />
+      <point x="-19.40000000000009" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken" target="org.springframework.security.authentication.AbstractAuthenticationToken">
+      <point x="0.0" y="-16.0" />
+      <point x="2768.5" y="276.0" />
+      <point x="2472.4" y="276.0" />
+      <point x="19.40000000000009" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.cas.authentication.CasAssertionAuthenticationToken" target="org.springframework.security.authentication.AbstractAuthenticationToken">
+      <point x="0.0" y="-16.0" />
+      <point x="1700.5" y="266.0" />
+      <point x="2414.2" y="266.0" />
+      <point x="-38.80000000000018" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.intercept.RunAsUserToken" target="org.springframework.security.authentication.AbstractAuthenticationToken">
+      <point x="0.0" y="-16.0" />
+      <point x="4125.0" y="236.0" />
+      <point x="2550.0" y="236.0" />
+      <point x="97.0" y="16.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="2813.5" y="71.5" />
+  <SelectedNodes>
+    <node>org.springframework.security.core.Authentication</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

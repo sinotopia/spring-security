@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework.security.access.expression.SecurityExpressionHandler</OriginalElement>
+  <nodes>
+    <node x="802.0" y="246.0">org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler</node>
+    <node x="410.0" y="164.0">org.springframework.security.access.expression.AbstractSecurityExpressionHandler</node>
+    <node x="383.0" y="246.0">org.springframework.security.messaging.access.expression.DefaultMessageSecurityExpressionHandler</node>
+    <node x="931.0" y="164.0">org.springframework.security.access.expression.method.MethodSecurityExpressionHandler</node>
+    <node x="464.0" y="0.0">org.springframework.aop.framework.AopInfrastructureBean</node>
+    <node x="446.0" y="82.0">org.springframework.security.access.expression.SecurityExpressionHandler</node>
+    <node x="0.0" y="246.0">org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" target="org.springframework.security.access.expression.AbstractSecurityExpressionHandler">
+      <point x="90.75" y="-16.0" />
+      <point x="272.25" y="221.0" />
+      <point x="467.5" y="221.0" />
+      <point x="-115.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler" target="org.springframework.security.access.expression.AbstractSecurityExpressionHandler">
+      <point x="-97.5" y="-16.0" />
+      <point x="899.5" y="221.0" />
+      <point x="697.5" y="221.0" />
+      <point x="115.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" target="org.springframework.security.access.expression.SecurityExpressionHandler">
+      <point x="-90.75" y="-16.0" />
+      <point x="90.75" y="139.0" />
+      <point x="491.5" y="139.0" />
+      <point x="-91.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.expression.SecurityExpressionHandler" target="org.springframework.aop.framework.AopInfrastructureBean">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.expression.AbstractSecurityExpressionHandler" target="org.springframework.security.access.expression.SecurityExpressionHandler">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.messaging.access.expression.DefaultMessageSecurityExpressionHandler" target="org.springframework.security.access.expression.AbstractSecurityExpressionHandler">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler" target="org.springframework.security.access.expression.method.MethodSecurityExpressionHandler">
+      <point x="97.5" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.expression.method.MethodSecurityExpressionHandler" target="org.springframework.security.access.expression.SecurityExpressionHandler">
+      <point x="0.0" y="-16.0" />
+      <point x="1094.5" y="139.0" />
+      <point x="673.5" y="139.0" />
+      <point x="91.0" y="16.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="302.5" y="57.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

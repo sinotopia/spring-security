@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>org.springframework.security.access.intercept.AbstractSecurityInterceptor</OriginalElement>
+  <nodes>
+    <node x="680.5" y="82.0">org.springframework.context.ApplicationEventPublisherAware</node>
+    <node x="689.5" y="164.0">org.springframework.security.access.intercept.AbstractSecurityInterceptor</node>
+    <node x="991.5" y="246.0">org.springframework.security.messaging.access.intercept.ChannelSecurityInterceptor</node>
+    <node x="450.50000000000006" y="82.0">org.springframework.context.MessageSourceAware</node>
+    <node x="1293.5" y="246.0">org.springframework.security.access.intercept.AbstractSecurityInterceptorTests.MockSecurityInterceptorWhichOnlySupportsStrings</node>
+    <node x="698.5" y="246.0">org.springframework.security.access.intercept.AbstractSecurityInterceptor.NoOpAuthenticationManager</node>
+    <node x="0.0" y="328.0">org.springframework.security.access.intercept.aspectj.AspectJMethodSecurityInterceptor</node>
+    <node x="651.0" y="0.0">org.springframework.beans.factory.Aware</node>
+    <node x="31.5" y="246.0">org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor</node>
+    <node x="324.50000000000006" y="246.0">org.springframework.security.access.intercept.AbstractSecurityInterceptorTests.MockSecurityInterceptorReturnsNull</node>
+    <node x="1018.5" y="82.0">org.springframework.beans.factory.InitializingBean</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="org.springframework.security.access.intercept.AbstractSecurityInterceptor.NoOpAuthenticationManager" target="org.springframework.security.access.intercept.AbstractSecurityInterceptor">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.intercept.AbstractSecurityInterceptor" target="org.springframework.context.MessageSourceAware">
+      <point x="-97.0" y="-16.0" />
+      <point x="738.0" y="139.0" />
+      <point x="555.5" y="139.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.intercept.AbstractSecurityInterceptorTests.MockSecurityInterceptorReturnsNull" target="org.springframework.security.access.intercept.AbstractSecurityInterceptor">
+      <point x="0.0" y="-16.0" />
+      <point x="501.50000000000006" y="226.0" />
+      <point x="776.8" y="226.0" />
+      <point x="-58.200000000000045" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.messaging.access.intercept.ChannelSecurityInterceptor" target="org.springframework.security.access.intercept.AbstractSecurityInterceptor">
+      <point x="0.0" y="-16.0" />
+      <point x="1132.5" y="226.0" />
+      <point x="893.2" y="226.0" />
+      <point x="58.19999999999993" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor" target="org.springframework.security.access.intercept.AbstractSecurityInterceptor">
+      <point x="0.0" y="-16.0" />
+      <point x="168.0" y="216.0" />
+      <point x="718.6000000000001" y="216.0" />
+      <point x="-116.39999999999998" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.intercept.AbstractSecurityInterceptor" target="org.springframework.context.ApplicationEventPublisherAware">
+      <point x="0.0" y="-16.0" />
+      <point x="835.0" y="139.0" />
+      <point x="839.5" y="139.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.intercept.AbstractSecurityInterceptorTests.MockSecurityInterceptorWhichOnlySupportsStrings" target="org.springframework.security.access.intercept.AbstractSecurityInterceptor">
+      <point x="0.0" y="-16.0" />
+      <point x="1529.0" y="216.0" />
+      <point x="951.4000000000001" y="216.0" />
+      <point x="116.40000000000009" y="16.0" />
+    </edge>
+    <edge source="org.springframework.context.MessageSourceAware" target="org.springframework.beans.factory.Aware">
+      <point x="0.0" y="-16.0" />
+      <point x="555.5" y="57.0" />
+      <point x="674.25" y="57.0" />
+      <point x="-23.25" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.intercept.aspectj.AspectJMethodSecurityInterceptor" target="org.springframework.security.access.intercept.aopalliance.MethodSecurityInterceptor">
+      <point x="0.0" y="-16.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.security.access.intercept.AbstractSecurityInterceptor" target="org.springframework.beans.factory.InitializingBean">
+      <point x="97.0" y="-16.0" />
+      <point x="932.0" y="139.0" />
+      <point x="1114.5" y="139.0" />
+      <point x="0.0" y="16.0" />
+    </edge>
+    <edge source="org.springframework.context.ApplicationEventPublisherAware" target="org.springframework.beans.factory.Aware">
+      <point x="0.0" y="-16.0" />
+      <point x="839.5" y="57.0" />
+      <point x="720.75" y="57.0" />
+      <point x="23.25" y="16.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.680672268907563" x="882.5" y="180.0" />
+  <SelectedNodes>
+    <node>org.springframework.security.access.intercept.AbstractSecurityInterceptor</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
