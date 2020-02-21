@@ -35,6 +35,6 @@ import javax.servlet.Filter;
  * @since 3.2
  */
 public interface WebSecurityConfigurer<T extends SecurityBuilder<Filter>> extends
-		SecurityConfigurer<Filter, T> {
+    SecurityConfigurer<Filter, T> {
 
 }

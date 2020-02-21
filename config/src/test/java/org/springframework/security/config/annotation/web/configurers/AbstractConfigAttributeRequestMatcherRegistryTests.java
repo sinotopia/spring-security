@@ -73,6 +73,7 @@ public class AbstractConfigAttributeRequestMatcherRegistryTests {
 	}
 
 	static class ConcreteAbstractRequestMatcherMappingConfigurer extends AbstractConfigAttributeRequestMatcherRegistry<List<RequestMatcher>> {
+
 		List<AccessDecisionVoter> decisionVoters() {
 			return null;
 		}

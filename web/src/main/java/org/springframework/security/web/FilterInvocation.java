@@ -43,197 +43,197 @@ import java.lang.reflect.Proxy;
  * @author Rob Winch
  */
 public class FilterInvocation {
-	// ~ Static fields
-	// ==================================================================================================
-	static final FilterChain DUMMY_CHAIN = (req, res) -> {
-		throw new UnsupportedOperationException("Dummy filter chain");
-	};
+    // ~ Static fields
+    // ==================================================================================================
+    static final FilterChain DUMMY_CHAIN = (req, res) -> {
+        throw new UnsupportedOperationException("Dummy filter chain");
+    };
 
-	// ~ Instance fields
-	// ================================================================================================
+    // ~ Instance fields
+    // ================================================================================================
 
-	private FilterChain chain;
-	private HttpServletRequest request;
-	private HttpServletResponse response;
+    private FilterChain chain;
+    private HttpServletRequest request;
+    private HttpServletResponse response;
 
-	// ~ Constructors
-	// ===================================================================================================
+    // ~ Constructors
+    // ===================================================================================================
 
-	public FilterInvocation(ServletRequest request, ServletResponse response,
-			FilterChain chain) {
-		if ((request == null) || (response == null) || (chain == null)) {
-			throw new IllegalArgumentException("Cannot pass null values to constructor");
-		}
+    public FilterInvocation(ServletRequest request, ServletResponse response,
+                            FilterChain chain) {
+        if ((request == null) || (response == null) || (chain == null)) {
+            throw new IllegalArgumentException("Cannot pass null values to constructor");
+        }
 
-		this.request = (HttpServletRequest) request;
-		this.response = (HttpServletResponse) response;
-		this.chain = chain;
-	}
+        this.request = (HttpServletRequest) request;
+        this.response = (HttpServletResponse) response;
+        this.chain = chain;
+    }
 
-	public FilterInvocation(String servletPath, String method) {
-		this(null, servletPath, method);
-	}
+    public FilterInvocation(String servletPath, String method) {
+        this(null, servletPath, method);
+    }
 
-	public FilterInvocation(String contextPath, String servletPath, String method) {
-		this(contextPath, servletPath, null, null, method);
-	}
+    public FilterInvocation(String contextPath, String servletPath, String method) {
+        this(contextPath, servletPath, null, null, method);
+    }
 
-	public FilterInvocation(String contextPath, String servletPath, String pathInfo,
-			String query, String method) {
-		DummyRequest request = new DummyRequest();
-		if (contextPath == null) {
-			contextPath = "/cp";
-		}
-		request.setContextPath(contextPath);
-		request.setServletPath(servletPath);
-		request.setRequestURI(
-				contextPath + servletPath + (pathInfo == null ? "" : pathInfo));
-		request.setPathInfo(pathInfo);
-		request.setQueryString(query);
-		request.setMethod(method);
-		this.request = request;
-	}
+    public FilterInvocation(String contextPath, String servletPath, String pathInfo,
+                            String query, String method) {
+        DummyRequest request = new DummyRequest();
+        if (contextPath == null) {
+            contextPath = "/cp";
+        }
+        request.setContextPath(contextPath);
+        request.setServletPath(servletPath);
+        request.setRequestURI(
+            contextPath + servletPath + (pathInfo == null ? "" : pathInfo));
+        request.setPathInfo(pathInfo);
+        request.setQueryString(query);
+        request.setMethod(method);
+        this.request = request;
+    }
 
-	// ~ Methods
-	// ========================================================================================================
+    // ~ Methods
+    // ========================================================================================================
 
-	public FilterChain getChain() {
-		return this.chain;
-	}
+    public FilterChain getChain() {
+        return this.chain;
+    }
 
-	/**
-	 * Indicates the URL that the user agent used for this request.
-	 * <p>
-	 * The returned URL does <b>not</b> reflect the port number determined from a
-	 * {@link org.springframework.security.web.PortResolver}.
-	 *
-	 * @return the full URL of this request
-	 */
-	public String getFullRequestUrl() {
-		return UrlUtils.buildFullRequestUrl(this.request);
-	}
+    /**
+     * Indicates the URL that the user agent used for this request.
+     * <p>
+     * The returned URL does <b>not</b> reflect the port number determined from a
+     * {@link org.springframework.security.web.PortResolver}.
+     *
+     * @return the full URL of this request
+     */
+    public String getFullRequestUrl() {
+        return UrlUtils.buildFullRequestUrl(this.request);
+    }
 
-	public HttpServletRequest getHttpRequest() {
-		return this.request;
-	}
+    public HttpServletRequest getHttpRequest() {
+        return this.request;
+    }
 
-	public HttpServletResponse getHttpResponse() {
-		return this.response;
-	}
+    public HttpServletResponse getHttpResponse() {
+        return this.response;
+    }
 
-	/**
-	 * Obtains the web application-specific fragment of the URL.
-	 *
-	 * @return the URL, excluding any server name, context path or servlet path
-	 */
-	public String getRequestUrl() {
-		return UrlUtils.buildRequestUrl(this.request);
-	}
+    /**
+     * Obtains the web application-specific fragment of the URL.
+     *
+     * @return the URL, excluding any server name, context path or servlet path
+     */
+    public String getRequestUrl() {
+        return UrlUtils.buildRequestUrl(this.request);
+    }
 
-	public HttpServletRequest getRequest() {
-		return getHttpRequest();
-	}
+    public HttpServletRequest getRequest() {
+        return getHttpRequest();
+    }
 
-	public HttpServletResponse getResponse() {
-		return getHttpResponse();
-	}
+    public HttpServletResponse getResponse() {
+        return getHttpResponse();
+    }
 
-	@Override
-	public String toString() {
-		return "FilterInvocation: URL: " + getRequestUrl();
-	}
+    @Override
+    public String toString() {
+        return "FilterInvocation: URL: " + getRequestUrl();
+    }
 }
 
 class DummyRequest extends HttpServletRequestWrapper {
-	private static final HttpServletRequest UNSUPPORTED_REQUEST = (HttpServletRequest) Proxy
-			.newProxyInstance(DummyRequest.class.getClassLoader(),
-					new Class[]{HttpServletRequest.class},
-					new UnsupportedOperationExceptionInvocationHandler());
+    private static final HttpServletRequest UNSUPPORTED_REQUEST = (HttpServletRequest) Proxy
+        .newProxyInstance(DummyRequest.class.getClassLoader(),
+            new Class[]{HttpServletRequest.class},
+            new UnsupportedOperationExceptionInvocationHandler());
 
-	private String requestURI;
-	private String contextPath = "";
-	private String servletPath;
-	private String pathInfo;
-	private String queryString;
-	private String method;
+    private String requestURI;
+    private String contextPath = "";
+    private String servletPath;
+    private String pathInfo;
+    private String queryString;
+    private String method;
 
-	DummyRequest() {
-		super(UNSUPPORTED_REQUEST);
-	}
+    DummyRequest() {
+        super(UNSUPPORTED_REQUEST);
+    }
 
-	@Override
-	public String getCharacterEncoding() {
-		return "UTF-8";
-	}
+    @Override
+    public String getCharacterEncoding() {
+        return "UTF-8";
+    }
 
-	@Override
-	public Object getAttribute(String attributeName) {
-		return null;
-	}
+    @Override
+    public Object getAttribute(String attributeName) {
+        return null;
+    }
 
-	public void setRequestURI(String requestURI) {
-		this.requestURI = requestURI;
-	}
+    public void setRequestURI(String requestURI) {
+        this.requestURI = requestURI;
+    }
 
-	public void setPathInfo(String pathInfo) {
-		this.pathInfo = pathInfo;
-	}
+    public void setPathInfo(String pathInfo) {
+        this.pathInfo = pathInfo;
+    }
 
-	@Override
-	public String getRequestURI() {
-		return this.requestURI;
-	}
+    @Override
+    public String getRequestURI() {
+        return this.requestURI;
+    }
 
-	public void setContextPath(String contextPath) {
-		this.contextPath = contextPath;
-	}
+    public void setContextPath(String contextPath) {
+        this.contextPath = contextPath;
+    }
 
-	@Override
-	public String getContextPath() {
-		return this.contextPath;
-	}
+    @Override
+    public String getContextPath() {
+        return this.contextPath;
+    }
 
-	public void setServletPath(String servletPath) {
-		this.servletPath = servletPath;
-	}
+    public void setServletPath(String servletPath) {
+        this.servletPath = servletPath;
+    }
 
-	@Override
-	public String getServletPath() {
-		return this.servletPath;
-	}
+    @Override
+    public String getServletPath() {
+        return this.servletPath;
+    }
 
-	public void setMethod(String method) {
-		this.method = method;
-	}
+    public void setMethod(String method) {
+        this.method = method;
+    }
 
-	@Override
-	public String getMethod() {
-		return this.method;
-	}
+    @Override
+    public String getMethod() {
+        return this.method;
+    }
 
-	@Override
-	public String getPathInfo() {
-		return this.pathInfo;
-	}
+    @Override
+    public String getPathInfo() {
+        return this.pathInfo;
+    }
 
-	@Override
-	public String getQueryString() {
-		return this.queryString;
-	}
+    @Override
+    public String getQueryString() {
+        return this.queryString;
+    }
 
-	public void setQueryString(String queryString) {
-		this.queryString = queryString;
-	}
+    public void setQueryString(String queryString) {
+        this.queryString = queryString;
+    }
 
-	@Override
-	public String getServerName() {
-		return null;
-	}
+    @Override
+    public String getServerName() {
+        return null;
+    }
 }
 
 final class UnsupportedOperationExceptionInvocationHandler implements InvocationHandler {
-	@Override
-	public Object invoke(Object proxy, Method method, Object[] args) {
-		throw new UnsupportedOperationException(method + " is not supported");
-	}
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) {
+        throw new UnsupportedOperationException(method + " is not supported");
+    }
 }

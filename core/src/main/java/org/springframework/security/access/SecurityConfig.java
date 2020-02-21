@@ -28,61 +28,60 @@ import java.util.List;
  * @author Ben Alex
  */
 public class SecurityConfig implements ConfigAttribute {
-	// ~ Instance fields
-	// ================================================================================================
 
-	private final String attrib;
+    // ~ Instance fields
+    // ================================================================================================
 
-	// ~ Constructors
-	// ===================================================================================================
+    private final String attribute;
 
-	public SecurityConfig(String config) {
-		Assert.hasText(config, "You must provide a configuration attribute");
-		this.attrib = config;
-	}
+    // ~ Constructors
+    // ===================================================================================================
 
-	// ~ Methods
-	// ========================================================================================================
+    public SecurityConfig(String config) {
+        Assert.hasText(config, "You must provide a configuration attribute");
+        this.attribute = config;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj instanceof ConfigAttribute) {
-			ConfigAttribute attr = (ConfigAttribute) obj;
+    // ~ Methods
+    // ========================================================================================================
 
-			return this.attrib.equals(attr.getAttribute());
-		}
+    @Override
+    public String getAttribute() {
+        return this.attribute;
+    }
 
-		return false;
-	}
+    public static List<ConfigAttribute> createListFromCommaDelimitedString(String access) {
+        return createList(StringUtils.commaDelimitedListToStringArray(access));
+    }
 
-	@Override
-	public String getAttribute() {
-		return this.attrib;
-	}
+    public static List<ConfigAttribute> createList(String... attributeNames) {
+        Assert.notNull(attributeNames, "You must supply an array of attribute names");
+        List<ConfigAttribute> attributes = new ArrayList<>(attributeNames.length);
 
-	@Override
-	public int hashCode() {
-		return this.attrib.hashCode();
-	}
+        for (String attribute : attributeNames) {
+            attributes.add(new SecurityConfig(attribute.trim()));
+        }
 
-	@Override
-	public String toString() {
-		return this.attrib;
-	}
+        return attributes;
+    }
 
-	public static List<ConfigAttribute> createListFromCommaDelimitedString(String access) {
-		return createList(StringUtils.commaDelimitedListToStringArray(access));
-	}
+    @Override
+    public int hashCode() {
+        return this.attribute.hashCode();
+    }
 
-	public static List<ConfigAttribute> createList(String... attributeNames) {
-		Assert.notNull(attributeNames, "You must supply an array of attribute names");
-		List<ConfigAttribute> attributes = new ArrayList<>(
-				attributeNames.length);
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof ConfigAttribute) {
+            ConfigAttribute attr = (ConfigAttribute) obj;
+            return this.attribute.equals(attr.getAttribute());
+        }
 
-		for (String attribute : attributeNames) {
-			attributes.add(new SecurityConfig(attribute.trim()));
-		}
+        return false;
+    }
 
-		return attributes;
-	}
+    @Override
+    public String toString() {
+        return this.attribute;
+    }
 }

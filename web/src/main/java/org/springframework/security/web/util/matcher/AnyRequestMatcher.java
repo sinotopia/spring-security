@@ -17,8 +17,6 @@ package org.springframework.security.web.util.matcher;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.security.web.util.matcher.RequestMatcher;
-
 /**
  * Matches any supplied request.
  *
@@ -26,8 +24,10 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
  * @since 3.1
  */
 public final class AnyRequestMatcher implements RequestMatcher {
+
 	public static final RequestMatcher INSTANCE = new AnyRequestMatcher();
 
+	@Override
 	public boolean matches(HttpServletRequest request) {
 		return true;
 	}
